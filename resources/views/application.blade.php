@@ -8,6 +8,7 @@
 
 	<link href="/css/app.css" rel="stylesheet">
 	<link href="/css/font-awesome.min.css" rel="stylesheet">
+	<link href="/css/animate.css" rel="stylesheet">
 
 	<!-- Fonts -->
 	<link href='//fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
@@ -74,7 +75,13 @@
 
 	$(document).ready(function () {
 
+		$('#landing-page-logo').addClass('rollIn');
+
 		$('#search-btn').click(function () {
+			
+			$('#landing-page-logo').removeClass('rollIn');
+			$('#landing-page-logo').addClass('rollOut');
+			
 			$('#place-search-input').animate({
 				position: 'absolute',
 		    	left: 'initial !important',
@@ -95,6 +102,28 @@
 			});
 			
 		});
+
+		 $('#toggle-sidepanel-btn').click(function () {
+	    	if($("#bldg-details-panel").css('width') == '22px') {
+				$('#toggle-sidepanel-btn').animate({left: '27.5%'}, 150, function () {});
+		    	$('#bldg-details-panel').animate({width: '33.33%'}, 300, function () {
+			    	$('#bldg-details-panel').css('z-index', '1000');
+			    	$('#bldg-details-header').html('<h2>'+$('#place-search-input').val()+'</h2>')
+			    });
+	    		$('#map').animate({width: '66.66%', left: '33.33%'}, 150, function () {
+	    			// map.panBy(100,0);
+	    		});
+	    	} else {
+	    		$('#toggle-sidepanel-btn').animate({left: '10px'}, 150, function () {});
+		    	$('#bldg-details-panel').animate({width: '0'}, 300, function () {
+			    	$('#bldg-details-header').html('<h2>'+$('#place-search-input').val()+'</h2>');
+			    	$('#bldg-details-panel').css('z-index', '0');
+			    });
+	    		$('#map').animate({width: '100%', left: '0'}, 150, function () {
+		    		
+		    	});
+	    	}
+	    });
 
 	});
 	</script>
@@ -230,33 +259,6 @@
 	google.maps.event.addDomListener(window, 'load', initialize);
 
     </script>
-
-    <script>
-	 $(document).ready(function () {
-
-	 $('#toggle-sidepanel-btn').click(function () {
-	    	if($("#bldg-details-panel").css('width') == '22px') {
-    			$('#toggle-sidepanel-btn').animate({left: '27.5%'}, 150, function () {});
-		    	$('#bldg-details-panel').animate({width: '33.33%'}, 300, function () {
-			    	$('#bldg-details-panel').css('z-index', '1000');
-			    	$('#bldg-details-header').html('<h2>'+$('#place-search-input').val()+'</h2>')
-			    });
-	    		$('#map').animate({width: '66.66%', left: '33.33%'}, 150, function () {
-	    			// map.panBy(100,0);
-	    		});
-	    	} else {
-	    		$('#toggle-sidepanel-btn').animate({left: '10px'}, 150, function () {});
-		    	$('#bldg-details-panel').animate({width: '0'}, 300, function () {
-			    	$('#bldg-details-header').html('<h2>'+$('#place-search-input').val()+'</h2>');
-			    	$('#bldg-details-panel').css('z-index', '0');
-			    });
-	    		$('#map').animate({width: '100%', left: '0'}, 150, function () {
-		    		
-		    	});
-	    	}
-	    });
-	 });
-   </script>
 
     <script async defer
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDBqOQUEpaayq3Z0N4u2wtCu-i1npOoJzM&callback=initialize&libraries=places">

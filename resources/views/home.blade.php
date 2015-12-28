@@ -3,12 +3,29 @@
 @section('content')
 <style type="text/css">
 
+	@font-face {
+	  font-family: 'manifesto';
+	  src: url('../fonts/LHF American Sans.otf');
+	}
+	@font-face {
+	  font-family: 'manifesto-bold';
+	  src: url('../fonts/LHFCigarShopMaduro.ttf');
+	}
+
 	html {
 		background-color: #183050;
 		overflow: hidden;
 	}	
 	html, body { height: 100%; margin: 0; padding: 0; }
 	
+	* {
+		font-family: 'manifesto';
+	}
+
+	h1,h2,h3 {
+		font-family: 'manifesto-bold';
+	}
+
 	#landing-page-wrapper {
 		background-color: #183050;
 		height: 100%;
@@ -23,6 +40,7 @@
     #map { height: 100%; width: 100%; position: absolute; opacity:0; z-index: 10;}
 
     #place-search-input {
+    	font-family: manifesto;
     	position: absolute;
     	left: initial !important;
 	    right: -500px;
@@ -140,7 +158,7 @@
 		</div>
 		<div class="row text-center">
 			<div class="col-xs-6 col-xs-offset-3">
-				<img id="landing-page-logo" class="img-responsive" src="{{ asset('/images/tw_blue.png') }}"  />
+				<img id="landing-page-logo" class="img-responsive animated" src="{{ asset('/images/tw_blue.png') }}"  />
 			</div>
 		</div>
 	</div>
