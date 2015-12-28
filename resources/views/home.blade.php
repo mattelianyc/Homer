@@ -23,14 +23,13 @@
 			cursor: pointer;
 		}
 
-    #map { height: 100%; width: 100%; }
-    .map-container {position: absolute;}
+    #map { height: 100%; width: 100%; position: absolute; opacity:0;}
 
 </style>
 
 <div class="container-fluid" style="margin:0;padding:0;height:100%;">
 
-	<div id="map" class="map-container" style="opacity:0;"></div>
+	<div id="map"></div>
 
 	<div id="landing-page-wrapper">
 		<div class="row text-center">

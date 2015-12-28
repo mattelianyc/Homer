@@ -74,9 +74,8 @@
 	$(document).ready(function () {
 
 		$('#landing-page-logo').click(function () {
-			$(this).fadeOut();
-			$('#landing-page-wrapper').animate({opacity: 0}, 5000, function () {});
-			$('.map-container').animate({opacity: 1}, 3500, function () {});
+			$('#landing-page-wrapper').animate({opacity: 0}, 1500, function () {});
+			$('#map').animate({opacity: 1}, 1000, function () {});
 			
 		});
 
