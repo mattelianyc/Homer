@@ -3,6 +3,9 @@
 		<link href='//fonts.googleapis.com/css?family=Lato:100' rel='stylesheet' type='text/css'>
 
 		<style>
+			html {
+				background-color: #183050;
+			}
 			body {
 				margin: 0;
 				padding: 0;
@@ -31,16 +34,21 @@
 			}
 
 			.quote {
-				font-size: 24px;
+				font-size: 32px;
+				color: white;
 			}
+
 		</style>
 	</head>
 	<body>
 		<div class="container">
-			<div class="content">
-				<div class="title">TenantWire</div>
+			<div class="row">
+				<img class="img-responsive" src="{{ asset('/images/tw_blue.png') }}" width="600px" />
 				<div class="quote">{{ Inspiring::quote() }}</div>
 			</div>
+			<!-- <div class="content">
+				<div class="title">TenantWire</div>
+			</div> -->
 		</div>
 	</body>
 </html>
