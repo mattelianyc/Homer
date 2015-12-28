@@ -61,6 +61,26 @@
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script>
 
+	<script>
+
+	$(document).ready(function () {
+		
+		$('#landing-page-logo').click(function () {
+			$(this).fadeOut();
+			$('#landing-page-wrapper').fadeOut();
+			$('#map-container').fadeIn();
+
+			var map;
+			function initMap() {
+			  map = new google.maps.Map(document.getElementById('map'), {
+			    center: {lat: 40.7127, lng: -74.0059},
+			    zoom: 13
+			  });
+			}
+		});
+
+	});
+	</script>
 	
     <script type="text/javascript">
 
@@ -78,7 +98,7 @@
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDBqOQUEpaayq3Z0N4u2wtCu-i1npOoJzM&callback=initMap">
     </script>
 
-	<script src="{{ asset('/javascript/main.js') }}"></script>
+<!-- <script src="{{ asset('/javascript/main.js') }}"></script> -->
 
 </body>
 </html>
