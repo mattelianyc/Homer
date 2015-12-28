@@ -43,12 +43,8 @@
 	<body>
 		<div class="container">
 			<div class="row">
-				<img class="img-responsive" src="{{ asset('/images/tw_blue.png') }}" width="600px" />
-				<div class="quote">{{ Inspiring::quote() }}</div>
+				<img id="landing-page-logo" class="img-responsive" src="{{ asset('/images/tw_blue.png') }}" width="900px" />
 			</div>
-			<!-- <div class="content">
-				<div class="title">TenantWire</div>
-			</div> -->
 		</div>
 	</body>
 </html>

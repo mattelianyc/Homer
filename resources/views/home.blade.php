@@ -1,17 +1,16 @@
-@extends('app')
+@extends('application')
 
 @section('content')
-<div class="container">
-	<div class="row">
-		<div class="col-md-10 col-md-offset-1">
-			<div class="panel panel-default">
-				<div class="panel-heading">Home</div>
+<style type="text/css">
+		
+	html, body { height: 100%; margin: 0; padding: 0; }
+    #map { height: 800px; width: 100%; }
+    
+</style>
 
-				<div class="panel-body">
-					You are logged in!
-				</div>
-			</div>
-		</div>
+<div class="container-fluid">
+	<div class="row">
+		<div id="map"></div>
 	</div>
 </div>
 @endsection
