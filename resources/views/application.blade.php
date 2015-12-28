@@ -82,11 +82,11 @@
 		    	top: '10px !important',
 		    	height:'50px',
 		    	opacity: 1
-			}, 500, function () {});
+			}, 400, function () {});
 			$('#place-search-input').animate({
 				right: '+=510'
-			}, 750, function () {});
-			$('#landing-page-wrapper').animate({opacity: 0}, 1000, function () {
+			}, 600, function () {});
+			$('#landing-page-wrapper').animate({opacity: 0}, 800, function () {
 				$('#landing-page-wrapper').css('z-index', '10');
 			});
 			$('#map').animate({opacity: 1}, 1000, function () {
@@ -101,13 +101,49 @@
     <script type="text/javascript">
 
     function initialize() {
+
+    // Create an array of styles.
+	  var styles = [
+	    {
+	      stylers: [
+	        { hue: "#183050" },
+	        { saturation: -20 }
+	      ]
+	    },{
+	      featureType: "road",
+	      elementType: "geometry",
+	      stylers: [
+	        { lightness: 100 },
+	        { visibility: "simplified" }
+	      ]
+	    },{
+	      featureType: "road",
+	      elementType: "labels",
+	      stylers: [
+	        { visibility: "off" }
+	      ]
+	    }
+	  ];
+
+	  // Create a new StyledMapType object, passing it the array of styles,
+	  // as well as the name to be displayed on the map type control.
+	  var styledMap = new google.maps.StyledMapType(styles,
+	    {name: "Styled Map"});
+
 	  var mapOptions = {
 	    center: {lat:40.75, lng: -73.978},
 	    zoom: 13,
-	    scrollwheel: false
+	    scrollwheel: true,
+	    mapTypeControl: false,
+	    mapTypeControlOptions: {
+	      mapTypeIds: [google.maps.MapTypeId.ROADMAP, 'map_style']
+	    }
 	  };
 	  var map = new google.maps.Map(document.getElementById('map'),
 	    mapOptions);
+
+	  map.mapTypes.set('map_style', styledMap);
+  	  map.setMapTypeId('map_style');
 
 	  var input = /** @type {HTMLInputElement} */(
 	      document.getElementById('place-search-input'));
@@ -155,56 +191,33 @@
 	        place.formatted_address + '</div>');
 	    infowindow.open(map, marker);
 	  });
+	
 	}
 
 	// Run the initialize function when the window has finished loading.
 	google.maps.event.addDomListener(window, 'load', initialize);
 
- //    function initialize() {
-	//   var nyc = new google.maps.LatLng(40.75, -73.978);
+    </script>
 
-	//   var map = new google.maps.Map(document.getElementById('map'), {
-	//     center: nyc,
-	//     zoom: 15,
-	//     scrollwheel: false
-	//   });
+    <script>
+	 $(document).ready(function () {
 
-	//   // Specify location, radius and place types for your Places API search.
-	//   var request = {
-	//     location: nyc,
-	//     radius: '1000',
-	//     types: ['store']
-	//   };
+	    $(this).keypress(function(e) {
+		  if (e.which == 13) {
+		    $('#bldg-details-panel').animate({width: '33.33%'}, 500, function () {
+		    	$('#bldg-details-panel').css('z-index', '1000');
+		    	$('#bldg-details-header').html('<h2>'+$('#place-search-input').val()+'</h2>')
+		    });
+		  }
+		});
 
-	//   // Create the PlaceService and send the request.
-	//   // Handle the callback with an anonymous function.
-	//   var service = new google.maps.places.PlacesService(map);
-	//   service.nearbySearch(request, function(results, status) {
-	//     if (status == google.maps.places.PlacesServiceStatus.OK) {
-	//       for (var i = 0; i < results.length; i++) {
-	//         var place = results[i];
-	//         // If the request succeeds, draw the place location on
-	//         // the map as a marker, and register an event to handle a
-	//         // click on the marker.
-	//         var marker = new google.maps.Marker({
-	//           map: map,
-	//           position: place.geometry.location
-	//         });
-	//       }
-	//     }
-	//   });
-	// }
+	    $('#close-bldg-details-panel').click(function () {
+	    	$('#bldg-details-panel').animate({width: '0%'}, 250, function () {
+		    	$('#bldg-details-panel').css('z-index', '0');
+		    });
+		});
 
-	// Run the initialize function when the window has finished loading.
-	// google.maps.event.addDomListener(document, 'load', initialize);
-	
-	// function initMap() {
-	//   map = new google.maps.Map(document.getElementById('map'), {
-	//     center: {lat: 40.75, lng: -73.978},
-	//     zoom: 13
-	//   });
-	// }
-
+	 });
     </script>
 
     <script async defer
