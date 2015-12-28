@@ -55,8 +55,9 @@
    		z-index: 0;
    		background-color: white;
    		border-right: 2px solid #183050;
-   		overflow-y:scroll;
    		padding:10px;
+   		overflow-y:scroll;
+   		overflow-x:hidden;
    	}
 
 </style>
@@ -71,7 +72,7 @@
 			</div>
 			<div class="col-xs-2">
 				<div class="pull-right">
-					<a id="close-bldg-details-panel" class="btn btn-danger"><i class="fa fa-close"></i></a>
+					<a id="close-bldg-details-panel" class="btn btn-info"><i class="fa fa-close"></i></a>
 				</div>
 			</div>
 		</div>
