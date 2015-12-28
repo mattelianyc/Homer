@@ -13,6 +13,7 @@
 		background-color: #183050;
 		height: 100%;
 		position: absolute;
+		z-index: 100;
 	}	
 		#landing-page-logo {
 			position: relative;
@@ -23,7 +24,7 @@
 			cursor: pointer;
 		}
 
-    #map { height: 100%; width: 100%; position: absolute; opacity:0;}
+    #map { height: 100%; width: 100%; position: absolute; opacity:0; z-index: 10;}
 
 </style>
 
