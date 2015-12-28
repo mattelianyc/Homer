@@ -65,11 +65,28 @@
 
 		$('#landing-page-logo').addClass('rollIn');
 
+		$('#home-sidebar-btn').click(function () {
+			$('#sidebar').fadeOut();
+			$('#map').animate({opacity: 0}, 800, function () {
+				$('#landing-page-wrapper').css('z-index', '10000');
+				$('#toggle-sidepanel-btn').css('z-index', '10');
+			});
+			$('#landing-page-wrapper').animate({opacity: 1}, 800, function () {
+				$('#landing-page-logo').removeClass('rollOut');
+				$('#landing-page-logo').addClass('rollIn');	
+			});
+			$('#place-search-input').animate({
+				right: '+=-510'
+			}, 600, function () {});
+		});
+
 		$('#search-btn').click(function () {
 			
 			$('#landing-page-logo').removeClass('rollIn');
 			$('#landing-page-logo').addClass('rollOut');
-			
+
+			$('#sidebar').fadeIn();
+
 			$('#place-search-input').animate({
 				position: 'absolute',
 		    	left: 'initial !important',

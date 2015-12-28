@@ -70,21 +70,11 @@
 		    right: 10px !important;
 	    	top: 10px !important;
 	    	height:50px;
-	    	background-color: #BBD5F8;
+	    	background-color: white;
 	    	border-color: #BBD5F8;
 	    	color: #183050;
     	}
 
-    	#toggle-sidepanel-btn {
-	    	position: absolute;
-		    left: 10px;
-	    	top: 10px !important;
-	    	height:50px;
-	    	background-color: #183050;
-	    	border-color: #183050;
-	    	color:#BBD5F8;
-	    	z-index:99;
-    	}
 
     	.fa-star, .fa-search, .fa-bars {
     		font-size: 30px;
@@ -97,7 +87,9 @@
     		color:darkgreen;
 			font-size: 48px;	
     	}
-
+    	.fa-power-off {
+    		font-size: 30px;
+    	}
 
    	#bldg-details-panel {
    		position: absolute;
@@ -115,13 +107,47 @@
    			padding: 5px 10px;
    		}
 
+   	#sidebar {
+   		display: none;
+   		position: absolute;
+   		background-color: white;
+   		border-right: 2px solid #183050;
+   		height: 100%;
+   		width:84px;
+   		z-index: 101;
+   	}
+
+    	#toggle-sidepanel-btn {
+	    	position: absolute;
+		    left: 10px;
+	    	top: 10px !important;
+	    	height:50px;
+	    	background-color: #183050;
+	    	border-color: #183050;
+	    	color:#BBD5F8;
+	    	z-index:99;
+    	}
+
+    	#home-sidebar-btn {
+	    	position: absolute;
+		    left: 10px;
+	    	bottom: 10px !important;
+	    	height:50px;
+	    	z-index:102;
+    	}
+
 </style>
 
 <div class="container-fluid" style="margin:0;padding:0;height:100%;">
 
 
+	
 	<a id="toggle-sidepanel-btn" class="btn btn-info btn-lg"><i class="fa fa-bars"></i></a>
 	
+	<div id="sidebar">
+		<a id="home-sidebar-btn" class="btn btn-danger btn-lg"><i class="fa fa-power-off"></i></a>
+	</div>
+
 	<div id="bldg-details-panel">
 		
 		<div class="row">
