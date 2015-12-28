@@ -18,14 +18,22 @@
 		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 	<![endif]-->
 	<style type="text/css">
+		
+		body {
+
+		}
+
 		nav {
 			margin-bottom: 0 !important;
+			background-color: rgba(0,0,0,0);
+			position: absolute !important;
 		}
+
 	</style>
 </head>
 <body>
 	<nav class="navbar navbar-default">
-		<div class="container-fluid">
+		<!-- <div class="container-fluid">
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
 					<span class="sr-only">Toggle Navigation</span>
@@ -38,21 +46,21 @@
 
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav">
-					<!-- <li><a href="/">Home</a></li> -->
+					<li><a href="/">Home</a></li>
 				</ul>
 
 				<ul class="nav navbar-nav navbar-right">
-					<!-- <li><a href="/auth/login">Login</a></li>
+					<li><a href="/auth/login">Login</a></li>
 					<li><a href="/auth/register">Register</a></li>
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> hello world <span class="caret"></span></a>
 						<ul class="dropdown-menu" role="menu">
 							<li><a href="/auth/logout">Logout</a></li>
 						</ul>
-					</li> -->
+					</li>
 				</ul>
 			</div>
-		</div>
+		</div> -->
 	</nav>
 
 	@yield('content')
@@ -64,19 +72,12 @@
 	<script>
 
 	$(document).ready(function () {
-		
+
 		$('#landing-page-logo').click(function () {
 			$(this).fadeOut();
-			$('#landing-page-wrapper').fadeOut();
-			$('#map-container').fadeIn();
-
-			var map;
-			function initMap() {
-			  map = new google.maps.Map(document.getElementById('map'), {
-			    center: {lat: 40.7127, lng: -74.0059},
-			    zoom: 13
-			  });
-			}
+			$('#landing-page-wrapper').animate({opacity: 0}, 5000, function () {});
+			$('.map-container').animate({opacity: 1}, 3500, function () {});
+			
 		});
 
 	});
@@ -87,7 +88,7 @@
 	var map;
 	function initMap() {
 	  map = new google.maps.Map(document.getElementById('map'), {
-	    center: {lat: 40.7127, lng: -74.0059},
+	    center: {lat: 40.75, lng: -73.978},
 	    zoom: 13
 	  });
 	}

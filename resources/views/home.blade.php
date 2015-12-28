@@ -12,19 +12,26 @@
 	#landing-page-wrapper {
 		background-color: #183050;
 		height: 100%;
+		position: absolute;
 	}	
+		#landing-page-logo {
+			position: relative;
+			top:100px;
+		}
 
-    #map { height: 800px; width: 100%; }
-    
+		#landing-page-logo:hover {
+			cursor: pointer;
+		}
+
+    #map { height: 100%; width: 100%; }
+    .map-container {position: absolute;}
+
 </style>
 
-<div id="map-container" class="container-fluid" style="display:none;">
-	<div class="row">
-		<div id="map"></div>
-	</div>
-</div>
-
 <div class="container-fluid" style="margin:0;padding:0;height:100%;">
+
+	<div id="map" class="map-container" style="opacity:0;"></div>
+
 	<div id="landing-page-wrapper">
 		<div class="row text-center">
 			<div class="col-xs-6 col-xs-offset-3">
