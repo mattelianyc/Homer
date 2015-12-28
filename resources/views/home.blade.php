@@ -44,7 +44,18 @@
 	    	color: #183050;
     	}
 
-    	.fa-search {
+    	#toggle-sidepanel-btn {
+	    	position: absolute;
+		    left: 10px;
+	    	top: 10px !important;
+	    	height:50px;
+	    	background-color: #183050;
+	    	border-color: #183050;
+	    	color:#BBD5F8;
+	    	z-index:99;
+    	}
+
+    	.fa-search, .fa-bars {
     		font-size: 30px;
     	}
 
@@ -64,17 +75,16 @@
 
 <div class="container-fluid" style="margin:0;padding:0;height:100%;">
 
+
+	<a id="toggle-sidepanel-btn" class="btn btn-info btn-lg"><i class="fa fa-bars"></i></a>
+	
 	<div id="bldg-details-panel">
 		
 		<div class="row">
 			<div class="col-xs-10">
 				<div id="bldg-details-header" class="pull-left"></div>
 			</div>
-			<div class="col-xs-2">
-				<div class="pull-right">
-					<a id="close-bldg-details-panel" class="btn btn-info"><i class="fa fa-close"></i></a>
-				</div>
-			</div>
+			<div class="col-xs-2"></div>
 		</div>
 
 		<div class="row">

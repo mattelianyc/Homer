@@ -88,6 +88,7 @@
 			}, 600, function () {});
 			$('#landing-page-wrapper').animate({opacity: 0}, 800, function () {
 				$('#landing-page-wrapper').css('z-index', '10');
+				$('#toggle-sidepanel-btn').css('z-index', '10000');
 			});
 			$('#map').animate({opacity: 1}, 1000, function () {
 				$('#map').css('z-index', '100');
@@ -172,9 +173,20 @@
 	    if (!place.geometry) {
 	      return;
 	    }
+		    		
+		$('#map').animate({width: '100%', left: '0'}, 150, function () {
+    		$('#bldg-details-panel').animate({width: '33.33%'}, 300, function () {
+	    		$('#bldg-details-panel').css('z-index', '1000');
+		    	$('#bldg-details-header').html('<h2>'+$('#place-search-input').val()+'</h2>')
+    		});
+			$('#toggle-sidepanel-btn').animate({left: '27.5%'}, 150, function () {});
+    	});
+		$('#map').animate({width: '66.66%', left: '33.33%'}, 150, function () {
+			map.panBy(100,0);
+		});
 
 	    if($("#bldg-details-panel").css('width') == '22px') {
-		  		// console.log($("#bldg-details-panel").css('width'));
+	    		$('#toggle-sidepanel-btn').animate({left: '27.5%'}, 250, function () {});
 			    $('#bldg-details-panel').animate({width: '33.33%'}, 300, function () {
 			    	$('#bldg-details-panel').css('z-index', '1000');
 			    	$('#bldg-details-header').html('<h2>'+$('#place-search-input').val()+'</h2>')
@@ -183,34 +195,13 @@
 	    			map.panBy(100,0);
 	    		});
 	    } else {
-	    	$('#bldg-details-panel').animate({width: '0'}, 300, function () {
-		    	$('#bldg-details-header').html('<h2>'+$('#place-search-input').val()+'</h2>')
-		    });
-	    	$('#map').animate({width: '100%', left: '0'}, 150, function () {
-		    	$('#bldg-details-panel').animate({width: '33.33%'}, 300, function () {
-		    		$('#map').animate({width: '66.66%', left: '33.33%'}, 150, function () {
-	    				map.panBy(100,0);
-		    		});	
-		    	});
-		    });
-	    }
-
-	    $('#close-bldg-details-panel').click(function () {
+    		$('#toggle-sidepanel-btn').animate({left: '10px'}, 250, function () {});
 	    	$('#bldg-details-panel').animate({width: '0%'}, 300, function () {
-		    	$('#bldg-details-panel').css('z-index', '0');
-    			
-		    });
-	    	$('#map').animate({width: '100%', left: '0'}, 150, function () {
-	    	});
-		    if (place.geometry.viewport) {
-		      map.fitBounds(place.geometry.viewport);
-		    } 
-		    else {
-		      console.log(marker);
-		      map.setCenter(place.geometry.location);
-		      map.setZoom(17);
-		    }
-		});
+			    $('#bldg-details-panel').css('z-index', '0');
+			   	$('#bldg-details-header').html('<h2>'+$('#place-search-input').val()+'</h2>');
+				
+			});
+	    }
 
 	    if (place.geometry.viewport) {
 	      map.fitBounds(place.geometry.viewport);
@@ -241,26 +232,30 @@
     </script>
 
     <script>
-	 // $(document).ready(function () {
+	 $(document).ready(function () {
 
-	 //    $(this).keypress(function(e) {
-		//   if (e.which == 13) {
-		//   	if($("#bldg-details-panel").css('width') == '22px') {
-		//   		// console.log($("#bldg-details-panel").css('width'));
-		// 	    $('#bldg-details-panel').animate({width: '33.33%'}, 300, function () {
-		// 	    	$('#bldg-details-panel').css('z-index', '1000');
-		// 	    	$('#bldg-details-header').html('<h2>'+$('#place-search-input').val()+'</h2>')
-		// 	    });
-	 //    		$('#map').animate({width: '66.66%', left: '33.33%'}, 150, function () {});
-		//   	} else {
-		//   		$('#bldg-details-panel').animate({width: '0%'}, 300, function () {
-		//     		$('#bldg-details-panel').css('z-index', '0');
-		// 	    });
-		//     	$('#map').animate({width: '100%', left: '0'}, 150, function () {});	
-	 //    	} 
-		//   }
-		// });
-	 // });
+	 $('#toggle-sidepanel-btn').click(function () {
+	    	if($("#bldg-details-panel").css('width') == '22px') {
+    			$('#toggle-sidepanel-btn').animate({left: '27.5%'}, 150, function () {});
+		    	$('#bldg-details-panel').animate({width: '33.33%'}, 300, function () {
+			    	$('#bldg-details-panel').css('z-index', '1000');
+			    	$('#bldg-details-header').html('<h2>'+$('#place-search-input').val()+'</h2>')
+			    });
+	    		$('#map').animate({width: '66.66%', left: '33.33%'}, 150, function () {
+	    			// map.panBy(100,0);
+	    		});
+	    	} else {
+	    		$('#toggle-sidepanel-btn').animate({left: '10px'}, 150, function () {});
+		    	$('#bldg-details-panel').animate({width: '0'}, 300, function () {
+			    	$('#bldg-details-header').html('<h2>'+$('#place-search-input').val()+'</h2>');
+			    	$('#bldg-details-panel').css('z-index', '0');
+			    });
+	    		$('#map').animate({width: '100%', left: '0'}, 150, function () {
+		    		
+		    	});
+	    	}
+	    });
+	 });
    </script>
 
     <script async defer
