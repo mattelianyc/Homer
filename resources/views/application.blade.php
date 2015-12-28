@@ -61,6 +61,7 @@
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script>
 
+	
     <script type="text/javascript">
 
 	var map;
@@ -72,9 +73,12 @@
 	}
 
     </script>
+
     <script async defer
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDBqOQUEpaayq3Z0N4u2wtCu-i1npOoJzM&callback=initMap">
     </script>
+
+	<script src="{{ asset('/javascript/main.js') }}"></script>
 
 </body>
 </html>
