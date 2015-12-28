@@ -18,17 +18,27 @@
 	}	
 	html, body { height: 100%; margin: 0; padding: 0; }
 	
+	nav {
+			margin-bottom: 0 !important;
+			background-color: rgba(0,0,0,0);
+			position: absolute !important;
+		}
+
 	* {
 		font-family: 'manifesto';
 	}
 
-	h1,h2,h3,strong {
+	h1,h2,h3,h4,strong {
 		font-family: 'manifesto-bold';
 	}
-	strong {
-		font-size:18px;
+	h1 {
+		color:#183050;
 	}
-
+	strong,
+	li > a {
+		font-size:16px;
+		color:#183050;
+	}
 	#landing-page-wrapper {
 		background-color: #183050;
 		height: 100%;
@@ -81,6 +91,7 @@
     	}
     	.fa-star {
     		color:goldenrod;	
+			font-size: 48px;	
     	}
     	.fa-usd {
     		color:darkgreen;
@@ -101,7 +112,7 @@
    	}
 
    		#tab-content-wrapper {
-   			padding: 10px 20px;
+   			padding: 5px 10px;
    		}
 
 </style>
@@ -144,7 +155,7 @@
 			      	<h3>Reviews</h3>
 			      </div>
 			      <div class="well">
-			      	<strong>Value</strong><br>
+			      	<h4>Value</h4>
 			      	<span>
 			      		<i class="fa fa-star"></i>
 			      		<i class="fa fa-star"></i>
@@ -153,7 +164,7 @@
 			      	</span>
 			      </div>
 			      <div class="well">
-			      	<strong>Management</strong><br>
+			      	<h4>Management</h4>
 			      	<span>
 			      		<i class="fa fa-star"></i>
 			      		<i class="fa fa-star"></i>
@@ -162,7 +173,7 @@
 			      	</span>
 			      </div>
 			      <div class="well">
-			      	<strong>Cleanliness</strong><br>
+			      	<h4>Cleanliness</h4>
 			      	<span>
 			      		<i class="fa fa-star"></i>
 			      		<i class="fa fa-star"></i>
@@ -170,7 +181,7 @@
 			      	</span>
 			      </div>
 			      <div class="well">
-			      	<strong>Amenities</strong><br>
+			      	<h4>Amenities</h4>
 			      	<span>
 			      		<i class="fa fa-star"></i>
 			      		<i class="fa fa-star"></i>
@@ -180,7 +191,7 @@
 			      	</span>
 			      </div>
 			      <div class="well">
-			      	<strong>Location</strong><br>
+			      	<h4>Location</h4>
 			      	<span>
 			      		<i class="fa fa-star"></i>
 			      		<i class="fa fa-star"></i>
@@ -188,7 +199,7 @@
 			      	</span>
 			      </div>
 			      <div class="well">
-			      	<strong>Neighbors</strong><br>
+			      	<h4>Neighbors</h4>
 			      	<span>
 			      		<i class="fa fa-star"></i>
 			      		<i class="fa fa-star"></i>
