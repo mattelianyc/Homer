@@ -1,1 +1,0 @@
-web: vendor/bin/psysh public/
