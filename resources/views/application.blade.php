@@ -104,7 +104,8 @@
 		});
 
 		 $('#toggle-sidepanel-btn').click(function () {
-	    	if($("#bldg-details-panel").css('width') == '22px') {
+		 	console.log($("#bldg-details-panel").css('width'));
+	    	if($("#bldg-details-panel").css('width') == '62px') {
 				$('#toggle-sidepanel-btn').animate({left: '27.5%'}, 150, function () {});
 		    	$('#bldg-details-panel').animate({width: '33.33%'}, 300, function () {
 			    	$('#bldg-details-panel').css('z-index', '1000');
@@ -206,7 +207,7 @@
 		$('#map').animate({width: '100%', left: '0'}, 150, function () {
     		$('#bldg-details-panel').animate({width: '33.33%'}, 300, function () {
 	    		$('#bldg-details-panel').css('z-index', '1000');
-		    	$('#bldg-details-header').html('<h2>'+$('#place-search-input').val()+'</h2>')
+		    	$('#bldg-details-header').html('<h2>'+place.name+'</h2><h4>'+place.formatted_address+'</h4>');
     		});
 			$('#toggle-sidepanel-btn').animate({left: '27.5%'}, 150, function () {});
     	});
@@ -214,7 +215,7 @@
 			map.panBy(100,0);
 		});
 
-	    if($("#bldg-details-panel").css('width') == '22px') {
+	    if($("#bldg-details-panel").css('width') == '62px') {
 	    		$('#toggle-sidepanel-btn').animate({left: '27.5%'}, 250, function () {});
 			    $('#bldg-details-panel').animate({width: '33.33%'}, 300, function () {
 			    	$('#bldg-details-panel').css('z-index', '1000');
@@ -227,7 +228,7 @@
     		$('#toggle-sidepanel-btn').animate({left: '10px'}, 250, function () {});
 	    	$('#bldg-details-panel').animate({width: '0%'}, 300, function () {
 			    $('#bldg-details-panel').css('z-index', '0');
-			   	$('#bldg-details-header').html('<h2>'+$('#place-search-input').val()+'</h2>');
+			   	$('#bldg-details-header').html('<h2>'+place.name+'</h2><h4>'+place.formatted_address+'</h4>');
 				
 			});
 	    }
@@ -248,8 +249,8 @@
 	    marker.setVisible(true);
 
 	    infowindow.setContent('<div><strong>' + place.name + '</strong><br>' +
-	        'Place ID: ' + place.place_id + '<br>' +
-	        place.formatted_address + '</div>');
+	        '<p>Place ID: ' + place.place_id + '</p><br>' +
+	        '<p>' + place.formatted_address + '</p></div>');
 	    infowindow.open(map, marker);
 	  });
 	

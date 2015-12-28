@@ -5,11 +5,11 @@
 
 	@font-face {
 	  font-family: 'manifesto';
-	  src: url('../fonts/LHF American Sans.otf');
+	  src: url('../fonts/ChaletParisNineteenSixty.otf');
 	}
 	@font-face {
 	  font-family: 'manifesto-bold';
-	  src: url('../fonts/LHFCigarShopMaduro.ttf');
+	  src: url('../fonts/Chalet-New-York-Nineteen-Sixty.otf');
 	}
 
 	html {
@@ -22,8 +22,11 @@
 		font-family: 'manifesto';
 	}
 
-	h1,h2,h3 {
+	h1,h2,h3,strong {
 		font-family: 'manifesto-bold';
+	}
+	strong {
+		font-size:18px;
 	}
 
 	#landing-page-wrapper {
@@ -73,9 +76,17 @@
 	    	z-index:99;
     	}
 
-    	.fa-search, .fa-bars {
+    	.fa-star, .fa-search, .fa-bars {
     		font-size: 30px;
     	}
+    	.fa-star {
+    		color:goldenrod;	
+    	}
+    	.fa-usd {
+    		color:darkgreen;
+			font-size: 48px;	
+    	}
+
 
    	#bldg-details-panel {
    		position: absolute;
@@ -84,10 +95,14 @@
    		z-index: 0;
    		background-color: white;
    		border-right: 2px solid #183050;
-   		padding:10px;
+   		padding:30px;
    		overflow-y:scroll;
    		overflow-x:hidden;
    	}
+
+   		#tab-content-wrapper {
+   			padding: 10px 20px;
+   		}
 
 </style>
 
@@ -106,48 +121,109 @@
 		</div>
 
 		<div class="row">
-			<div class="col-xs-12">
-				<div class="well">
-					<code>sample data</code>
-				</div><hr>
-				<div class="well">
-					<code>sample data</code>
-				</div><hr>
-				<div class="well">
-					<code>sample data</code>
-				</div><hr>
-				<div class="well">
-					<code>sample data</code>
-				</div><hr>
-				<div class="well">
-					<code>sample data</code>
-				</div><hr>
-				<div class="well">
-					<code>sample data</code>
-				</div><hr>
-				<div class="well">
-					<code>sample data</code>
-				</div><hr>
-				<div class="well">
-					<code>sample data</code>
-				</div><hr>
-				<div class="well">
-					<code>sample data</code>
-				</div><hr>
-				<div class="well">
-					<code>sample data</code>
-				</div><hr>
-				<div class="well">
-					<code>sample data</code>
-				</div><hr>
-				<div class="well">
-					<code>sample data</code>
+			<div class="col-xs-12">	
+				<div class="row">
+					<img class="img-responsive" src="{{ asset('/images/bldg-entrance.jpg') }}" style="padding:35px;">
 				</div>
 			</div>
 		</div>
-		
 
-	</div>
+		<div class="row">
+
+			<div id="tab-content-wrapper">
+			  <ul class="nav nav-tabs">
+			    <li class="active"><a data-toggle="tab" href="#reviews">Reviews</a></li>
+			    <li><a data-toggle="tab" href="#about">About</a></li>
+			    <li><a data-toggle="tab" href="#financials">Financials</a></li>
+			    <li><a data-toggle="tab" href="#other">Other</a></li>
+			  </ul>
+
+			  <div class="tab-content">
+			    <div id="reviews" class="tab-pane fade in active">
+			      <div class="page-header">
+			      	<h3>Reviews</h3>
+			      </div>
+			      <div class="well">
+			      	<strong>Value</strong><br>
+			      	<span>
+			      		<i class="fa fa-star"></i>
+			      		<i class="fa fa-star"></i>
+			      		<i class="fa fa-star"></i>
+			      		<i class="fa fa-star"></i>
+			      	</span>
+			      </div>
+			      <div class="well">
+			      	<strong>Management</strong><br>
+			      	<span>
+			      		<i class="fa fa-star"></i>
+			      		<i class="fa fa-star"></i>
+			      		<i class="fa fa-star"></i>
+			      		<i class="fa fa-star"></i>
+			      	</span>
+			      </div>
+			      <div class="well">
+			      	<strong>Cleanliness</strong><br>
+			      	<span>
+			      		<i class="fa fa-star"></i>
+			      		<i class="fa fa-star"></i>
+			      		<i class="fa fa-star"></i>
+			      	</span>
+			      </div>
+			      <div class="well">
+			      	<strong>Amenities</strong><br>
+			      	<span>
+			      		<i class="fa fa-star"></i>
+			      		<i class="fa fa-star"></i>
+			      		<i class="fa fa-star"></i>
+			      		<i class="fa fa-star"></i>
+			      		<i class="fa fa-star"></i>
+			      	</span>
+			      </div>
+			      <div class="well">
+			      	<strong>Location</strong><br>
+			      	<span>
+			      		<i class="fa fa-star"></i>
+			      		<i class="fa fa-star"></i>
+			      		<i class="fa fa-star"></i>
+			      	</span>
+			      </div>
+			      <div class="well">
+			      	<strong>Neighbors</strong><br>
+			      	<span>
+			      		<i class="fa fa-star"></i>
+			      		<i class="fa fa-star"></i>
+			      	</span>
+			      </div>
+			    </div>
+			    <div id="about" class="tab-pane fade">
+			      <h3>About</h3>
+			      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+			      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+			      Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.  Lorem ipsum dolor sit amet, consectetur adipisicing elit, 
+			      sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.<br><br>
+			      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+			      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+			      Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.  Lorem ipsum dolor sit amet, consectetur adipisicing elit, 
+			      sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+			      </p>
+			    </div>
+			    <div id="financials" class="tab-pane fade">
+			      <h3>Financials</h3>
+			      <span>
+			      	<i class="fa fa-usd"></i>
+			      	<i class="fa fa-usd"></i>
+			      	<i class="fa fa-usd"></i>
+			      </span>
+			    </div>
+			    <div id="other" class="tab-pane fade">
+			      <h3>Other</h3>
+			      <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+			    </div>
+			  </div>
+				
+			</div> <!-- end tab-content-wrapper -->
+		</div> <!-- end row -->
+	</div> <!-- end bldg-details-panel -->
 
 	<input class="form-control" id="place-search-input" />
 	<div id="map"></div>
