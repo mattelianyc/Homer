@@ -297,6 +297,12 @@
 
 	<!-- EXPANDED BLDG DETAIL PAGE -->
 	<div id="second-pane" style="height:100%;width:66.66%;right:0;background-color:white;position:absolute;display:none;">
+		<div class="row text-center">
+			<div class="col-xs-12">
+				<br><br>
+				<h1>DATA VISUALIZATION</h1>
+			</div>
+		</div>
 	</div>
 
 	<div id="landing-page-wrapper">
