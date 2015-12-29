@@ -140,22 +140,24 @@
 
 	    	$('#bldg-details-panel').animate({width: '0'}, 300, function () {
 		    	$('#bldg-details-panel').css('z-index', '0');
+		    	$('#analytics-panel').css('z-index', '0');
+
 		    });
     		$('#map').animate({width: '100%', left: '0'}, 150, function () {});
 
 		 });
 
 		 $('#expand-bldg-details-btn').click(function () {
-		 	// console.log($('#second-pane').css('display'));
+		 	// console.log($('#analytics-panel').css('display'));
 		 	$('#bldg-details-panel').animate({width: '33.33%'}, 300, function () {
-		 		if($('#second-pane').css('display') == 'none') {
-			 		$('#second-pane').fadeIn();
-			 		$('#second-pane').css('z-index', '999999999');
+		 		if($('#analytics-panel').css('display') == 'none') {
+			 		$('#analytics-panel').fadeIn();
+			 		$('#analytics-panel').css('z-index', '999999999');
 			 	}
 		 	});
-		 	if($('#second-pane').css('display') == 'block') {
-		 		$('#second-pane').fadeOut();
-		 		$('#second-pane').css('z-index', '0');
+		 	if($('#analytics-panel').css('display') == 'block') {
+		 		$('#analytics-panel').fadeOut();
+		 		$('#analytics-panel').css('z-index', '0');
 		 	}
 		 });
 
