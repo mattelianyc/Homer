@@ -75,8 +75,10 @@
 	    	color: #183050;
     	}
 
-
-    	.fa-star, .fa-search, .fa-bars {
+    	.fa-bars {
+    		font-size: 18px;
+    	}
+    	.fa-star, .fa-search {
     		font-size: 30px;
     	}
     	.fa-star {
@@ -88,7 +90,7 @@
 			font-size: 48px;	
     	}
     	.fa-power-off {
-    		font-size: 30px;
+    		font-size: 18px;
     	}
 
    	#bldg-details-panel {
@@ -103,25 +105,20 @@
    		overflow-x:hidden;
    	}
 
-   		#tab-content-wrapper {
-   			padding: 5px 10px;
-   		}
-
    	#sidebar {
    		display: none;
    		position: absolute;
    		background-color: white;
    		border-right: 2px solid #183050;
    		height: 100%;
-   		width:84px;
-   		z-index: 101;
+   		width:64px;
+   		z-index: 99999;
    	}
 
     	#toggle-sidepanel-btn {
 	    	position: absolute;
-		    left: 10px;
-	    	top: 10px !important;
-	    	height:50px;
+		    left: 6px;
+	    	top: 6px !important;
 	    	background-color: #183050;
 	    	border-color: #183050;
 	    	color:#BBD5F8;
@@ -130,56 +127,91 @@
 
     	#home-sidebar-btn {
 	    	position: absolute;
-		    left: 10px;
-	    	bottom: 10px !important;
-	    	height:50px;
+		    left: 6px;
+	    	bottom: 6px !important;
 	    	z-index:102;
     	}
 
+    	#collapse-sidepanel-btn, #expand-bldg-details-btn {
+	    	padding: 12px 18px;
+		    font-size: 24px;
+		    line-height: 1;
+    	}
+		
+		#collapse-sidepanel-btn{color:#d9534f;}
+		#expand-bldg-details-btn{color:#5cb85c;}
+    	
+    	#bldg-details-header {
+    		position: relative;
+    		bottom: 4px;
+    		text-align: center;
+    	}
+	    	#bldg-details-header > h2 {
+	    	    position: relative;
+	    		bottom: 10px;
+	    	}
+
+
+	    /*SIDE-PANEL TAB CONTENT*/
+   		
+   		.nav-center {
+   			text-align: center;
+   		}
+   		ul.nav {
+   			display: inline-block;
+   		}
+   		li {
+   			display: inline;
+   		}
+   		a {
+   			float: left;
+   		}
+   		#tab-content-wrapper {
+   			padding: 5px 10px;
+   		}
+   		.tab-content {
+   			margin-top:15px;
+   		}
 </style>
 
 <div class="container-fluid" style="margin:0;padding:0;height:100%;">
-
-
-	
-	<a id="toggle-sidepanel-btn" class="btn btn-info btn-lg"><i class="fa fa-bars"></i></a>
 	
 	<div id="sidebar">
+		<a id="toggle-sidepanel-btn" class="btn btn-info btn-lg"><i class="fa fa-bars"></i></a>
 		<a id="home-sidebar-btn" class="btn btn-danger btn-lg"><i class="fa fa-power-off"></i></a>
 	</div>
 
 	<div id="bldg-details-panel">
-		
 		<div class="row">
-			<div class="col-xs-10">
-				<div id="bldg-details-header" class="pull-left"></div>
+			<div class="col-xs-12">
+				<a id="collapse-sidepanel-btn" class="btn pull-left"><i class="fa fa-chevron-left"></i></a>
+				<a id="expand-bldg-details-btn" class="btn pull-right"><i class="fa fa-expand"></i></a>
+			</div>	
+			<div class="col-xs-10 col-xs-offset-1">
+				<div id="bldg-details-header"></div>
 			</div>
-			<div class="col-xs-2"></div>
 		</div>
 
 		<div class="row">
-			<div class="col-xs-12">	
-				<div class="row">
-					<img class="img-responsive" src="{{ asset('/images/bldg-entrance.jpg') }}" style="padding:35px;">
-				</div>
+			<div class="col-xs-12">
 			</div>
 		</div>
 
 		<div class="row">
 
 			<div id="tab-content-wrapper">
-			  <ul class="nav nav-tabs">
-			    <li class="active"><a data-toggle="tab" href="#reviews">Reviews</a></li>
-			    <li><a data-toggle="tab" href="#about">About</a></li>
-			    <li><a data-toggle="tab" href="#financials">Financials</a></li>
-			    <li><a data-toggle="tab" href="#other">Other</a></li>
-			  </ul>
+				
+				<div class="nav-center">
+				  <ul class="nav nav-tabs">
+				    <li class="active"><a data-toggle="tab" href="#reviews"><strong>Reviews</strong></a></li>
+				    <li><a data-toggle="tab" href="#about"><strong>About</strong></a></li>
+				    <li><a data-toggle="tab" href="#financials"><strong>Financials</strong></a></li>
+				    <li><a data-toggle="tab" href="#other"><strong>Other</strong></a></li>
+				  </ul>
+				</div>
 
 			  <div class="tab-content">
 			    <div id="reviews" class="tab-pane fade in active">
-			      <div class="page-header">
-			      	<h3>Reviews</h3>
-			      </div>
 			      <div class="well">
 			      	<h4>Value</h4>
 			      	<span>
@@ -233,7 +265,6 @@
 			      </div>
 			    </div>
 			    <div id="about" class="tab-pane fade">
-			      <h3>About</h3>
 			      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 			      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 			      Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.  Lorem ipsum dolor sit amet, consectetur adipisicing elit, 
@@ -245,7 +276,6 @@
 			      </p>
 			    </div>
 			    <div id="financials" class="tab-pane fade">
-			      <h3>Financials</h3>
 			      <span>
 			      	<i class="fa fa-usd"></i>
 			      	<i class="fa fa-usd"></i>
@@ -253,7 +283,6 @@
 			      </span>
 			    </div>
 			    <div id="other" class="tab-pane fade">
-			      <h3>Other</h3>
 			      <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
 			    </div>
 			  </div>
@@ -262,8 +291,13 @@
 		</div> <!-- end row -->
 	</div> <!-- end bldg-details-panel -->
 
+	<!-- GMAP -->
 	<input class="form-control" id="place-search-input" />
 	<div id="map"></div>
+
+	<!-- EXPANDED BLDG DETAIL PAGE -->
+	<div id="second-pane" style="height:100%;width:66.66%;right:0;background-color:white;position:absolute;display:none;">
+	</div>
 
 	<div id="landing-page-wrapper">
 		<div class="row">
