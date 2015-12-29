@@ -303,6 +303,12 @@
 				<h1>DATA VISUALIZATION</h1>
 			</div>
 		</div>
+		<div class="row text-center">
+			<div class="col-xs-6 col-xs-offset-3">
+				<br><br>
+				<img src="{{ asset('/images/pizza_distribution.gif') }}" />
+			</div>
+		</div>
 	</div>
 
 	<div id="landing-page-wrapper">
