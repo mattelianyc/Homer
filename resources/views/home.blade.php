@@ -92,6 +92,10 @@
     	.fa-power-off {
     		font-size: 18px;
     	}
+    	.fa-compress {
+    		font-size: 24px !important;
+    		color: #d9534f;
+    	}
 
    	#bldg-details-panel {
    		position: absolute;
@@ -135,7 +139,7 @@
 	    	border-color: white;
     	}
 
-    	#collapse-sidepanel-btn, #expand-bldg-details-btn {
+    	#collapse-sidepanel-btn, #expand-bldg-details-btn, #collapse-bldg-details-btn {
 	    	padding: 12px 18px;
 		    font-size: 24px;
 		    line-height: 1;
@@ -187,18 +191,22 @@
 	<div id="bldg-details-panel">
 		<div class="row">
 			<div class="col-xs-12">
-				<a id="collapse-sidepanel-btn" class="btn pull-left"><i class="fa fa-chevron-left"></i></a>
-				<a id="expand-bldg-details-btn" class="btn pull-right"><i class="fa fa-expand"></i></a>
-			</div>	
-			<div class="col-xs-10 col-xs-offset-1">
+				<a id="collapse-sidepanel-btn" class="btn pull-left">
+					<i class="fa fa-chevron-left"></i>
+				</a>
+				<a id="expand-bldg-details-btn" class="btn pull-right">
+					<i class="fa fa-expand"></i>
+				</a>
+				<a id="collapse-bldg-details-btn" class="btn pull-right" style="display:none;">
+					<i class="fa fa-compress"></i>
+				</a>
+			</div>
+		
+			<div id="bldg-header" class="col-xs-10 col-xs-offset-1">
 				<div id="bldg-details-header"></div>
 			</div>
-		</div>
 
-		<div class="row">
-			<div class="col-xs-12">
-			</div>
-		</div>
+		</div>	
 
 		<div class="row">
 
@@ -298,22 +306,7 @@
 	<input class="form-control" id="place-search-input" />
 	<div id="map"></div>
 
-	<!-- EXPANDED BLDG DETAIL PAGE -->
-	<div id="analytics-panel" class="animated" style="height:100%;width:66.66%;right:0;background-color:white;position:absolute;display:none;">
-		<div class="row text-center">
-			<div class="col-xs-12">
-				<br><br>
-				<h1>DATA VISUALIZATION</h1>
-			</div>
-		</div>
-		<div class="row text-center">
-			<div class="col-xs-6 col-xs-offset-3">
-				<br><br>
-				<img src="{{ asset('/images/pizza_distribution.gif') }}" />
-			</div>
-		</div>
-	</div>
-
+	<!-- SPLASH PAGE -->
 	<div id="landing-page-wrapper">
 		<div class="row">
 			<span id="search-btn" class="btn btn-info btn-lg"><i class="fa fa-search"></i></span>
