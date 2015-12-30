@@ -119,9 +119,9 @@
 	    	position: absolute;
 		    left: 6px;
 	    	top: 6px !important;
-	    	background-color: #183050;
-	    	border-color: #183050;
-	    	color:#BBD5F8;
+	    	background-color: white;
+	    	border-color: white;
+	    	color:#183050;
 	    	z-index:99;
     	}
 
@@ -130,6 +130,9 @@
 		    left: 6px;
 	    	bottom: 6px !important;
 	    	z-index:102;
+	    	color: #d43f3a;
+	    	background-color: white;
+	    	border-color: white;
     	}
 
     	#collapse-sidepanel-btn, #expand-bldg-details-btn {
