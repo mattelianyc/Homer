@@ -281,8 +281,8 @@
 		 		$('#bldg-facts').fadeIn();
 		 		$('#rent-price-line-graph').fadeIn();
 		 		
-		 		$('#bldg-address-and-images').removeClass('col-xs-12');
-		 		$('#bldg-address-and-images').addClass('col-xs-7');
+		 		$('#bldg-address').removeClass('col-xs-12');
+		 		$('#bldg-address').addClass('col-xs-7');
 		 		$('#bldg-facts').addClass('col-xs-5');
 
 		 		$('#bldg-details-header').css('max-height', '500px').css('overflow', 'hidden');
@@ -291,7 +291,7 @@
 		 		$('#collapse-bldg-details-btn').css('display', 'block');
 		 		
 		 		$('#tab-content-wrapper').css('width', '33.33%');
-		 		$('bldg-address-and-images').css('width', '33.33%');
+		 		$('#bldg-address').css('width', '33.33%');
 
 		 	});
 		 });
@@ -308,8 +308,8 @@
 		 	$('#user-reviews').fadeOut();
 			$('#rent-price-line-graph').fadeOut();
 
-	 		$('#bldg-address-and-images').addClass('col-xs-12');
-		 	$('#bldg-address-and-images').removeClass('col-xs-7');
+	 		$('#bldg-address').addClass('col-xs-12');
+		 	$('#bldg-address').removeClass('col-xs-7');
 	 		$('#bldg-facts').removeClass('col-xs-5');	 		
 
 		 	$('#bldg-details-panel').animate({width: '33.33%'}, 300, function () {
@@ -318,7 +318,7 @@
 		 		$('#collapse-bldg-details-btn').css('display', 'none');
 		 		
 		 		$('#tab-content-wrapper').css('width', '100%');
-		 		$('bldg-address-and-images').css('width', '100%');
+		 		$('#bldg-address').css('width', '100%');
 		 	});
 		 });
 
@@ -327,6 +327,8 @@
 	// initialize GMAP function
 	// initialize GMAP function
 	// initialize GMAP function
+
+	var panorama;
 
     function initialize() {
 
@@ -404,7 +406,7 @@
     		
     		$('#bldg-details-panel').animate({width: '33.33%'}, 300, function () {
 	    		$('#bldg-details-panel').css('z-index', '100000');
-		    	$('#bldg-details-header').html('<h2>'+place.name+'</h2><h4>'+place.formatted_address+'</h4>'+'<img src="{{ asset("/images/bldg-entrance.jpg") }}" style="width:100%">');	
+		    	$('#bldg-address').html('<h2>'+place.name+'</h2><h4>'+place.formatted_address+'</h4>');		
     		});
 
     	});
@@ -417,7 +419,7 @@
 
 		    $('#bldg-details-panel').animate({width: '33.33%'}, 300, function () {
 		    	$('#bldg-details-panel').css('z-index', '100000');
-		    	$('#bldg-details-header').html('<h2>'+place.name+'</h2><h4>'+place.formatted_address+'</h4>'+'<img src="{{ asset("/images/bldg-entrance.jpg") }}" style="width:100%">');	
+		    	$('#bldg-address').html('<h2>'+place.name+'</h2><h4>'+place.formatted_address+'</h4>');	
 		    });
     		$('#map').animate({width: '66.66%', left: '33.33%'}, 150, function () {
     			map.panBy(100,0);
@@ -426,7 +428,7 @@
 	    } else {
 	    	$('#bldg-details-panel').animate({width: '0%'}, 300, function () {
 			    $('#bldg-details-panel').css('z-index', '100000');
-			   	$('#bldg-details-header').html('<h2>'+place.name+'</h2><h4>'+place.formatted_address+'</h4>'+'<img src="{{ asset("/images/bldg-entrance.jpg") }}" style="width:100%">');	
+			   	$('#bldg-address').html('<h2>'+place.name+'</h2><h4>'+place.formatted_address+'</h4>');	
 			});
 
 	    }
@@ -446,6 +448,15 @@
 	    marker.setVisible(true);
 	    infowindow.setContent('<div><strong>'+place.name+'</strong><br><br>'+'<p>'+place.formatted_address+'</p></div>');
 	    infowindow.open(map, marker);
+	  console.log(marker);
+	  panorama = new google.maps.StreetViewPanorama(
+      document.getElementById('street-view'),
+      {
+        position: {lat: marker.place.location.lat(), lng: marker.place.location.lng()},
+        pov: {heading: 165, pitch: 0},
+        zoom: 1
+      });
+
 	  });
 	
 	}

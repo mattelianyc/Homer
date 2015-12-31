@@ -189,6 +189,11 @@
    			height:420px;
    			overflow: hidden;
    		}
+
+   		#street-view {
+   			width: 400px;
+   			height: 400px;
+   		}
 </style>
 
 <div class="container-fluid" style="margin:0;padding:0;height:100%;">
@@ -221,10 +226,13 @@
 			<div id="analytics-page-header" style="position:relative;z-index:100;">
 				
 				<div class="row">
-				
-					<div id="bldg-address-and-images" class="col-xs-12">
+
+						
+					<div id="bldg-address" class="col-xs-12">
 						<div id="bldg-details-header"></div>
 					</div>
+					
+					<div id="street-view"></div>
 
 					<!-- sidebar display none -->
 					<div id="bldg-facts" style="display:none;">
