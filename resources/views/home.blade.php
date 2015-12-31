@@ -209,7 +209,21 @@
 				<div id="bldg-details-header"></div>
 			</div>
 
-			<div id="data-visualization"></div>
+			<div id="data-visualization" style="display:none;">
+				<div class="col-xs-8">
+					<div class="row text-center">
+						<h1>DATA VISUALIZATION</h1>
+					</div>
+					<div class="row">
+						<div class="col-xs-6">
+							<div id="donutchart" style="width: 100%; height: auto;"></div>
+						</div>
+						<div class="col-xs-6">
+							<div id="donutchart_two" style="width: 100%; height: auto;"></div>
+						</div>
+					</div>
+				</div>
+			</div>
 
 		</div>	
 

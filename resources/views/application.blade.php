@@ -20,6 +20,50 @@
 		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 	<![endif]-->
 
+	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    
+    <script type="text/javascript">
+      google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawChart);
+      
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Task', 'Hours per Day'],
+          ['Would Recommend This Building', 29],
+          ['Would NOT Recommend This Building', 71]
+        ]);
+
+        var options = {
+          title: 'Would Recommend This Building',
+          pieHole: 0.4,
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+        chart.draw(data, options);
+      }
+    </script>
+
+    <script type="text/javascript">
+      google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawChart);
+      
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Task', 'Hours per Day'],
+          ['Approve of Management', 54],
+          ['Do NOT Approve of Management', 46]
+        ]);
+
+        var options = {
+          title: 'Approve of Management',
+          pieHole: 0.4,
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('donutchart_two'));
+        chart.draw(data, options);
+      }
+    </script>
+
 </head>
 <body>
 	<nav class="navbar navbar-default">
@@ -153,7 +197,7 @@
 		 		$('#bldg-header').removeClass('col-xs-12');
 		 		$('#bldg-header').addClass('col-xs-4');
 
-		 		$('#data-visualization').html('<div class="col-xs-8"><div class="row text-center"><h1>DATA VISUALIZATION</h1></div></div>');
+		 		$('#data-visualization').fadeIn();
 
 		 		$('#expand-bldg-details-btn').css('display', 'none');
 		 		$('#collapse-bldg-details-btn').css('display', 'block');
@@ -169,7 +213,7 @@
 	 		$('#bldg-header').addClass('col-xs-12');
 		 	$('#bldg-header').removeClass('col-xs-4');
 
-		 	$('#data-visualization').empty();
+		 	$('#data-visualization').fadeOut();
 		 	$('#bldg-details-panel').animate({width: '33.33%'}, 300, function () {
 		 		
 		 		$('#expand-bldg-details-btn').css('display', 'block');
