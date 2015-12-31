@@ -174,10 +174,21 @@
    			float: left;
    		}
    		#tab-content-wrapper {
-   			padding: 5px 10px;
+   			margin-top: 10px;
    		}
    		.tab-content {
    			margin-top:15px;
+   		}
+   		.headline-review {	
+   			text-align: center;
+   		}
+   		.headline-review > span > i {	
+			font-size: 60px;
+			padding: 0px 5px;
+   		}
+   		#donut-graphs {
+   			height:420px;
+   			overflow: hidden;
    		}
 </style>
 
@@ -204,131 +215,195 @@
 					</a>
 				</div>
 			</div>
-		
-			<div id="bldg-header" class="col-xs-12">
-				<div id="bldg-details-header"></div>
-			</div>
 
-			<div id="bldg-facts" style="display:none;">
-				<div class="page-header">
-					<h3>Building Facts</h3>	
-				</div>
-				<p>81 Units</p>
-				<p>6 Stories</p>
-				<p>Built in 2013</p>
-				<p>Doorman</p>
-				<p>2 Elevators</p>
-				<p>Gym</p>
-				<p>On-Site Laundry</p>
-				<p>Communal Terrace</p>
-			</div>
+			<hr>
 
-			<div id="data-visualization" style="display:none;">
-				<div class="col-xs-12">
-					<div class="row text-center">
-						<div class="col-xs-4 col-xs-offset-1">
-							<div id="donutchart" style="width: 900px; height: 500px;"></div>
+		</div>
+
+		<div id="analytics-page-wrapper">
+
+			<div id="analytics-page-header" style="position:relative;z-index:100;">
+				
+				<div class="row">
+				
+					<div id="bldg-address-and-images" class="col-xs-12">
+						<div id="bldg-details-header"></div>
+					</div>
+
+					<!-- sidebar display none -->
+					<div id="bldg-facts" style="display:none;">
+						<div class="headline-review">
+							<span>
+					      		<i class="fa fa-star"></i>
+					      		<i class="fa fa-star"></i>
+					      		<i class="fa fa-star" style="color:gray;"></i>
+					      		<i class="fa fa-star" style="color:gray;"></i>
+					      		<i class="fa fa-star" style="color:gray;"></i>
+					      	</span>
+							<h3>10 Reviews – 5 Ratings</h3>
+							<h3>20 Posted Rents – 3 Expiring Leases</h3>
 						</div>
-						<div class="col-xs-4 col-xs-offset-1">
-							<div id="donutchart_two" style="width: 900px; height: 500px;"></div>
+
+						<div class="page-header">
+							<h3>Building Facts</h3>	
+						</div>
+						<p>81 Units</p>
+						<p>6 Stories</p>
+						<p>Built in 2013</p>
+						<p>Doorman</p>
+						<p>2 Elevators</p>
+						<p>Gym</p>
+						<p>On-Site Laundry</p>
+						<p>Communal Terrace</p>
+					</div>
+
+					<hr>
+	
+				</div>
+
+			</div>
+
+
+			<div id="donut-graphs" style="display:none;">
+				<div class="row">
+					<div id="data-visualization" style="position:relative;bottom:112px;z-index:10;">
+						<div class="col-xs-12">
+							<div class="row text-center">
+								<div class="col-xs-1"></div>
+								<div class="col-xs-5">
+									<div id="donutchart" style="width: 900px; height: 500px;"></div>
+								</div>
+								<div class="col-xs-5">
+									<div id="donutchart_two" style="width: 900px; height: 500px;"></div>
+								</div>
+								<div class="col-xs-1"></div>
+							</div>
 						</div>
 					</div>
+				</div>	
+			</div>
+
+			<div id="user-reviews" style="display:none;">
+
+					<hr>
+
+				<div class="row">
+					<h1>“Beware! This place has roaches”</h1>
+
+					<strong>Pros</strong>
+					<p>The terrace is awesome in the summer, as it is so rare to find quality outdoor space in NYC. Doormen are friendly and helpful. The place is newly renovated and looks very classy at first glance.</p>
+
+					<strong>Cons</strong>
+					<p>One word: ROACHES! This place has a perpetual roach problem that management has not been able to fix. Not that they have really tried though…whenever I try to call them, they either don’t pick up the phone or are very snappy and rude. The lease also has some BS clause allowing them to kick out tenants with 3-months’ notice for any reason. God help you if the management or landlord doesn’t like you. I have heard they use this lease very often to their advantage if someone makes too much noise or complains. Living here is probably not worth the trouble.</p>
+
+					<strong>Advice to Future Tenants</strong>
+					<p>Read your lease very carefully! In fact, spend the money to get a lawyer to read through it and explain it to you, and you might be able to get that stupid 3 month part removed. If not though, the roaches will drive you crazy. Plan on hiring your own exterminator, or else just find another place to live.</p>
 				</div>
 			</div>
 
-		</div>	
+			<div id="rent-price-line-graph" style="display:none;">
+				<div class="row">
+
+					<hr>
+
+					<div id="line_top_x"></div>
+				</div>
+			</div>
+
+		</div> <!-- end analytics page wrapper -->
 
 		<div class="row">
 
 			<div id="tab-content-wrapper">
-				
-				<div class="nav-center">
-				  <ul class="nav nav-tabs">
-				    <li class="active"><a data-toggle="tab" href="#reviews"><strong>Reviews</strong></a></li>
-				    <li><a data-toggle="tab" href="#about"><strong>About</strong></a></li>
-				    <li><a data-toggle="tab" href="#financials"><strong>Financials</strong></a></li>
-				    <li><a data-toggle="tab" href="#other"><strong>Other</strong></a></li>
-				  </ul>
-				</div>
+				<div class="col-xs-12">	
+					<div class="nav-center">
+					  <ul class="nav nav-tabs">
+					    <li class="active"><a data-toggle="tab" href="#reviews"><strong>Reviews</strong></a></li>
+					    <li><a data-toggle="tab" href="#about"><strong>About</strong></a></li>
+					    <li><a data-toggle="tab" href="#financials"><strong>Financials</strong></a></li>
+					    <li><a data-toggle="tab" href="#other"><strong>Other</strong></a></li>
+					  </ul>
+					</div>
 
-			  <div class="tab-content">
-			    <div id="reviews" class="tab-pane fade in active">
-			      <div class="well">
-			      	<h4>Value</h4>
-			      	<span>
-			      		<i class="fa fa-star"></i>
-			      		<i class="fa fa-star"></i>
-			      		<i class="fa fa-star"></i>
-			      		<i class="fa fa-star"></i>
-			      	</span>
-			      </div>
-			      <div class="well">
-			      	<h4>Management</h4>
-			      	<span>
-			      		<i class="fa fa-star"></i>
-			      		<i class="fa fa-star"></i>
-			      		<i class="fa fa-star"></i>
-			      		<i class="fa fa-star"></i>
-			      	</span>
-			      </div>
-			      <div class="well">
-			      	<h4>Cleanliness</h4>
-			      	<span>
-			      		<i class="fa fa-star"></i>
-			      		<i class="fa fa-star"></i>
-			      		<i class="fa fa-star"></i>
-			      	</span>
-			      </div>
-			      <div class="well">
-			      	<h4>Amenities</h4>
-			      	<span>
-			      		<i class="fa fa-star"></i>
-			      		<i class="fa fa-star"></i>
-			      		<i class="fa fa-star"></i>
-			      		<i class="fa fa-star"></i>
-			      		<i class="fa fa-star"></i>
-			      	</span>
-			      </div>
-			      <div class="well">
-			      	<h4>Location</h4>
-			      	<span>
-			      		<i class="fa fa-star"></i>
-			      		<i class="fa fa-star"></i>
-			      		<i class="fa fa-star"></i>
-			      	</span>
-			      </div>
-			      <div class="well">
-			      	<h4>Neighbors</h4>
-			      	<span>
-			      		<i class="fa fa-star"></i>
-			      		<i class="fa fa-star"></i>
-			      	</span>
-			      </div>
-			    </div>
-			    <div id="about" class="tab-pane fade">
-			      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-			      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-			      Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.  Lorem ipsum dolor sit amet, consectetur adipisicing elit, 
-			      sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.<br><br>
-			      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-			      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-			      Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.  Lorem ipsum dolor sit amet, consectetur adipisicing elit, 
-			      sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-			      </p>
-			    </div>
-			    <div id="financials" class="tab-pane fade">
-			      <span>
-			      	<i class="fa fa-usd"></i>
-			      	<i class="fa fa-usd"></i>
-			      	<i class="fa fa-usd"></i>
-			      </span>
-			    </div>
-			    <div id="other" class="tab-pane fade">
-			      <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
-			    </div>
-			  </div>
-				
-			</div> <!-- end tab-content-wrapper -->
+				  <div class="tab-content">
+				    <div id="reviews" class="tab-pane fade in active">
+				      <div class="well">
+				      	<h4>Value</h4>
+				      	<span>
+				      		<i class="fa fa-star"></i>
+				      		<i class="fa fa-star"></i>
+				      		<i class="fa fa-star"></i>
+				      		<i class="fa fa-star"></i>
+				      	</span>
+				      </div>
+				      <div class="well">
+				      	<h4>Management</h4>
+				      	<span>
+				      		<i class="fa fa-star"></i>
+				      		<i class="fa fa-star"></i>
+				      		<i class="fa fa-star"></i>
+				      		<i class="fa fa-star"></i>
+				      	</span>
+				      </div>
+				      <div class="well">
+				      	<h4>Cleanliness</h4>
+				      	<span>
+				      		<i class="fa fa-star"></i>
+				      		<i class="fa fa-star"></i>
+				      		<i class="fa fa-star"></i>
+				      	</span>
+				      </div>
+				      <div class="well">
+				      	<h4>Amenities</h4>
+				      	<span>
+				      		<i class="fa fa-star"></i>
+				      		<i class="fa fa-star"></i>
+				      		<i class="fa fa-star"></i>
+				      		<i class="fa fa-star"></i>
+				      		<i class="fa fa-star"></i>
+				      	</span>
+				      </div>
+				      <div class="well">
+				      	<h4>Location</h4>
+				      	<span>
+				      		<i class="fa fa-star"></i>
+				      		<i class="fa fa-star"></i>
+				      		<i class="fa fa-star"></i>
+				      	</span>
+				      </div>
+				      <div class="well">
+				      	<h4>Neighbors</h4>
+				      	<span>
+				      		<i class="fa fa-star"></i>
+				      		<i class="fa fa-star"></i>
+				      	</span>
+				      </div>
+				    </div>
+				    <div id="about" class="tab-pane fade">
+				      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+				      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+				      Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.  Lorem ipsum dolor sit amet, consectetur adipisicing elit, 
+				      sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.<br><br>
+				      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+				      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+				      Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.  Lorem ipsum dolor sit amet, consectetur adipisicing elit, 
+				      sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+				      </p>
+				    </div>
+				    <div id="financials" class="tab-pane fade">
+				      <span>
+				      	<i class="fa fa-usd"></i>
+				      	<i class="fa fa-usd"></i>
+				      	<i class="fa fa-usd"></i>
+				      </span>
+				    </div>
+				    <div id="other" class="tab-pane fade">
+				      <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+				    </div>
+				  </div>
+					
+				</div> <!-- end tab-content-wrapper -->
+			</div>
 		</div> <!-- end row -->
 	</div> <!-- end bldg-details-panel -->
 

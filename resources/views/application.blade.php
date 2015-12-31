@@ -70,6 +70,44 @@
       }
     </script>
 
+    <script type="text/javascript">
+	    google.load('visualization', '1.1', {packages: ['line']});
+	    google.setOnLoadCallback(drawChart);
+
+	    function drawChart() {
+
+	      var data = new google.visualization.DataTable();
+	      data.addColumn('date', 'Year');
+	      data.addColumn('number', 'Average Rent');
+	      data.addRows([
+	        [new Date(2013, 12, 1),  4000],
+	        [new Date(2014, 12, 1), 4500],
+	        [new Date(2015, 12, 1), 5000]
+	      ]);
+
+	      var options = {
+	        chart: {
+	          title: 'Rent History',
+	          subtitle: 'in US skrilla'
+	        },
+	        width: 900,
+	        height: 500,
+	        axes: {
+	          x: {
+	            0: {side: 'bottom'}
+	          },
+	          y: {
+	          	1: {side: 'left'}
+	          }
+	        }
+	      };
+
+	      var chart = new google.charts.Line(document.getElementById('line_top_x'));
+
+	      chart.draw(data, options);
+	    }
+  	</script>
+
 </head>
 <body>
 	<nav class="navbar navbar-default">
@@ -201,19 +239,25 @@
 		 	$('#bldg-details-panel').animate({width: '100%'}, 300, function () {
 		 		
 		 		$('#tab-content-wrapper').css('display', 'none');
+		 		
+		 		$('#analytics-page-wrapper').addClass('container');
 
-		 		$('#bldg-header').removeClass('col-xs-12');
-		 		$('#bldg-header').addClass('col-xs-7');
+		 		$('#bldg-facts').fadeIn();
+		 		$('#donut-graphs').fadeIn();
+		 		$('#user-reviews').fadeIn();
+		 		$('#bldg-facts').fadeIn();
+		 		$('#rent-price-line-graph').fadeIn();
+		 		
+		 		$('#bldg-address-and-images').removeClass('col-xs-12');
+		 		$('#bldg-address-and-images').addClass('col-xs-7');
 		 		$('#bldg-facts').addClass('col-xs-5');
 
-		 		$('#data-visualization').fadeIn();
-		 		$('#bldg-facts').fadeIn();
 
 		 		$('#expand-bldg-details-btn').css('display', 'none');
 		 		$('#collapse-bldg-details-btn').css('display', 'block');
 		 		
 		 		$('#tab-content-wrapper').css('width', '33.33%');
-		 		$('bldg-header').css('width', '33.33%');
+		 		$('bldg-address-and-images').css('width', '33.33%');
 
 		 	});
 		 });
@@ -221,20 +265,24 @@
 		 $('#collapse-bldg-details-btn').click(function () { 
 		 	
 		 	$('#tab-content-wrapper').css('display', 'block');
+		 	$('#analytics-page-wrapper').removeClass('container');
 
-	 		$('#bldg-header').addClass('col-xs-12');
-		 	$('#bldg-header').removeClass('col-xs-7');
+			$('#bldg-facts').fadeOut();
+			$('#donut-graphs').fadeOut();
+		 	$('#user-reviews').fadeOut();
+			$('#rent-price-line-graph').fadeOut();
+
+	 		$('#bldg-address-and-images').addClass('col-xs-12');
+		 	$('#bldg-address-and-images').removeClass('col-xs-7');
 	 		$('#bldg-facts').removeClass('col-xs-5');	 		
 
-		 	$('#data-visualization').fadeOut();
-	 		$('#bldg-facts').fadeOut();
 		 	$('#bldg-details-panel').animate({width: '33.33%'}, 300, function () {
 		 		
 		 		$('#expand-bldg-details-btn').css('display', 'block');
 		 		$('#collapse-bldg-details-btn').css('display', 'none');
 		 		
 		 		$('#tab-content-wrapper').css('width', '100%');
-		 		$('bldg-header').css('width', '100%');
+		 		$('bldg-address-and-images').css('width', '100%');
 		 	});
 		 });
 
@@ -320,7 +368,7 @@
     		
     		$('#bldg-details-panel').animate({width: '33.33%'}, 300, function () {
 	    		$('#bldg-details-panel').css('z-index', '100000');
-		    	$('#bldg-details-header').html('<h2>'+place.name+'</h2><img src="{{ asset("/images/bldg-entrance.jpg") }}"><h4>'+place.formatted_address+'</h4>');	
+		    	$('#bldg-details-header').html('<h2>'+place.name+'</h2><h4>'+place.formatted_address+'</h4>'+'<img src="{{ asset("/images/bldg-entrance.jpg") }}" style="width:100%">');	
     		});
 
     	});
@@ -333,7 +381,7 @@
 
 		    $('#bldg-details-panel').animate({width: '33.33%'}, 300, function () {
 		    	$('#bldg-details-panel').css('z-index', '100000');
-		    	$('#bldg-details-header').html('<h2>'+place.name+'</h2><img src="{{ asset("/images/bldg-entrance.jpg") }}"><h4>'+place.formatted_address+'</h4>');	
+		    	$('#bldg-details-header').html('<h2>'+place.name+'</h2><h4>'+place.formatted_address+'</h4>'+'<img src="{{ asset("/images/bldg-entrance.jpg") }}" style="width:100%">');	
 		    });
     		$('#map').animate({width: '66.66%', left: '33.33%'}, 150, function () {
     			map.panBy(100,0);
@@ -342,7 +390,7 @@
 	    } else {
 	    	$('#bldg-details-panel').animate({width: '0%'}, 300, function () {
 			    $('#bldg-details-panel').css('z-index', '100000');
-			   	$('#bldg-details-header').html('<h2>'+place.name+'</h2><img src="{{ asset("/images/bldg-entrance.jpg") }}"><h4>'+place.formatted_address+'</h4>');	
+			   	$('#bldg-details-header').html('<h2>'+place.name+'</h2><h4>'+place.formatted_address+'</h4>'+'<img src="{{ asset("/images/bldg-entrance.jpg") }}" style="width:100%">');	
 			});
 
 	    }
