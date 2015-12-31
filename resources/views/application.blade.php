@@ -70,6 +70,7 @@
       }
     </script>
 
+    <!-- ANALYTICS BLDG PAGE CHART -->
     <script type="text/javascript">
 	    google.load('visualization', '1.1', {packages: ['line']});
 	    google.setOnLoadCallback(drawChart);
@@ -103,10 +104,42 @@
 	      };
 
 	      var chart = new google.charts.Line(document.getElementById('line_top_x'));
-
 	      chart.draw(data, options);
 	    }
   	</script>
+
+  	<!-- FINANCIAL TAB BAR CHART -->
+  	<script type="text/javascript">
+    google.load("visualization", "1", {packages:["corechart"]});
+    google.setOnLoadCallback(drawChart);
+    function drawChart() {
+      var data = google.visualization.arrayToDataTable([
+        ["Element", "Density", { role: "style" } ],
+        ["Copper", 8.94, "#b87333"],
+        ["Silver", 10.49, "silver"],
+        ["Gold", 19.30, "gold"],
+        ["Platinum", 21.45, "color: #e5e4e2"]
+      ]);
+
+      var view = new google.visualization.DataView(data);
+      view.setColumns([0, 1,
+                       { calc: "stringify",
+                         sourceColumn: 1,
+                         type: "string",
+                         role: "annotation" },
+                       2]);
+
+      var options = {
+        title: "Density of Precious Metals, in g/cm^3",
+        width: 450,
+        height: 250,
+        bar: {groupWidth: "95%"},
+        legend: { position: "none" },
+      };
+      var chart = new google.visualization.BarChart(document.getElementById("barchart_values"));
+      chart.draw(view, options);
+  }
+  </script>
 
 </head>
 <body>
@@ -239,7 +272,7 @@
 		 	$('#bldg-details-panel').animate({width: '100%'}, 300, function () {
 		 		
 		 		$('#tab-content-wrapper').css('display', 'none');
-		 		
+		 		$('#collapse-sidepanel-btn').css('display', 'none');
 		 		$('#analytics-page-wrapper').addClass('container');
 
 		 		$('#bldg-facts').fadeIn();
@@ -252,6 +285,7 @@
 		 		$('#bldg-address-and-images').addClass('col-xs-7');
 		 		$('#bldg-facts').addClass('col-xs-5');
 
+		 		$('#bldg-details-header').css('max-height', '500px').css('overflow', 'hidden');
 
 		 		$('#expand-bldg-details-btn').css('display', 'none');
 		 		$('#collapse-bldg-details-btn').css('display', 'block');
@@ -264,6 +298,8 @@
 
 		 $('#collapse-bldg-details-btn').click(function () { 
 		 	
+		 	$('#collapse-bldg-details-btn').css('display', 'none');
+		 	$('#collapse-sidepanel-btn').fadeIn();
 		 	$('#tab-content-wrapper').css('display', 'block');
 		 	$('#analytics-page-wrapper').removeClass('container');
 

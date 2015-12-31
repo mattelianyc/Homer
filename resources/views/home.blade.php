@@ -93,7 +93,6 @@
     		font-size: 18px;
     	}
     	.fa-compress {
-    		font-size: 24px !important;
     		color: #d9534f;
     	}
 
@@ -140,11 +139,11 @@
     	}
 
     	#collapse-sidepanel-btn, #expand-bldg-details-btn, #collapse-bldg-details-btn {
-	    	padding: 12px 18px;
-		    font-size: 24px;
-		    line-height: 1;
+		    font-size: 36px !important;
     	}
 		
+		#collapse-bldg-details-btn{color:#d9534f; position: relative; left: 24px;}
+
 		#collapse-sidepanel-btn{color:#d9534f;}
 		#expand-bldg-details-btn{color:#5cb85c;}
     	
@@ -210,14 +209,11 @@
 					<a id="expand-bldg-details-btn" class="btn pull-right">
 						<i class="fa fa-expand"></i>
 					</a>
-					<a id="collapse-bldg-details-btn" class="btn pull-right" style="display:none;">
+					<a id="collapse-bldg-details-btn" class="btn pull-left" style="display:none;">
 						<i class="fa fa-compress"></i>
 					</a>
 				</div>
 			</div>
-
-			<hr>
-
 		</div>
 
 		<div id="analytics-page-wrapper">
@@ -306,7 +302,9 @@
 
 					<hr>
 
-					<div id="line_top_x"></div>
+					<div class="col-xs-8 col-xs-offset-2">
+						<div id="line_top_x"></div>
+					</div>
 				</div>
 			</div>
 
@@ -319,8 +317,8 @@
 					<div class="nav-center">
 					  <ul class="nav nav-tabs">
 					    <li class="active"><a data-toggle="tab" href="#reviews"><strong>Reviews</strong></a></li>
-					    <li><a data-toggle="tab" href="#about"><strong>About</strong></a></li>
 					    <li><a data-toggle="tab" href="#financials"><strong>Financials</strong></a></li>
+					    <li><a data-toggle="tab" href="#about"><strong>About</strong></a></li>
 					    <li><a data-toggle="tab" href="#other"><strong>Other</strong></a></li>
 					  </ul>
 					</div>
@@ -379,6 +377,9 @@
 				      	</span>
 				      </div>
 				    </div>
+				    <div id="financials" class="tab-pane fade">
+				      <div id="barchart_values" style="width: 450px; height: 250px;"></div>
+				    </div>
 				    <div id="about" class="tab-pane fade">
 				      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 				      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
@@ -389,13 +390,6 @@
 				      Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.  Lorem ipsum dolor sit amet, consectetur adipisicing elit, 
 				      sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 				      </p>
-				    </div>
-				    <div id="financials" class="tab-pane fade">
-				      <span>
-				      	<i class="fa fa-usd"></i>
-				      	<i class="fa fa-usd"></i>
-				      	<i class="fa fa-usd"></i>
-				      </span>
 				    </div>
 				    <div id="other" class="tab-pane fade">
 				      <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
