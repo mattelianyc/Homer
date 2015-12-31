@@ -216,10 +216,10 @@
 					</div>
 					<div class="row">
 						<div class="col-xs-6">
-							<div id="donutchart" style="width: 100%; height: auto;"></div>
+							<div id="donutchart" style="width: 900px; height: 500px;"></div>
 						</div>
 						<div class="col-xs-6">
-							<div id="donutchart_two" style="width: 100%; height: auto;"></div>
+							<div id="donutchart_two" style="width: 900px; height: 500px;"></div>
 						</div>
 					</div>
 				</div>

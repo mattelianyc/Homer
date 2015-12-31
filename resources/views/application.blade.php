@@ -36,6 +36,10 @@
         var options = {
           title: 'Would Recommend This Building',
           pieHole: 0.4,
+          legend: 'none',
+          width: 487.5,
+          height: 650,
+          pieSliceText: 'none'
         };
 
         var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
@@ -57,6 +61,10 @@
         var options = {
           title: 'Approve of Management',
           pieHole: 0.4,
+          legend: 'none',
+          width: 487.5,
+          height: 650,
+          pieSliceText: 'none'
         };
 
         var chart = new google.visualization.PieChart(document.getElementById('donutchart_two'));
