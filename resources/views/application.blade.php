@@ -150,6 +150,11 @@
 		 $('#expand-bldg-details-btn').click(function () {
 		 	$('#bldg-details-panel').animate({width: '100%'}, 300, function () {
 		 		
+		 		$('#bldg-header').removeClass('col-xs-12');
+		 		$('#bldg-header').addClass('col-xs-4');
+
+		 		$('#data-visualization').html('<div class="col-xs-8"><div class="row text-center"><h1>DATA VISUALIZATION</h1></div></div>');
+
 		 		$('#expand-bldg-details-btn').css('display', 'none');
 		 		$('#collapse-bldg-details-btn').css('display', 'block');
 		 		
@@ -160,6 +165,11 @@
 		 });
 
 		 $('#collapse-bldg-details-btn').click(function () { 
+		 	
+	 		$('#bldg-header').addClass('col-xs-12');
+		 	$('#bldg-header').removeClass('col-xs-4');
+
+		 	$('#data-visualization').empty();
 		 	$('#bldg-details-panel').animate({width: '33.33%'}, 300, function () {
 		 		
 		 		$('#expand-bldg-details-btn').css('display', 'block');
@@ -252,7 +262,7 @@
     		
     		$('#bldg-details-panel').animate({width: '33.33%'}, 300, function () {
 	    		$('#bldg-details-panel').css('z-index', '100000');
-		    	$('#bldg-details-header').html('<h2>'+place.name+'</h2><img class="img-responsive" src="{{ asset("/images/bldg-entrance.jpg") }}"><h4>'+place.formatted_address+'</h4>');	
+		    	$('#bldg-details-header').html('<h2>'+place.name+'</h2><img src="{{ asset("/images/bldg-entrance.jpg") }}"><h4>'+place.formatted_address+'</h4>');	
     		});
 
     	});
@@ -265,7 +275,7 @@
 
 		    $('#bldg-details-panel').animate({width: '33.33%'}, 300, function () {
 		    	$('#bldg-details-panel').css('z-index', '100000');
-		    	$('#bldg-details-header').html('<h2>'+place.name+'</h2><img class="img-responsive" src="{{ asset("/images/bldg-entrance.jpg") }}"><h4>'+place.formatted_address+'</h4>');	
+		    	$('#bldg-details-header').html('<h2>'+place.name+'</h2><img src="{{ asset("/images/bldg-entrance.jpg") }}"><h4>'+place.formatted_address+'</h4>');	
 		    });
     		$('#map').animate({width: '66.66%', left: '33.33%'}, 150, function () {
     			map.panBy(100,0);
@@ -274,7 +284,7 @@
 	    } else {
 	    	$('#bldg-details-panel').animate({width: '0%'}, 300, function () {
 			    $('#bldg-details-panel').css('z-index', '100000');
-			   	$('#bldg-details-header').html('<h2>'+place.name+'</h2><img class="img-responsive" src="{{ asset("/images/bldg-entrance.jpg") }}"><h4>'+place.formatted_address+'</h4>');	
+			   	$('#bldg-details-header').html('<h2>'+place.name+'</h2><img src="{{ asset("/images/bldg-entrance.jpg") }}"><h4>'+place.formatted_address+'</h4>');	
 			});
 
 	    }
