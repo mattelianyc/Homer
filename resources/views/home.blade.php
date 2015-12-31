@@ -139,7 +139,7 @@
     	}
 
     	#collapse-sidepanel-btn, #expand-bldg-details-btn, #collapse-bldg-details-btn {
-		    font-size: 36px !important;
+		    font-size: 24px !important;
     	}
 		
 		#collapse-bldg-details-btn{color:#d9534f; position: relative; left: 24px;}
@@ -190,9 +190,13 @@
    			overflow: hidden;
    		}
 
+   		#bldg-street-view {
+   			width: 100%;
+    		height: 400px;
+   		}
    		#street-view {
-   			width: 400px;
-   			height: 400px;
+   			height: 350px;
+   			width: 480px;
    		}
 </style>
 
@@ -209,13 +213,13 @@
 			<div class="col-xs-12" style="position:inherit;z-index:1000000">
 				<div class="row">	
 					<a id="collapse-sidepanel-btn" class="btn pull-left">
-						<i class="fa fa-chevron-left"></i>
+						<span><i class="fa fa-chevron-left"></i> <p>sidebar</p></span>
 					</a>
 					<a id="expand-bldg-details-btn" class="btn pull-right">
-						<i class="fa fa-expand"></i>
+						<span><i class="fa fa-expand"></i> <p>more info</p></span>
 					</a>
 					<a id="collapse-bldg-details-btn" class="btn pull-left" style="display:none;">
-						<i class="fa fa-compress"></i>
+						<span><i class="fa fa-compress"></i> <p>minify</p></span>
 					</a>
 				</div>
 			</div>
@@ -226,14 +230,19 @@
 			<div id="analytics-page-header" style="position:relative;z-index:100;">
 				
 				<div class="row">
-
+					<div id="bldg-address-and-street-view" class="col-xs-12">
 						
-					<div id="bldg-address" class="col-xs-12">
-						<div id="bldg-details-header"></div>
-					</div>
-					
-					<div id="street-view"></div>
+						<div class="col-xs-12">
+							<div id="bldg-address">
+								<div id="bldg-details-header"></div>
+							</div>
+						</div>
 
+						<div class="col-xs-12" style="padding:0;">
+							<div id="street-view" style=""></div>
+						</div>
+
+					</div>
 					<!-- sidebar display none -->
 					<div id="bldg-facts" style="display:none;">
 						<div class="headline-review">

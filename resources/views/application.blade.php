@@ -280,9 +280,12 @@
 		 		$('#user-reviews').fadeIn();
 		 		$('#bldg-facts').fadeIn();
 		 		$('#rent-price-line-graph').fadeIn();
-		 		
-		 		$('#bldg-address').removeClass('col-xs-12');
-		 		$('#bldg-address').addClass('col-xs-7');
+
+		 		$('#street-view').css('width', '520px').css('height', '400px');
+
+		 		$('#bldg-address-and-street-view').removeClass('col-xs-12');
+		 		$('#bldg-address-and-street-view').addClass('col-xs-7');
+
 		 		$('#bldg-facts').addClass('col-xs-5');
 
 		 		$('#bldg-details-header').css('max-height', '500px').css('overflow', 'hidden');
@@ -291,7 +294,7 @@
 		 		$('#collapse-bldg-details-btn').css('display', 'block');
 		 		
 		 		$('#tab-content-wrapper').css('width', '33.33%');
-		 		$('#bldg-address').css('width', '33.33%');
+		 		$('#bldg-address').css('width', '100%').css('text-align', 'center');
 
 		 	});
 		 });
@@ -308,8 +311,10 @@
 		 	$('#user-reviews').fadeOut();
 			$('#rent-price-line-graph').fadeOut();
 
-	 		$('#bldg-address').addClass('col-xs-12');
-		 	$('#bldg-address').removeClass('col-xs-7');
+		 	$('#bldg-address-and-street-view').addClass('col-xs-12');
+		 	$('#bldg-address-and-street-view').removeClass('col-xs-7');
+
+		 	$('#street-view').css('width', '480px').css('height', '360px');
 	 		$('#bldg-facts').removeClass('col-xs-5');	 		
 
 		 	$('#bldg-details-panel').animate({width: '33.33%'}, 300, function () {
@@ -454,15 +459,16 @@
       {
         position: {lat: marker.place.location.lat(), lng: marker.place.location.lng()},
         pov: {heading: 165, pitch: 0},
-        zoom: 1
+        zoom: 0
       });
 
 	  });
 	
 	}
 
+
 	// Run the initialize function when the window has finished loading.
-	google.maps.event.addDomListener(window, 'load', initialize);
+	google.maps.event.addDomListener(document, 'load', initialize);
 
     </script>
 
