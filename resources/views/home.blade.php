@@ -209,16 +209,27 @@
 				<div id="bldg-details-header"></div>
 			</div>
 
+			<div id="bldg-facts" style="display:none;">
+				<div class="page-header">
+					<h3>Building Facts</h3>	
+				</div>
+				<p>81 Units</p>
+				<p>6 Stories</p>
+				<p>Built in 2013</p>
+				<p>Doorman</p>
+				<p>2 Elevators</p>
+				<p>Gym</p>
+				<p>On-Site Laundry</p>
+				<p>Communal Terrace</p>
+			</div>
+
 			<div id="data-visualization" style="display:none;">
-				<div class="col-xs-8">
+				<div class="col-xs-12">
 					<div class="row text-center">
-						<h1>DATA VISUALIZATION</h1>
-					</div>
-					<div class="row">
-						<div class="col-xs-6">
+						<div class="col-xs-4 col-xs-offset-1">
 							<div id="donutchart" style="width: 900px; height: 500px;"></div>
 						</div>
-						<div class="col-xs-6">
+						<div class="col-xs-4 col-xs-offset-1">
 							<div id="donutchart_two" style="width: 900px; height: 500px;"></div>
 						</div>
 					</div>

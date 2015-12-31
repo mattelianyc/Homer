@@ -34,7 +34,6 @@
         ]);
 
         var options = {
-          title: 'Would Recommend This Building',
           pieHole: 0.4,
           legend: 'none',
           width: 487.5,
@@ -59,7 +58,6 @@
         ]);
 
         var options = {
-          title: 'Approve of Management',
           pieHole: 0.4,
           legend: 'none',
           width: 487.5,
@@ -202,10 +200,14 @@
 		 $('#expand-bldg-details-btn').click(function () {
 		 	$('#bldg-details-panel').animate({width: '100%'}, 300, function () {
 		 		
+		 		$('#tab-content-wrapper').css('display', 'none');
+
 		 		$('#bldg-header').removeClass('col-xs-12');
-		 		$('#bldg-header').addClass('col-xs-4');
+		 		$('#bldg-header').addClass('col-xs-7');
+		 		$('#bldg-facts').addClass('col-xs-5');
 
 		 		$('#data-visualization').fadeIn();
+		 		$('#bldg-facts').fadeIn();
 
 		 		$('#expand-bldg-details-btn').css('display', 'none');
 		 		$('#collapse-bldg-details-btn').css('display', 'block');
@@ -218,10 +220,14 @@
 
 		 $('#collapse-bldg-details-btn').click(function () { 
 		 	
+		 	$('#tab-content-wrapper').css('display', 'block');
+
 	 		$('#bldg-header').addClass('col-xs-12');
-		 	$('#bldg-header').removeClass('col-xs-4');
+		 	$('#bldg-header').removeClass('col-xs-7');
+	 		$('#bldg-facts').removeClass('col-xs-5');	 		
 
 		 	$('#data-visualization').fadeOut();
+	 		$('#bldg-facts').fadeOut();
 		 	$('#bldg-details-panel').animate({width: '33.33%'}, 300, function () {
 		 		
 		 		$('#expand-bldg-details-btn').css('display', 'block');
