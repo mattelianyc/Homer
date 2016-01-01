@@ -76,7 +76,7 @@
     	}
 
     	.fa-bars {
-    		font-size: 18px;
+    		font-size: 24px !important;
     	}
     	.fa-star, .fa-search {
     		font-size: 30px;
@@ -90,10 +90,11 @@
 			font-size: 48px;	
     	}
     	.fa-power-off {
-    		font-size: 18px;
+    		font-size: 24px !important;
     	}
     	.fa-compress {
     		color: #d9534f;
+    		font-size: 24px !important;
     	}
 
    	#bldg-details-panel {
@@ -104,6 +105,7 @@
    		background-color: white;
    		border-right: 2px solid #183050;
    		padding:30px;
+   		padding-top: 15px !important;
    		overflow-y:scroll;
    		overflow-x:hidden;
    	}
@@ -120,8 +122,8 @@
 
     	#toggle-sidepanel-btn {
 	    	position: absolute;
-		    left: 6px;
-	    	top: 6px !important;
+		    left: 3px;
+	    	top: 3px !important;
 	    	background-color: white;
 	    	border-color: white;
 	    	color:#183050;
@@ -130,8 +132,8 @@
 
     	#home-sidebar-btn {
 	    	position: absolute;
-		    left: 6px;
-	    	bottom: 6px !important;
+		    left: 3px;
+	    	bottom: 3px !important;
 	    	z-index:102;
 	    	color: #d43f3a;
 	    	background-color: white;
@@ -142,7 +144,7 @@
 		    font-size: 24px !important;
     	}
 		
-		#collapse-bldg-details-btn{color:#d9534f; position: relative; left: 24px;}
+		#collapse-bldg-details-btn{color:#d9534f; position: relative; left: 3px;}
 
 		#collapse-sidepanel-btn{color:#d9534f;}
 		#expand-bldg-details-btn{color:#5cb85c;}
@@ -196,8 +198,16 @@
    		}
    		#street-view {
    			height: 350px;
-   			width: 90% !important;
-   			margin: 0% 5% !important;
+   			width: 100% !important;
+   		}
+   		#bldg-address {
+   			text-align: center;
+   		}
+	   		#bldg-address > h2 {
+	   			margin-top: 0;
+   			}
+   		#bldg-address-and-street-view {
+   			padding: 0px 15px;
    		}
 </style>
 
@@ -212,15 +222,15 @@
 	<div id="bldg-details-panel">
 		<div class="row">
 			<div class="col-xs-12" style="position:inherit;z-index:1000000">
-				<div class="row">	
+				<div class="row" style="margin-bottom:5px;">	
 					<a id="collapse-sidepanel-btn" class="btn pull-left">
-						<span><i class="fa fa-chevron-left"></i> <p>sidebar</p></span>
+						<span><i class="fa fa-chevron-left"></i> <p style="display:inline;position:relative;left:4px;bottom:2px">sidebar</p></span>
 					</a>
 					<a id="expand-bldg-details-btn" class="btn pull-right">
-						<span><i class="fa fa-expand"></i> <p>more info</p></span>
+						<span><p style="display:inline;position:relative;right:4px;bottom:2px">more info</p> <i class="fa fa-expand"></i></span>
 					</a>
 					<a id="collapse-bldg-details-btn" class="btn pull-left" style="display:none;">
-						<span><i class="fa fa-compress"></i> <p>minify</p></span>
+						<span><i class="fa fa-compress"></i> <p style="display:inline;position:relative;left:4px;bottom:2px">minify</p></span>
 					</a>
 				</div>
 			</div>
@@ -240,7 +250,7 @@
 						</div>
 
 						<div class="col-xs-12" style="padding:0;">
-							<div id="street-view" style="width:90%;padding: 0% 5%;"></div>
+							<div id="street-view"></div>
 						</div>
 
 					</div>

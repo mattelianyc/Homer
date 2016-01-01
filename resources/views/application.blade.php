@@ -239,6 +239,20 @@
 		});
 
 		 $('#toggle-sidepanel-btn').click(function () {
+
+		 	// console.log(($('#tab-content-wrapper')).css('display'));
+		 	// console.log(($('#analytics-page-wrapper')).css('display'));
+		 	
+
+		 	if($('#analytics-page-wrapper').css('display') == 'none') {
+		 		$('#analytics-page-wrapper').fadeIn();
+		 	}  
+
+		 	if($('#tab-content-wrapper').css('display') == 'none') {
+		 		$('#tab-content-wrapper').fadeIn();
+		 	}  
+		 	
+		 	$('#analytics-page-wrapper, #tab-content-wrapper').fadeIn();
 			
 	    	$('#bldg-details-panel').css('z-index', '100000');
 		 	// console.log($('#sidebar').css('border-right'));
@@ -259,6 +273,8 @@
 	    });
 
 		 $('#collapse-sidepanel-btn').click(function () {
+
+		 	$('#analytics-page-wrapper, #tab-content-wrapper').fadeOut();
 
 	    	$('#bldg-details-panel').animate({width: '0'}, 300, function () {
 		    	$('#bldg-details-panel').css('z-index', '0');
@@ -283,16 +299,18 @@
 		 		$('#collapse-sidepanel-btn').css('display', 'none');
 		 		$('#analytics-page-wrapper').addClass('container');
 
+
 		 		$('#bldg-facts').fadeIn();
 		 		$('#donut-graphs').fadeIn();
 		 		$('#user-reviews').fadeIn();
 		 		$('#bldg-facts').fadeIn();
 		 		$('#rent-price-line-graph').fadeIn();
 
-		 		$('#street-view').css('width', '520px').css('height', '400px');
+		 		$('#street-view').css('width', '520px').css('height', '420px');
 
 		 		$('#bldg-address-and-street-view').removeClass('col-xs-12');
 		 		$('#bldg-address-and-street-view').addClass('col-xs-7');
+		 		$('#bldg-address-and-street-view').css('padding', '0px 30px;');
 
 		 		$('#bldg-facts').addClass('col-xs-5');
 
@@ -313,9 +331,9 @@
 
 		 $('#collapse-bldg-details-btn').click(function () { 
 
-		 	$('#street-view').animate({opacity: 0}, 100, function () {
-	 			google.maps.event.trigger(panorama, 'resize');	
-	 		});
+		 	$('#street-view').css('display', 'none');
+ 			google.maps.event.trigger(panorama, 'resize');	
+
 		
 		 	$('#collapse-bldg-details-btn').css('display', 'none');
 		 	$('#collapse-sidepanel-btn').fadeIn();
@@ -329,6 +347,7 @@
 
 		 	$('#bldg-address-and-street-view').addClass('col-xs-12');
 		 	$('#bldg-address-and-street-view').removeClass('col-xs-7');
+		 	$('#bldg-address-and-street-view').css('padding', '0px 15px;');
 
 		 	$('#street-view').css('width', '480px').css('height', '360px');
 	 		$('#bldg-facts').removeClass('col-xs-5');	 		
@@ -343,9 +362,8 @@
 			
 			});
 
-		 	$('#street-view').animate({opacity: 1}, 100, function () {
-				google.maps.event.trigger(panorama, 'resize');
-			});
+		 	$('#street-view').fadeIn();
+			google.maps.event.trigger(panorama, 'resize');
 
 		 });
 
@@ -434,6 +452,14 @@
 	    if (!place.geometry) {
 	      return;
 	    }
+
+	    if($('#analytics-page-wrapper').css('display') == 'none') {
+		 		$('#analytics-page-wrapper').fadeIn();
+		 	}  
+
+	 	if($('#tab-content-wrapper').css('display') == 'none') {
+	 		$('#tab-content-wrapper').fadeIn();
+	 	}  
 		    		
 		$('#map').animate({width: '100%', left: '0'}, 150, function () {
     		
