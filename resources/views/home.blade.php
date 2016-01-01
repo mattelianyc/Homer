@@ -358,9 +358,9 @@
 						<div class="page-header">
 							<h3>Past 12 Months</h3>
 						</div>
-						<strong>Average Rent:</strong><p style="display:inline;">$5,232/mo</p><br>
-						<strong>Highest Rent:</strong><p style="display:inline;">$6,100/mo</p><br>
-						<strong>Lowest Rent:</strong><p style="display:inline;">$4,650/mo</p><br>
+						<strong>Average Rent:</strong> &nbsp;<p style="display:inline;">$5,232/mo</p><br>
+						<strong>Highest Rent:</strong> &nbsp;<p style="display:inline;">$6,100/mo</p><br>
+						<strong>Lowest Rent:</strong> &nbsp;<p style="display:inline;">$4,650/mo</p><br>
 					</div>
 					<div class="col-xs-6"></div>
 
