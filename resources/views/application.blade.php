@@ -100,7 +100,8 @@
 	          y: {
 	          	1: {side: 'left'}
 	          }
-	        }
+	        },
+	        legend: { position: "none" }
 	      };
 
 	      var chart = new google.charts.Line(document.getElementById('line_top_x'));
@@ -269,6 +270,11 @@
 		 });
 
 		 $('#expand-bldg-details-btn').click(function () {
+		 	
+		 	$('#street-view').animate({opacity: 0}, 10, function () {
+	 			google.maps.event.trigger(panorama, 'resize');	
+	 		});
+
 		 	$('#bldg-details-panel').animate({width: '100%'}, 300, function () {
 		 		
 		 		$('#tab-content-wrapper').css('display', 'none');
@@ -296,11 +302,19 @@
 		 		$('#tab-content-wrapper').css('width', '33.33%');
 		 		$('#bldg-address').css('width', '100%').css('text-align', 'center');
 
+				$('#street-view').animate({opacity: 1}, 10, function () {
+					google.maps.event.trigger(panorama, 'resize');
+				});
+
 		 	});
 		 });
 
 		 $('#collapse-bldg-details-btn').click(function () { 
-		 	
+
+		 	$('#street-view').animate({opacity: 0}, 100, function () {
+	 			google.maps.event.trigger(panorama, 'resize');	
+	 		});
+		
 		 	$('#collapse-bldg-details-btn').css('display', 'none');
 		 	$('#collapse-sidepanel-btn').fadeIn();
 		 	$('#tab-content-wrapper').css('display', 'block');
@@ -324,16 +338,27 @@
 		 		
 		 		$('#tab-content-wrapper').css('width', '100%');
 		 		$('#bldg-address').css('width', '100%');
-		 	});
+			
+			});
+
+		 	$('#street-view').animate({opacity: 1}, 100, function () {
+				google.maps.event.trigger(panorama, 'resize');
+			});
+
 		 });
 
 	});
+
+	</script>
+
+	<script>
 
 	// initialize GMAP function
 	// initialize GMAP function
 	// initialize GMAP function
 
 	var panorama;
+	var map;
 
     function initialize() {
 
@@ -374,7 +399,8 @@
 	      mapTypeIds: [google.maps.MapTypeId.ROADMAP, 'map_style']
 	    }
 	  };
-	  var map = new google.maps.Map(document.getElementById('map'), mapOptions);
+	  
+	  map = new google.maps.Map(document.getElementById('map'), mapOptions);
 
 	  map.mapTypes.set('map_style', styledMap);
   	  map.setMapTypeId('map_style');
@@ -411,7 +437,8 @@
     		
     		$('#bldg-details-panel').animate({width: '33.33%'}, 300, function () {
 	    		$('#bldg-details-panel').css('z-index', '100000');
-		    	$('#bldg-address').html('<h2>'+place.name+'</h2><h4>'+place.formatted_address+'</h4>');		
+		    	$('#bldg-address').html('<h2>'+place.name+'</h2><h4>'+place.formatted_address+'</h4>');	
+		    	google.maps.event.trigger(panorama, 'resize');	
     		});
 
     	});
@@ -453,7 +480,7 @@
 	    marker.setVisible(true);
 	    infowindow.setContent('<div><strong>'+place.name+'</strong><br><br>'+'<p>'+place.formatted_address+'</p></div>');
 	    infowindow.open(map, marker);
-	  console.log(marker);
+	  
 	  panorama = new google.maps.StreetViewPanorama(
       document.getElementById('street-view'),
       {
@@ -461,16 +488,31 @@
         pov: {heading: 165, pitch: 0},
         zoom: 0
       });
-
-	  });
+	 });
 	
 	}
-
-
 	// Run the initialize function when the window has finished loading.
 	google.maps.event.addDomListener(document, 'load', initialize);
 
-    </script>
+
+
+	// $('#search-btn').click(function () {
+
+	// 	console.log(google.maps.StreetViewPanorama);
+
+	// 	// function reloadmap(){
+	// 	//   //when you resize the map, you lose your zoom and your center
+	// 	//   //so you need to get them again here
+	// 	//     z = map.getZoom();
+	// 	//     c = map.getCenter();
+	// 	//     google.maps.event.trigger(map, 'resize');
+	// 	//   //and set them again here
+	// 	//     map.setZoom(z);
+	// 	//     map.setCenter(c);
+	// 	// }
+
+	// });
+	</script>
 
     <script async defer
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDBqOQUEpaayq3Z0N4u2wtCu-i1npOoJzM&callback=initialize&libraries=places">

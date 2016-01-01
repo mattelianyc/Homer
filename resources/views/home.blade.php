@@ -196,7 +196,8 @@
    		}
    		#street-view {
    			height: 350px;
-   			width: 480px;
+   			width: 90% !important;
+   			margin: 0% 5% !important;
    		}
 </style>
 
@@ -239,7 +240,7 @@
 						</div>
 
 						<div class="col-xs-12" style="padding:0;">
-							<div id="street-view" style=""></div>
+							<div id="street-view" style="width:90%;padding: 0% 5%;"></div>
 						</div>
 
 					</div>
@@ -319,9 +320,13 @@
 
 					<hr>
 
-					<div class="col-xs-8 col-xs-offset-2">
+					<div class="col-xs-8">
 						<div id="line_top_x"></div>
 					</div>
+					<div class="col-xs-4">
+						<h3>Configuration</h3>
+					</div>
+
 				</div>
 			</div>
 
