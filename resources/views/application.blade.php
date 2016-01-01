@@ -425,8 +425,10 @@
 	  map.mapTypes.set('map_style', styledMap);
   	  map.setMapTypeId('map_style');
 
+
 	  var input = /** @type {HTMLInputElement} */(
-	      document.getElementById('place-search-input'));
+
+	  	document.getElementById('place-search-input'));
 
 	  // Create the autocomplete helper, and associate it with
 	  // an HTML text input box.
@@ -439,6 +441,7 @@
 	  var marker = new google.maps.Marker({
 	    map: map
 	  });
+
 	  google.maps.event.addListener(marker, 'click', function() {
 	    infowindow.open(map, marker);
 	  });
@@ -522,24 +525,6 @@
 	// Run the initialize function when the window has finished loading.
 	google.maps.event.addDomListener(document, 'load', initialize);
 
-
-
-	// $('#search-btn').click(function () {
-
-	// 	console.log(google.maps.StreetViewPanorama);
-
-	// 	// function reloadmap(){
-	// 	//   //when you resize the map, you lose your zoom and your center
-	// 	//   //so you need to get them again here
-	// 	//     z = map.getZoom();
-	// 	//     c = map.getCenter();
-	// 	//     google.maps.event.trigger(map, 'resize');
-	// 	//   //and set them again here
-	// 	//     map.setZoom(z);
-	// 	//     map.setCenter(c);
-	// 	// }
-
-	// });
 	</script>
 
     <script async defer
