@@ -265,7 +265,9 @@
 		    	$('#analytics-panel').css('z-index', '0');
 
 		    });
-    		$('#map').animate({width: '100%', left: '0'}, 150, function () {});
+    		$('#map').animate({width: '100%', left: '0'}, 150, function () {
+    			google.maps.event.trigger(map, 'resize');
+    		});
 
 		 });
 
