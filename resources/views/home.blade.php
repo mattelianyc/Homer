@@ -111,7 +111,7 @@
    	}
 
    	#sidebar {
-   		display: none;
+   		opacity: 1;
    		position: absolute;
    		background-color: white;
    		border-right: 2px solid #183050;
@@ -358,9 +358,9 @@
 						<div class="page-header">
 							<h3>Past 12 Months</h3>
 						</div>
-						<strong>Average Rent:</strong> &nbsp;<p style="display:inline;">$5,232/mo</p><br>
-						<strong>Highest Rent:</strong> &nbsp;<p style="display:inline;">$6,100/mo</p><br>
-						<strong>Lowest Rent:</strong> &nbsp;<p style="display:inline;">$4,650/mo</p><br>
+						<strong>Average Rent:</strong><p style="display:inline;">$5,232/mo</p><br>
+						<strong>Highest Rent:</strong><p style="display:inline;">$6,100/mo</p><br>
+						<strong>Lowest Rent:</strong><p style="display:inline;">$4,650/mo</p><br>
 					</div>
 					<div class="col-xs-6"></div>
 
@@ -465,17 +465,6 @@
 	<input class="form-control" id="place-search-input" />
 	<div id="map"></div>
 
-	<!-- SPLASH PAGE -->
-	<div id="landing-page-wrapper">
-		<div class="row">
-			<span id="search-btn" class="btn btn-info btn-lg"><i class="fa fa-search"></i></span>
-		</div>
-		<div class="row text-center">
-			<div class="col-xs-6 col-xs-offset-3">
-				<img id="landing-page-logo" class="img-responsive animated" src="{{ asset('/images/tw_blue.png') }}"  />
-			</div>
-		</div>
-	</div>
 </div>
 
 

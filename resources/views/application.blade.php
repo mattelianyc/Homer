@@ -144,36 +144,6 @@
 
 </head>
 <body>
-	<nav class="navbar navbar-default">
-		<!-- <div class="container-fluid">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-					<span class="sr-only">Toggle Navigation</span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand" href="#">TenantWire</a>
-			</div>
-
-			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-				<ul class="nav navbar-nav">
-					<li><a href="/">Home</a></li>
-				</ul>
-
-				<ul class="nav navbar-nav navbar-right">
-					<li><a href="/auth/login">Login</a></li>
-					<li><a href="/auth/register">Register</a></li>
-					<li class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> hello world <span class="caret"></span></a>
-						<ul class="dropdown-menu" role="menu">
-							<li><a href="/auth/logout">Logout</a></li>
-						</ul>
-					</li>
-				</ul>
-			</div>
-		</div> -->
-	</nav>
 
 	@yield('content')
 
@@ -188,8 +158,6 @@
 		$('#landing-page-logo').addClass('rollIn');
 
 		$('#home-sidebar-btn').click(function () {
-
-			$('#sidebar').fadeOut();
 			
 			$('#map').animate({opacity: 0}, 800, function () {
 				$('#landing-page-wrapper').css('z-index', '10000');
@@ -207,42 +175,26 @@
 
 		});
 
-		$('#search-btn').click(function () {
-			
-			$('#landing-page-logo').removeClass('rollIn');
-			$('#landing-page-logo').addClass('rollOut');
-			
-			$('#sidebar').fadeIn();
+		$('#place-search-input').animate({
+			position: 'absolute',
+	    	left: 'initial !important',
+		    right: '500px !important',
+	    	top: '10px !important',
+	    	height:'50px',
+	    	opacity: 1
+		}, 400, function () {});
 
-			$('#place-search-input').animate({
-				position: 'absolute',
-		    	left: 'initial !important',
-			    right: '500px !important',
-		    	top: '10px !important',
-		    	height:'50px',
-		    	opacity: 1
-			}, 400, function () {});
-
-			$('#place-search-input').animate({
-				right: '+=510'
-			}, 600, function () {});
-			
-			$('#landing-page-wrapper').animate({opacity: 0}, 800, function () {
-				$('#landing-page-wrapper').css('z-index', '10');
-				$('#toggle-sidepanel-btn').css('z-index', '10000');
-			});
-			
-			$('#map').animate({opacity: 1}, 1000, function () {
-				$('#map').css('z-index', '100');
-			});
-			
+		$('#place-search-input').animate({
+			right: '+=510'
+		}, 600, function () {});
+		
+		$('#map').animate({opacity: 1}, 1000, function () {
+			$('#map').css('z-index', '100');
 		});
 
 		 $('#toggle-sidepanel-btn').click(function () {
-
-		 	// console.log(($('#tab-content-wrapper')).css('display'));
-		 	// console.log(($('#analytics-page-wrapper')).css('display'));
 		 	
+		 	$('#sidebar').css('display','none');
 
 		 	if($('#analytics-page-wrapper').css('display') == 'none') {
 		 		$('#analytics-page-wrapper').fadeIn();
@@ -254,7 +206,6 @@
 		 	
 		 	$('#analytics-page-wrapper, #tab-content-wrapper').fadeIn();
 			
-	    	$('#bldg-details-panel').css('z-index', '100000');
 		 	// console.log($('#sidebar').css('border-right'));
 	    	if ($("#bldg-details-panel").css('width') == '62px') {
 				
@@ -274,6 +225,8 @@
 
 		 $('#collapse-sidepanel-btn').click(function () {
 
+		 	$('#sidebar').css('display','block');
+
 		 	$('#analytics-page-wrapper, #tab-content-wrapper').fadeOut();
 
 	    	$('#bldg-details-panel').animate({width: '0'}, 300, function () {
@@ -289,9 +242,7 @@
 
 		 $('#expand-bldg-details-btn').click(function () {
 		 	
-		 	$('#street-view').animate({opacity: 0}, 10, function () {
-	 			google.maps.event.trigger(panorama, 'resize');	
-	 		});
+		 	$('#bldg-details-panel').css('z-index', '100000');
 
 		 	$('#bldg-details-panel').animate({width: '100%'}, 300, function () {
 		 		
@@ -306,7 +257,6 @@
 		 		$('#bldg-facts').fadeIn();
 		 		$('#rent-price-line-graph').fadeIn();
 
-		 		$('#street-view').css('width', '520px').css('height', '420px');
 
 		 		$('#bldg-address-and-street-view').removeClass('col-xs-12');
 		 		$('#bldg-address-and-street-view').addClass('col-xs-7');
@@ -322,17 +272,26 @@
 		 		$('#tab-content-wrapper').css('width', '33.33%');
 		 		$('#bldg-address').css('width', '100%').css('text-align', 'center');
 
-				$('#street-view').animate({opacity: 1}, 10, function () {
-					google.maps.event.trigger(panorama, 'resize');
-				});
-
 		 	});
+
+	 		if(panorama){
+		 		$('#street-view').animate({opacity: 1}, 100, function () {
+		 			$('#street-view').css('width', '520px').css('height', '420px');
+		 			google.maps.event.trigger(panorama, 'resize');	
+		 		});
+	 		} else {
+	 			return;
+ 			}
+
 		 });
 
 		 $('#collapse-bldg-details-btn').click(function () { 
-
-		 	$('#street-view').css('display', 'none');
- 			google.maps.event.trigger(panorama, 'resize');	
+ 			
+ 			if(panorama){
+		 		$('#street-view').animate({opacity: 1}, 10, function () {
+ 					google.maps.event.trigger(panorama, 'resize');	
+	 			});
+ 			}	
 
 		
 		 	$('#collapse-bldg-details-btn').css('display', 'none');
@@ -361,10 +320,6 @@
 		 		$('#bldg-address').css('width', '100%');
 			
 			});
-
-		 	$('#street-view').fadeIn();
-			google.maps.event.trigger(panorama, 'resize');
-
 		 });
 
 	});
@@ -425,10 +380,8 @@
 	  map.mapTypes.set('map_style', styledMap);
   	  map.setMapTypeId('map_style');
 
-
 	  var input = /** @type {HTMLInputElement} */(
-
-	  	document.getElementById('place-search-input'));
+	      document.getElementById('place-search-input'));
 
 	  // Create the autocomplete helper, and associate it with
 	  // an HTML text input box.
@@ -441,7 +394,6 @@
 	  var marker = new google.maps.Marker({
 	    map: map
 	  });
-
 	  google.maps.event.addListener(marker, 'click', function() {
 	    infowindow.open(map, marker);
 	  });

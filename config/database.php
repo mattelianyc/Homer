@@ -54,10 +54,10 @@ return [
 
 		'mysql' => [
 			'driver'    => 'mysql',
-			'host'      => env('DB_HOST', 'localhost'),
-			'database'  => env('DB_DATABASE', 'TWDB'),
-			'username'  => env('DB_USERNAME', 'root'),
-			'password'  => env('DB_PASSWORD', ''),
+			'host'      => 'us-cdbr-iron-east-03.cleardb.net',
+			'database'  => 'heroku_4d3d83f7a82a3d6',
+			'username'  => 'bc286693a1e3c2',
+			'password'  => '1f409ae3',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',
