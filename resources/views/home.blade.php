@@ -323,6 +323,9 @@
 					<strong>Advice to Future Tenants</strong>
 					<p>Read your lease very carefully! In fact, spend the money to get a lawyer to read through it and explain it to you, and you might be able to get that stupid 3 month part removed. If not though, the roaches will drive you crazy. Plan on hiring your own exterminator, or else just find another place to live.</p>
 				</div>
+				<div class="row">
+					<a class="btn btn-info"><i class="fa fa-plus"></i> See More Reviews</a>
+				</div>
 			</div>
 
 			<div id="rent-price-line-graph" style="display:none;">
@@ -330,14 +333,39 @@
 
 					<hr>
 
-					<div class="col-xs-8">
+					<div class="col-xs-8" style="overflow:scroll;">
 						<div id="line_top_x"></div>
 					</div>
+
 					<div class="col-xs-4">
-						<h3>Configuration</h3>
+						<div class="page-header">
+							<h3>Configuration</h3>
+						</div>
+						<ul class="list-group">
+						  <li class="list-group-item">2Br/2Ba</li>
+						  <li class="list-group-item">3Br/2Ba</li>
+						  <li class="list-group-item">4Br/3Ba</li>
+						</ul>
 					</div>
 
 				</div>
+
+				<div class="row">
+
+					<hr>
+
+					<div class="col-xs-6">
+						<div class="page-header">
+							<h3>Past 12 Months</h3>
+						</div>
+						<strong>Average Rent:</strong><p style="display:inline;">$5,232/mo</p><br>
+						<strong>Highest Rent:</strong><p style="display:inline;">$6,100/mo</p><br>
+						<strong>Lowest Rent:</strong><p style="display:inline;">$4,650/mo</p><br>
+					</div>
+					<div class="col-xs-6"></div>
+
+				</div>
+
 			</div>
 
 		</div> <!-- end analytics page wrapper -->
