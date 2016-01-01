@@ -1,5 +1,9 @@
 <?php namespace App\Http\Controllers;
 
+use Auth;
+use Session;
+use Redirect;
+
 class HomeController extends Controller {
 
 	/*
@@ -33,5 +37,13 @@ class HomeController extends Controller {
 	{
 		return view('home');
 	}
+
+	public function logout()
+	{
+		Auth::logout();	
+		Session::flush();
+		return Redirect::to('home');
+	}
+
 
 }

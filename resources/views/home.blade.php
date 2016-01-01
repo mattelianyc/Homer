@@ -215,7 +215,7 @@
 	
 	<div id="sidebar">
 		<a id="toggle-sidepanel-btn" class="btn btn-info btn-lg"><i class="fa fa-bars"></i></a>
-		<a id="home-sidebar-btn" class="btn btn-danger btn-lg"><i class="fa fa-power-off"></i></a>
+		<a href="{{ action('HomeController@logout') }}" id="home-sidebar-btn" class="btn btn-danger btn-lg"><i class="fa fa-power-off"></i></a>
 		<div class="clearfix"></div>
 	</div>
 
