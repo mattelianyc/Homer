@@ -462,7 +462,7 @@
 	</div> <!-- end bldg-details-panel -->
 
 	<!-- GMAP -->
-	<input class="form-control" id="place-search-input" />
+	<input class="form-control" id="place-search-input" type="text" />
 	<div id="map"></div>
 
 </div>

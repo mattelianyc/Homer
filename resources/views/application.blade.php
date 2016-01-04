@@ -334,6 +334,7 @@
 
 	var panorama;
 	var map;
+	var marker;
 
     function initialize() {
 
@@ -391,7 +392,7 @@
 	  map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 
 	  var infowindow = new google.maps.InfoWindow();
-	  var marker = new google.maps.Marker({
+	  marker = new google.maps.Marker({
 	    map: map
 	  });
 	  google.maps.event.addListener(marker, 'click', function() {
@@ -474,6 +475,22 @@
 	 });
 	
 	}
+
+	// ON INVALID GMAP PLACE SEARCH IN PUT DISABLE TOGGLE SIDEBAR BUTTON
+
+	// $(document).ready(function () {
+
+	// 	$('#toggle-sidepanel-btn').attr("disabled","disabled");
+
+	// 	$("#place-search-input").change(function(){
+	// 		if ( $("#place-search-input").val() != '' && $("#place-search-input").length > 0 ) {
+	// 			$('#toggle-sidepanel-btn').removeAttr("disabled");
+	// 		} else {
+	// 			$('#toggle-sidepanel-btn').attr("disabled","disabled");
+	// 		}    
+	// 	});
+
+	// });
 	// Run the initialize function when the window has finished loading.
 	google.maps.event.addDomListener(document, 'load', initialize);
 
