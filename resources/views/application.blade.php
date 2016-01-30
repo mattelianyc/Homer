@@ -462,7 +462,7 @@
 	      location: place.geometry.location
 	    }));
 	    marker.setVisible(true);
-	    infowindow.setContent('<div><strong>'+place.name+'</strong><br><br>'+'<p>'+place.formatted_address+'</p></div>');
+	    infowindow.setContent('<div><strong>'+place.name+'</strong><br><br>'+'<p>'+place.formatted_address+'</p></div><strong>'+marker.place.location.lat()+'</strong><br><strong>'+marker.place.location.lng()+'</strong>');
 	    infowindow.open(map, marker);
 	  
 	  panorama = new google.maps.StreetViewPanorama(
