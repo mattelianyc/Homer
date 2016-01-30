@@ -484,6 +484,24 @@
 	// LOAD APT/WORKPLACE/FREQUENTED.LOCATION DATA
 	// LOAD APT/WORKPLACE/FREQUENTED.LOCATION DATA
 
+		var apartments = [
+		    @foreach ($apartments as $apt)
+		        [ {{ $apt->lat }}, {{ $apt->lng }}, "{{ $apt->title }}", "{{ $apt->address }}", "{{ $apt->city }}", "{{ $apt->state }}" ],     
+		    @endforeach
+	    ];
+
+		var workplaces = [
+		    @foreach ($workplaces as $wp)
+		        [ {{ $wp->lat }}, {{ $wp->lng }}, "{{ $wp->title }}", "{{ $wp->address }}", "{{ $wp->city }}", "{{ $wp->state }}" ]    
+		    @endforeach
+	    ];
+
+		var frequentedLocations = [
+		    @foreach ($frequented_locations as $fl)
+		        [ {{ $fl->lat }}, {{ $fl->lng }}, "{{ $fl->title }}", "{{ $fl->address }}", "{{ $fl->city }}", "{{ $fl->state }}" ]    
+		    @endforeach
+	    ];
+
 	    var apartment;
 
 	    var home = new google.maps.LatLng(apartments[0][0], apartments[0][1]);
