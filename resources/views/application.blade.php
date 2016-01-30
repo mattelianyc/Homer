@@ -484,11 +484,11 @@
 	// LOAD APT/WORKPLACE/FREQUENTED.LOCATION DATA
 	// LOAD APT/WORKPLACE/FREQUENTED.LOCATION DATA
 
-		// var apartments = [
-		//     @foreach ($apartments as $apt)
-		//         [ {{ $apt->lat }}, {{ $apt->lng }}, "{{ $apt->title }}", "{{ $apt->address }}", "{{ $apt->city }}", "{{ $apt->state }}" ],     
-		//     @endforeach
-	 //    ];
+		var apartments = [
+		    @foreach ($apartments as $apt)
+		        [ {{ $apt->lat }}, {{ $apt->lng }}, "{{ $apt->title }}", "{{ $apt->address }}", "{{ $apt->city }}", "{{ $apt->state }}" ],     
+		    @endforeach
+	    ];
 
 		var workplaces = [
 		    @foreach ($workplaces as $wp)
@@ -504,26 +504,26 @@
 
 	    var apartment;
 
-	  //   var home = new google.maps.LatLng(apartments[0][0], apartments[0][1]);
-	  //   var work = new google.maps.LatLng(workplaces[0][0], workplaces[0][1]);
-	  //   console.log(home.lat()+', '+home.lng());
-	  //   console.log(work.lat()+', '+work.lng());
+	    var home = new google.maps.LatLng(apartments[0][0], apartments[0][1]);
+	    var work = new google.maps.LatLng(workplaces[0][0], workplaces[0][1]);
+	    console.log(home.lat()+', '+home.lng());
+	    console.log(work.lat()+', '+work.lng());
 
-	  //   for (i = 0; i < apartments.length; i++) {
+	    for (i = 0; i < apartments.length; i++) {
 
-	  //       apartment = new google.maps.LatLng(apartments[i][0], apartments[i][1]);
+	        apartment = new google.maps.LatLng(apartments[i][0], apartments[i][1]);
 
-			// // console.log(apartment);
-	  //       var marker = new google.maps.Marker({
-	  //           position: apartment,
-	  //           map: map,
-	  //       });
+			// console.log(apartment);
+	        var marker = new google.maps.Marker({
+	            position: apartment,
+	            map: map,
+	        });
 
-	  //       marker.setVisible(true); 
+	        marker.setVisible(true); 
 
-	  //       infowindow.setContent('<div>'+apartments[i][2]+'<br>'+apartments[i][3]+', '+apartments[i][4]+', '+apartments[i][5]+'</div>');
-	  //       infowindow.open(map, marker);
-	  //   }
+	        infowindow.setContent('<div>'+apartments[i][2]+'<br>'+apartments[i][3]+', '+apartments[i][4]+', '+apartments[i][5]+'</div>');
+	        infowindow.open(map, marker);
+	    }
 	
 	    var workplace;
 
