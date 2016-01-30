@@ -473,6 +473,30 @@
         zoom: 0
       });
 	 });
+
+		var apartments = [
+		    @foreach ($apartments as $apt)
+		        [ {{ $apt->lat }}, {{ $apt->lng }}, "{{ $apt->title }}", "{{ $apt->address }}", "{{ $apt->city }}", "{{ $apt->state }}" ],     
+		    @endforeach
+	    ];
+
+	    var apartment;
+
+	    for (i = 0; i < apartments.length; i++) {
+
+	        apartment = new google.maps.LatLng(apartments[i][0], apartments[i][1]);
+
+			// console.log(apartment);
+	        var marker = new google.maps.Marker({
+	            position: apartment,
+	            map: map,
+	        });
+
+	        marker.setVisible(true); 
+
+	        infowindow.setContent('<div>'+apartments[i][2]+'<br>'+apartments[i][3]+', '+apartments[i][4]+', '+apartments[i][5]+'</div>');
+	        infowindow.open(map, marker);
+	    }
 	
 	}
 
@@ -492,6 +516,7 @@
 
 	// });
 	// Run the initialize function when the window has finished loading.
+
 	google.maps.event.addDomListener(document, 'load', initialize);
 
 	</script>

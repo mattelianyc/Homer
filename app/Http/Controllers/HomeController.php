@@ -4,6 +4,8 @@ use Auth;
 use Session;
 use Redirect;
 
+use App\Apartment as Apartment;
+
 class HomeController extends Controller {
 
 	/*
@@ -23,10 +25,10 @@ class HomeController extends Controller {
 	 * @return void
 	 */
 	
-	public function __construct()
-	{
-		$this->middleware('auth');
-	}
+	// public function __construct()
+	// {
+	// 	$this->middleware('auth');
+	// }
 
 	/**
 	 * Show the application dashboard to the user.
@@ -35,7 +37,9 @@ class HomeController extends Controller {
 	 */
 	public function index()
 	{
-		return view('home');
+		$apartments = Apartment::all();
+
+		return view('home')->with(compact('apartments'));
 	}
 
 	public function logout()

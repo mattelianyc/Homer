@@ -19,3 +19,10 @@ Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',
 ]);
+
+// Route::group(['prefix' => 'api'], function()
+// {
+
+//     Route::get('apartments', 'HomeController@apartments');
+
+// });
