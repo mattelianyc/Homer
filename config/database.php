@@ -55,9 +55,9 @@ return [
 		'mysql' => [
 			'driver'    => 'mysql',
 			'host'      => 'us-cdbr-iron-east-03.cleardb.net',
-			'database'  => 'heroku_4d3d83f7a82a3d6',
-			'username'  => 'bc286693a1e3c2',
-			'password'  => '1f409ae3',
+			'database'  => 'heroku_ac9821827d13692',
+			'username'  => 'b0b752ea781e6e',
+			'password'  => 'd578ac00',
 			// 'host'      => 'localhost',
 			// 'database'  => 'TWDB',
 			// 'username'  => 'root',
