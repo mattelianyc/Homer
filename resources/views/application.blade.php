@@ -336,8 +336,11 @@
 	var map;
 	var marker;
 
-    function initialize() {
 
+
+    function initialize() {
+    	var directionsService = new google.maps.DirectionsService;
+		var directionsDisplay = new google.maps.DirectionsRenderer;
     // Create an array of styles.
 	  var styles = [
 	    {
@@ -380,6 +383,8 @@
 
 	  map.mapTypes.set('map_style', styledMap);
   	  map.setMapTypeId('map_style');
+
+  	  directionsDisplay.setMap(map);
 
 	  var input = /** @type {HTMLInputElement} */(
 	      document.getElementById('place-search-input'));
@@ -474,13 +479,35 @@
       });
 	 });
 
+
+	// LOAD APT/WORKPLACE/FREQUENTED.LOCATION DATA
+	// LOAD APT/WORKPLACE/FREQUENTED.LOCATION DATA
+	// LOAD APT/WORKPLACE/FREQUENTED.LOCATION DATA
+
 		var apartments = [
 		    @foreach ($apartments as $apt)
 		        [ {{ $apt->lat }}, {{ $apt->lng }}, "{{ $apt->title }}", "{{ $apt->address }}", "{{ $apt->city }}", "{{ $apt->state }}" ],     
 		    @endforeach
 	    ];
 
+		var workplaces = [
+		    @foreach ($workplaces as $wp)
+		        [ {{ $wp->lat }}, {{ $wp->lng }}, "{{ $wp->title }}", "{{ $wp->address }}", "{{ $wp->city }}", "{{ $wp->state }}" ]    
+		    @endforeach
+	    ];
+
+		var frequentedLocations = [
+		    @foreach ($frequented_locations as $fl)
+		        [ {{ $fl->lat }}, {{ $fl->lng }}, "{{ $fl->title }}", "{{ $fl->address }}", "{{ $fl->city }}", "{{ $fl->state }}" ]    
+		    @endforeach
+	    ];
+
 	    var apartment;
+
+	    var home = new google.maps.LatLng(apartments[0][0], apartments[0][1]);
+	    var work = new google.maps.LatLng(workplaces[0][0], workplaces[0][1]);
+	    console.log(home.lat()+', '+home.lng());
+	    console.log(work.lat()+', '+work.lng());
 
 	    for (i = 0; i < apartments.length; i++) {
 
@@ -498,24 +525,79 @@
 	        infowindow.open(map, marker);
 	    }
 	
+	    var workplace;
+
+	    for (i = 0; i < workplaces.length; i++) {
+
+	        workplace = new google.maps.LatLng(workplaces[i][0], workplaces[i][1]);
+
+			// console.log(workplace);
+	        var marker = new google.maps.Marker({
+	            position: workplace,
+	            map: map,
+	        });
+
+	        marker.setVisible(true); 
+
+	        infowindow.setContent('<div>'+workplaces[i][2]+'<br>'+workplaces[i][3]+', '+workplaces[i][4]+', '+workplaces[i][5]+'</div>');
+	        infowindow.open(map, marker);
+
+	    }
+
+	    var freqLoc;
+
+	    for (i = 0; i < frequentedLocations.length; i++) {
+
+	        freqLoc = new google.maps.LatLng(frequentedLocations[i][0], frequentedLocations[i][1]);
+
+			// console.log(workplace);
+	        var marker = new google.maps.Marker({
+	            position: freqLoc,
+	            map: map,
+	        });
+
+	        marker.setVisible(true); 
+
+	        infowindow.setContent('<div>'+frequentedLocations[i][2]+'<br>'+frequentedLocations[i][3]+', '+frequentedLocations[i][4]+', '+frequentedLocations[i][5]+'</div>');
+	        infowindow.open(map, marker);
+
+	    }
+
+// var home = new google.maps.LatLng(55.930385, -3.118425);
+
+// var destinationA = "Stockholm, Sweden";
+
+
+var service = new google.maps.DistanceMatrixService();
+service.getDistanceMatrix(
+{
+origins: [home],
+destinations: [work],
+travelMode: google.maps.TravelMode.TRANSIT,
+}, callback);
+
+function callback(response, status) {
+	console.log(response);
+	console.log(status);
+	calcRoute();
+}
+function calcRoute() {
+			var start = home;
+			var end = work;
+			var request = {
+			origin:start,
+			destination:end,
+			travelMode: google.maps.TravelMode.TRANSIT
+			};
+			directionsService.route(request, function(result, status) {
+			if (status == google.maps.DirectionsStatus.OK) {
+			  directionsDisplay.setDirections(result);
+			}
+		});
 	}
+}
 
-	// ON INVALID GMAP PLACE SEARCH IN PUT DISABLE TOGGLE SIDEBAR BUTTON
-
-	// $(document).ready(function () {
-
-	// 	$('#toggle-sidepanel-btn').attr("disabled","disabled");
-
-	// 	$("#place-search-input").change(function(){
-	// 		if ( $("#place-search-input").val() != '' && $("#place-search-input").length > 0 ) {
-	// 			$('#toggle-sidepanel-btn').removeAttr("disabled");
-	// 		} else {
-	// 			$('#toggle-sidepanel-btn').attr("disabled","disabled");
-	// 		}    
-	// 	});
-
-	// });
-	// Run the initialize function when the window has finished loading.
+	
 
 	google.maps.event.addDomListener(document, 'load', initialize);
 

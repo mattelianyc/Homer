@@ -5,6 +5,8 @@ use Session;
 use Redirect;
 
 use App\Apartment as Apartment;
+use App\Workplace as Workplace;
+use App\FrequentedLocation as FrequentedLocation;
 
 class HomeController extends Controller {
 
@@ -38,8 +40,10 @@ class HomeController extends Controller {
 	public function index()
 	{
 		$apartments = Apartment::all();
+		$workplaces = Workplace::all();
+		$frequented_locations = FrequentedLocation::all();
 
-		return view('home')->with(compact('apartments'));
+		return view('home')->with(compact('apartments', 'workplaces', 'frequented_locations'));
 	}
 
 	public function logout()
