@@ -485,7 +485,7 @@
 	// LOAD APT/WORKPLACE/FREQUENTED.LOCATION DATA
 
 		var apartments = [
-		    @foreach ($apartments as $apt)
+		    @foreach ({{$apartments as $apt}})
 		        [ {{ $apt->lat }}, {{ $apt->lng }}, "{{ $apt->title }}", "{{ $apt->address }}", "{{ $apt->city }}", "{{ $apt->state }}" ],     
 		    @endforeach
 	    ];
