@@ -1,59 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>TenantWire</title>
 
-	<link href="/css/app.css" rel="stylesheet">
-	<link href="/css/font-awesome.min.css" rel="stylesheet">
-	<link href="/css/animate.css" rel="stylesheet">
-	<link href="/css/main.css" rel="stylesheet">
-
-	<!-- Fonts -->
-	<link href='//fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
-
-	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-	<!--[if lt IE 9]>
-		<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-	<![endif]-->
-
-	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
-	<script src="{{ asset('js/charts.js') }}"></script>
-
-</head>
-<body>
-
-	@yield('content')
-
-<!-- Scripts -->
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script>
-
-<script>
-
-	$(document).ready(function () {
-		
-		$('#submit-user-info-btn').click(function() {
-			$('#user-info-modal').hide();
-		});
-
-		$('#add-freq-loc-input').click(function() {
-			var freqLocMarker = document.getElementById('insert-freq-loc-before-marker');
-			console.log(freqLocMarker);
-			$(freqLocMarker).append('<div class="form-group"><div class="col-xs-12"><input class="form-control" style="width:90%;" placeholder="Enter Frequented Location"></input>&nbsp;<a class="btn btn-danger" onclick="$(this).parent().parent().children().remove();"><i class="fa fa-minus"></i></a></div>');
-		});		
-
-		$('.remove-freq-loc-input').click(function() {
-		});
-	});
-
-	</script>
-
-	<script>
 
 	// initialize GMAP function
 	// initialize GMAP function
@@ -329,10 +274,3 @@
 	google.maps.event.addDomListener(document, 'load', initialize);
 
 	</script>
-
-    <script async defer
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDBqOQUEpaayq3Z0N4u2wtCu-i1npOoJzM&callback=initialize&libraries=places">
-    </script>
-
-</body>
-</html>

@@ -1,0 +1,35 @@
+@font-face {
+  font-family: 'manifesto';
+  src: url('../fonts/ChaletParisNineteenSixty.otf');
+}
+@font-face {
+  font-family: 'manifesto-bold';
+  src: url('../fonts/Chalet-New-York-Nineteen-Sixty.otf');
+}
+
+* {
+	font-family: 'manifesto';
+}
+
+#user-info-modal {
+	position:absolute;
+	z-index: 11;
+	top:5%;
+	left:10%;
+	right:10%;
+	width:80%;
+}
+	.modal-body > .page-header {
+		margin:10px 0px 10px 0px;
+	}
+	.form-control {
+		display: inline;
+	}
+
+	#freq-loc-input-wrapper {
+		max-height: 240px;
+		overflow-y: scroll;
+		overflow-x: hidden;
+	}
+
+#map { height: 100%; width: 100%; position: absolute; z-index: 10;}
