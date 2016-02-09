@@ -21,126 +21,7 @@
 	<![endif]-->
 
 	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
-    
-    <script type="text/javascript">
-      google.load("visualization", "1", {packages:["corechart"]});
-      google.setOnLoadCallback(drawChart);
-      
-      function drawChart() {
-        var data = google.visualization.arrayToDataTable([
-          ['Task', 'Hours per Day'],
-          ['Would Recommend This Building', 29],
-          ['Would NOT Recommend This Building', 71]
-        ]);
-
-        var options = {
-          pieHole: 0.4,
-          legend: 'none',
-          width: 487.5,
-          height: 650,
-          pieSliceText: 'none'
-        };
-
-        var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
-        chart.draw(data, options);
-      }
-    </script>
-
-    <script type="text/javascript">
-      google.load("visualization", "1", {packages:["corechart"]});
-      google.setOnLoadCallback(drawChart);
-      
-      function drawChart() {
-        var data = google.visualization.arrayToDataTable([
-          ['Task', 'Hours per Day'],
-          ['Approve of Management', 54],
-          ['Do NOT Approve of Management', 46]
-        ]);
-
-        var options = {
-          pieHole: 0.4,
-          legend: 'none',
-          width: 487.5,
-          height: 650,
-          pieSliceText: 'none'
-        };
-
-        var chart = new google.visualization.PieChart(document.getElementById('donutchart_two'));
-        chart.draw(data, options);
-      }
-    </script>
-
-    <!-- ANALYTICS BLDG PAGE CHART -->
-    <script type="text/javascript">
-	    google.load('visualization', '1.1', {packages: ['line']});
-	    google.setOnLoadCallback(drawChart);
-
-	    function drawChart() {
-
-	      var data = new google.visualization.DataTable();
-	      data.addColumn('date', 'Year');
-	      data.addColumn('number', 'Average Rent');
-	      data.addRows([
-	        [new Date(2013, 12, 1),  4000],
-	        [new Date(2014, 12, 1), 4500],
-	        [new Date(2015, 12, 1), 5000]
-	      ]);
-
-	      var options = {
-	        chart: {
-	          title: 'Rent History',
-	          subtitle: 'in US skrilla'
-	        },
-	        width: 900,
-	        height: 500,
-	        axes: {
-	          x: {
-	            0: {side: 'bottom'}
-	          },
-	          y: {
-	          	1: {side: 'left'}
-	          }
-	        },
-	        legend: { position: "none" }
-	      };
-
-	      var chart = new google.charts.Line(document.getElementById('line_top_x'));
-	      chart.draw(data, options);
-	    }
-  	</script>
-
-  	<!-- FINANCIAL TAB BAR CHART -->
-  	<script type="text/javascript">
-    google.load("visualization", "1", {packages:["corechart"]});
-    google.setOnLoadCallback(drawChart);
-    function drawChart() {
-      var data = google.visualization.arrayToDataTable([
-        ["Element", "Density", { role: "style" } ],
-        ["Copper", 8.94, "#b87333"],
-        ["Silver", 10.49, "silver"],
-        ["Gold", 19.30, "gold"],
-        ["Platinum", 21.45, "color: #e5e4e2"]
-      ]);
-
-      var view = new google.visualization.DataView(data);
-      view.setColumns([0, 1,
-                       { calc: "stringify",
-                         sourceColumn: 1,
-                         type: "string",
-                         role: "annotation" },
-                       2]);
-
-      var options = {
-        title: "Density of Precious Metals, in g/cm^3",
-        width: 450,
-        height: 250,
-        bar: {groupWidth: "95%"},
-        legend: { position: "none" },
-      };
-      var chart = new google.visualization.BarChart(document.getElementById("barchart_values"));
-      chart.draw(view, options);
-  }
-  </script>
+	<script src="{{ asset('js/charts.js') }}"></script>
 
 </head>
 <body>
@@ -329,8 +210,6 @@
 	<script>
 
 	// initialize GMAP function
-	// initialize GMAP function
-	// initialize GMAP function
 
 	var panorama;
 	var map;
@@ -502,16 +381,19 @@
 		    @endforeach
 	    ];
 
-	    var apartment;
-
 	    var home = new google.maps.LatLng(apartments[0][0], apartments[0][1]);
 	    var work = new google.maps.LatLng(workplaces[0][0], workplaces[0][1]);
+	    var girlfriend = new google.maps.LatLng(apartments[1][0], apartments[1][1]);
+	    var friends = new google.maps.LatLng(frequentedLocations[0][0], frequentedLocations[0][1]);
+
 	    console.log(home.lat()+', '+home.lng());
 	    console.log(work.lat()+', '+work.lng());
+	    console.log(girlfriend.lat()+', '+girlfriend.lng());
+	    console.log(friends.lat()+', '+friends.lng());
 
 	    for (i = 0; i < apartments.length; i++) {
 
-	        apartment = new google.maps.LatLng(apartments[i][0], apartments[i][1]);
+	        var apartment = new google.maps.LatLng(apartments[i][0], apartments[i][1]);
 
 			// console.log(apartment);
 	        var marker = new google.maps.Marker({
@@ -524,12 +406,10 @@
 	        infowindow.setContent('<div>'+apartments[i][2]+'<br>'+apartments[i][3]+', '+apartments[i][4]+', '+apartments[i][5]+'</div>');
 	        infowindow.open(map, marker);
 	    }
-	
-	    var workplace;
 
 	    for (i = 0; i < workplaces.length; i++) {
 
-	        workplace = new google.maps.LatLng(workplaces[i][0], workplaces[i][1]);
+	        var workplace = new google.maps.LatLng(workplaces[i][0], workplaces[i][1]);
 
 			// console.log(workplace);
 	        var marker = new google.maps.Marker({
@@ -544,11 +424,9 @@
 
 	    }
 
-	    var freqLoc;
-
 	    for (i = 0; i < frequentedLocations.length; i++) {
 
-	        freqLoc = new google.maps.LatLng(frequentedLocations[i][0], frequentedLocations[i][1]);
+	        var freqLoc = new google.maps.LatLng(frequentedLocations[i][0], frequentedLocations[i][1]);
 
 			// console.log(workplace);
 	        var marker = new google.maps.Marker({
@@ -563,41 +441,37 @@
 
 	    }
 
-// var home = new google.maps.LatLng(55.930385, -3.118425);
 
-// var destinationA = "Stockholm, Sweden";
-
-
-var service = new google.maps.DistanceMatrixService();
-service.getDistanceMatrix(
-{
-origins: [home],
-destinations: [work],
-travelMode: google.maps.TravelMode.TRANSIT,
-}, callback);
-
-function callback(response, status) {
-	console.log(response);
-	console.log(status);
-	calcRoute();
-}
-function calcRoute() {
-			var start = home;
-			var end = work;
-			var request = {
-			origin:start,
-			destination:end,
+	    // ROUTE CALCS
+		var service = new google.maps.DistanceMatrixService();
+		
+		service.getDistanceMatrix({
+			origins: [home, home, home],
+			destinations: [work, girlfriend, friends],
 			travelMode: google.maps.TravelMode.TRANSIT
-			};
-			directionsService.route(request, function(result, status) {
-			if (status == google.maps.DirectionsStatus.OK) {
-			  directionsDisplay.setDirections(result);
-			}
-		});
-	}
-}
+		}, callback);
 
-	
+		function callback(response, status) {
+			// console.log(response);
+			// console.log(status);
+			calcRoute();
+		}
+
+		function calcRoute() {
+				var start = [home, home, home];
+				var end = [work, girlfriend, friends];
+				var request = {
+					origin:start,
+					destination:end,
+					travelMode: google.maps.TravelMode.TRANSIT
+				};
+				directionsService.route(request, function(result, status) {
+				if (status == google.maps.DirectionsStatus.OK) {
+				  directionsDisplay.setDirections(result);
+				}
+			});
+		}
+	}
 
 	google.maps.event.addDomListener(document, 'load', initialize);
 
