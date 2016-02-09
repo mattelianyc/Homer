@@ -4,6 +4,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="csrf-token" value="{{ csrf_token() }}">
 	<title>TenantWire</title>
 
 	<link href="/css/app.css" rel="stylesheet">
@@ -32,7 +33,7 @@
 <!-- Scripts -->
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script>
-
+<script src="{{ asset('js/calculateAjax.js') }}"></script>
 <script>
 
 	$(document).ready(function () {
@@ -51,7 +52,14 @@
 			if(counter == 5) {
 				$('#add-freq-loc-input').attr('disabled', 'disabled');
 			}
-		});		
+		});
+
+		// $('.input-group-addon').click(function() {
+		// 	if($('#input-group-5').css('display') == 'none') {
+		// 		$('#add-freq-loc-input').removeAttr('disabled', 'disabled');
+		// 		counter = counter--;
+		// 	}
+		// });
 
 	});
 

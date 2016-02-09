@@ -13,6 +13,8 @@
 
 Route::get('home', 'HomeController@index');
 Route::get('/', 'HomeController@logout');
+Route::post('/home/workplace', 'HomeController@workplace');
+Route::post('/home', 'HomeController@frequentedLocations');
 
 
 Route::controllers([

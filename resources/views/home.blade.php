@@ -6,12 +6,15 @@
 
 	<div id="user-info-modal">
 	  <div class="modal-dialog">
-
+		{!! Form::open(['action' => 'HomeController@workplace']) !!}
+		<input type="hidden" id="token" name="_token" value="{{ csrf_token() }}">
+		<input type="hidden" id="token" name="temp_user_id" value="{{ csrf_token() }}">
 	    <!-- Modal content-->
 	    <div class="modal-content">
 	      <div class="modal-header">
 	        <button type="button" class="close" data-dismiss="modal">&times;</button>
-	        <h4 class="modal-title">Welcome!, {{ $new_temp_user['payload'] }}</h4>
+	        <h4 class="modal-title">Welcome!</h4>
+
 	      </div>
 	      <div class="modal-body">
 	      	
@@ -20,7 +23,7 @@
 		      <h4>1. Where do you commute to and from for work?</h4>
 		    </div>
 	      	<div class="form-group">
-	        	<input id="workplace-search-input" class="form-control" placeholder="Enter Work Address"></input>
+	        	<input id="workplace-search-input" name="address" class="form-control" placeholder="Enter Work Address">
 	      	</div>
       		<hr>
 
@@ -41,24 +44,24 @@
 		    		<div class="col-xs-12">
 		    			<div id="input-group-1" class="input-group" style="display:none;">
 		    				<input id="freq-loc-input-1" class="form-control" placeholder="Enter Frequented Location Address">
-		    				<span class="input-group-addon" onclick="$(this).parent().remove();"><i class="fa fa-minus"></i></span>
+		    				<span class="input-group-addon" onclick="$(this).parent().hide();"><i class="fa fa-minus"></i></span>
 		    			</div>
 		    			<div id="input-group-2" class="input-group" style="display:none;">
 		    				<input id="freq-loc-input-2" class="form-control" placeholder="Enter Frequented Location Address">
-		    				<span class="input-group-addon" onclick="$(this).parent().remove();"><i class="fa fa-minus"></i></span>
+		    				<span class="input-group-addon" onclick="$(this).parent().hide();"><i class="fa fa-minus"></i></span>
 		    			</div>
 		    			<div id="input-group-3" class="input-group" style="display:none;">
 		    				<input id="freq-loc-input-3" class="form-control" placeholder="Enter Frequented Location Address">
-		    				<span class="input-group-addon" onclick="$(this).parent().remove();"><i class="fa fa-minus"></i></span>
+		    				<span class="input-group-addon" onclick="$(this).parent().hide();"><i class="fa fa-minus"></i></span>
 		    			</div>
-		    			<div id="input-group-4" class="input-group" style="display:none;">
+		    			<!-- <div id="input-group-4" class="input-group" style="display:none;">
 		    				<input id="freq-loc-input-4" class="form-control" placeholder="Enter Frequented Location Address">
-		    				<span class="input-group-addon" onclick="$(this).parent().remove();"><i class="fa fa-minus"></i></span>
+		    				<span class="input-group-addon" onclick="$(this).parent().hide();"><i class="fa fa-minus"></i></span>
 		    			</div>
 		    			<div id="input-group-5" class="input-group" style="display:none;">
 		    				<input id="freq-loc-input-5" class="form-control" placeholder="Enter Frequented Location Address">
-		    				<span class="input-group-addon" onclick="$(this).parent().remove();"><i class="fa fa-minus"></i></span>
-		    			</div>
+		    				<span class="input-group-addon" onclick="$(this).parent().hide();"><i class="fa fa-minus"></i></span>
+		    			</div> -->
 						<!-- <div id="insert-freq-loc-before-marker"></div> -->
 					</div>
 				</div>
@@ -69,12 +72,12 @@
 	      <div class="modal-footer">
 	      	<div class="row">
 	      		<div class="col-xs-12">
-	        		<a id="submit-user-info-btn" class="btn btn-success btn-block">Find your ideal apartment</a>
+	        		<button id="submit-user-info-btn" type="submit" class="btn btn-success btn-block">Find your ideal apartment</button>
 	      		</div>
 	      	</div>
 	      </div>
 	    </div>
-
+       {!! Form::close() !!}
 	  </div>	
 	</div>
 

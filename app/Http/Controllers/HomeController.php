@@ -45,13 +45,54 @@ class HomeController extends Controller {
 		$frequented_locations = FrequentedLocation::all();
 
 		$session = Session::all();
-		$new_temp_user = new TempUser;
-		$new_temp_user['payload'] = $session['_token'];
-		
-		$new_temp_user->save();
 
-		return view('home')->with(compact('workplaces', 'frequented_locations', 'new_temp_user'));
+		return view('home')->with(compact('workplaces', 'frequented_locations', 'session'));
 
+	}
+
+	/**
+	 * Show the application dashboard to the user.
+	 * @param  Request  $request
+	 * @return Response
+	 */
+	public function workplace(Request $request) {
+
+		$session = Session::all();
+		$temp_user = TempUser::where('payload', '=', $request->get('temp_user_id'))->get();
+
+		if($temp_user) {
+
+			$new_temp_user = new TempUser;
+			$new_temp_user['payload'] = $session['_token'];
+			$new_temp_user->save();
+
+
+			$new_workplace = new Workplace($request->all());
+			$new_workplace['temp_user_id'] = $new_temp_user['payload'];
+	        $new_workplace->save();
+
+		} else {
+
+			$temp_user = TempUser::where('payload', '=', $request->get('temp_user_id'))->first();
+			// dd($temp_user);
+			$new_workplace = new Workplace($request->all());
+			$new_workplace['temp_user_id'] = $temp_user['payload'];
+	        $new_workplace->save();
+
+		}
+
+
+
+	        return Redirect::to('home');
+	}
+
+	public function frequentedLocations(Request $request) {
+
+		if ($request->isMethod('post')){    
+            return response()->json(['response' => 'This is post method']); 
+        }
+
+        return response()->json(['response' => 'This is get method']);
 
 	}
 

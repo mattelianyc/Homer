@@ -15,15 +15,12 @@ class CreateWorkplacesTable extends Migration {
 		Schema::create('workplaces', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->integer('temp_user_id')->unsigned();
-			$table->foreign('temp_user_id')->references('id')->on('temp_users');
-			$table->string('title')->nullable();
+			$table->string('temp_user_id');
+			$table->foreign('temp_user_id')->references('payload')->on('temp_users');
 			$table->string('address');
-			$table->string('city');
-			$table->string('state');
 			$table->decimal('lat', 10, 8);
 			$table->decimal('lng', 11, 8);
-			$table->timestamp('created_at');
+			$table->timestamps();
 		});
 	}
 
