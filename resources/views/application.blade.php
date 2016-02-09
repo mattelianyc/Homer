@@ -42,21 +42,15 @@
 		});
 
 		var counter = 0;
-
 		$('#add-freq-loc-input').click(function() {
-			var freqLocMarker = document.getElementById('insert-freq-loc-before-marker');
-			console.log(freqLocMarker);
-			$(freqLocMarker).append('<div class="input-group"><input id="freq-loc-'+counter+'" class="form-control" placeholder="Enter Frequented Location Address"><span class="input-group-addon" onclick="$(this).parent().remove();"><i class="fa fa-minus"></i></span></div>');
 			counter++;
+			$('#input-group-'+counter+'').show();
+			// var freqLocMarker = document.getElementById('insert-freq-loc-before-marker');
+			// console.log(freqLocMarker);
+			// $(freqLocMarker).append('<div class="input-group"><input id="freq-loc-'+counter+'" class="form-control" placeholder="Enter Frequented Location Address"><span class="input-group-addon" onclick="$(this).parent().remove();"><i class="fa fa-minus"></i></span></div>');
 		});		
 
-		$('.remove-freq-loc-input').click(function() {
-		});
 	});
-
-	</script>
-
-	<script>
 
 	// initialize GMAP function
 	// initialize GMAP function
@@ -65,8 +59,6 @@
 	var panorama;
 	var map;
 	var marker;
-
-
 
     function initialize() {
     	var directionsService = new google.maps.DirectionsService;
@@ -116,15 +108,30 @@
 
   	  directionsDisplay.setMap(map);
 
-	  var input = /** @type {HTMLInputElement} */(
-	      document.getElementById('place-search-input'));
+	  var workplaceInput = document.getElementById('workplace-search-input');
+	  var freqLocInput1 = document.getElementById('freq-loc-input-1');
+	  var freqLocInput2 = document.getElementById('freq-loc-input-2');
+	  var freqLocInput3 = document.getElementById('freq-loc-input-3');
+	  var freqLocInput4 = document.getElementById('freq-loc-input-4');
+	  var freqLocInput5 = document.getElementById('freq-loc-input-5');
 
 	  // Create the autocomplete helper, and associate it with
 	  // an HTML text input box.
-	  var autocomplete = new google.maps.places.Autocomplete(input);
-	  autocomplete.bindTo('bounds', map);
+	  var autocompleteWorkplace = new google.maps.places.Autocomplete(workplaceInput);
+	  var autocompleteFreqLoc1 = new google.maps.places.Autocomplete(freqLocInput1);
+	  var autocompleteFreqLoc2 = new google.maps.places.Autocomplete(freqLocInput2);
+	  var autocompleteFreqLoc3 = new google.maps.places.Autocomplete(freqLocInput3);
+	  var autocompleteFreqLoc4 = new google.maps.places.Autocomplete(freqLocInput4);
+	  var autocompleteFreqLoc5 = new google.maps.places.Autocomplete(freqLocInput5);
 
-	  map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+	  autocompleteWorkplace.bindTo('bounds', map);
+	  autocompleteFreqLoc1.bindTo('bounds', map);
+	  autocompleteFreqLoc2.bindTo('bounds', map);
+	  autocompleteFreqLoc3.bindTo('bounds', map);
+	  autocompleteFreqLoc4.bindTo('bounds', map);
+	  autocompleteFreqLoc5.bindTo('bounds', map);
+
+	  // map.controls[google.maps.ControlPosition.TOP_LEFT].push(workplaceInput);
 
 	  var infowindow = new google.maps.InfoWindow();
 	  marker = new google.maps.Marker({
@@ -134,54 +141,15 @@
 	    infowindow.open(map, marker);
 	  });
 
+
 	  // Get the full place details when the user selects a place from the
 	  // list of suggestions.
-	  google.maps.event.addListener(autocomplete, 'place_changed', function() {
+	  google.maps.event.addListener(autocompleteWorkplace, 'place_changed', function() {
 	    infowindow.close();
 
-	    var place = autocomplete.getPlace();
+	    var place = autocompleteWorkplace.getPlace();
 	    if (!place.geometry) {
 	      return;
-	    }
-
-	    if($('#analytics-page-wrapper').css('display') == 'none') {
-		 		$('#analytics-page-wrapper').fadeIn();
-		 	}  
-
-	 	if($('#tab-content-wrapper').css('display') == 'none') {
-	 		$('#tab-content-wrapper').fadeIn();
-	 	}  
-		    		
-		$('#map').animate({width: '100%', left: '0'}, 150, function () {
-    		
-    		$('#bldg-details-panel').animate({width: '33.33%'}, 300, function () {
-	    		$('#bldg-details-panel').css('z-index', '100000');
-		    	$('#bldg-address').html('<h2>'+place.name+'</h2><h4>'+place.formatted_address+'</h4>');	
-		    	google.maps.event.trigger(panorama, 'resize');	
-    		});
-
-    	});
-
-		$('#map').animate({width: '66.66%', left: '33.33%'}, 150, function () {
-			map.panBy(100,0);
-		});
-
-	    if($("#bldg-details-panel").css('width') == '62px') {
-
-		    $('#bldg-details-panel').animate({width: '33.33%'}, 300, function () {
-		    	$('#bldg-details-panel').css('z-index', '100000');
-		    	$('#bldg-address').html('<h2>'+place.name+'</h2><h4>'+place.formatted_address+'</h4>');	
-		    });
-    		$('#map').animate({width: '66.66%', left: '33.33%'}, 150, function () {
-    			map.panBy(100,0);
-    		});
-
-	    } else {
-	    	$('#bldg-details-panel').animate({width: '0%'}, 300, function () {
-			    $('#bldg-details-panel').css('z-index', '100000');
-			   	$('#bldg-address').html('<h2>'+place.name+'</h2><h4>'+place.formatted_address+'</h4>');	
-			});
-
 	    }
 
 	    if (place.geometry.viewport) {
@@ -199,14 +167,15 @@
 	    marker.setVisible(true);
 	    infowindow.setContent('<div><strong>'+place.name+'</strong><br><br>'+'<p>'+place.formatted_address+'</p></div><strong>'+marker.place.location.lat()+'</strong><br><strong>'+marker.place.location.lng()+'</strong>');
 	    infowindow.open(map, marker);
-	  
-	  panorama = new google.maps.StreetViewPanorama(
-      document.getElementById('street-view'),
-      {
-        position: {lat: marker.place.location.lat(), lng: marker.place.location.lng()},
-        pov: {heading: 165, pitch: 0},
-        zoom: 0
-      });
+  
+		  // panorama = new google.maps.StreetViewPanorama(
+	   //    document.getElementById('street-view'),
+	   //    {
+	   //      position: {lat: marker.place.location.lat(), lng: marker.place.location.lng()},
+	   //      pov: {heading: 165, pitch: 0},
+	   //      zoom: 0
+	   //    });
+
 	 });
 
 
