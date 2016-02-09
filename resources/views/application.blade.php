@@ -134,170 +134,156 @@
 
 	  // map.controls[google.maps.ControlPosition.TOP_LEFT].push(workplaceInput);
 
-	  var infowindow = new google.maps.InfoWindow();
-	  marker = new google.maps.Marker({
-	    map: map
-	  });
-	  google.maps.event.addListener(marker, 'click', function() {
-	    infowindow.open(map, marker);
-	  });
+	  // var infowindow = new google.maps.InfoWindow();
+	  // marker = new google.maps.Marker({
+	  //   map: map
+	  // });
+	  // google.maps.event.addListener(marker, 'click', function() {
+	  //   infowindow.open(map, marker);
+	  // });
 
 
 	  // Get the full place details when the user selects a place from the
 	  // list of suggestions.
-	  google.maps.event.addListener(autocompleteWorkplace, 'place_changed', function() {
-	    infowindow.close();
 
-	    var place = autocompleteWorkplace.getPlace();
-	    if (!place.geometry) {
-	      return;
-	    }
+	 //  google.maps.event.addListener(autocompleteWorkplace, 'place_changed', function() {
+	 //    infowindow.close();
 
-	    if (place.geometry.viewport) {
-	      map.fitBounds(place.geometry.viewport);
-	    } else {
-	      map.setCenter(place.geometry.location);
-	      map.setZoom(17);
-	    }
+	 //    var place = autocompleteWorkplace.getPlace();
+	 //    if (!place.geometry) {
+	 //      return;
+	 //    }
 
-	    // Set the position of the marker using the place ID and location.
-	    marker.setPlace(/** @type {!google.maps.Place} */ ({
-	      placeId: place.place_id,
-	      location: place.geometry.location
-	    }));
-	    marker.setVisible(true);
-	    infowindow.setContent('<div><strong>'+place.name+'</strong><br><br>'+'<p>'+place.formatted_address+'</p></div><strong>'+marker.place.location.lat()+'</strong><br><strong>'+marker.place.location.lng()+'</strong>');
-	    infowindow.open(map, marker);
-  
-		  // panorama = new google.maps.StreetViewPanorama(
-	   //    document.getElementById('street-view'),
-	   //    {
-	   //      position: {lat: marker.place.location.lat(), lng: marker.place.location.lng()},
-	   //      pov: {heading: 165, pitch: 0},
-	   //      zoom: 0
-	   //    });
+	 //    if (place.geometry.viewport) {
+	 //      map.fitBounds(place.geometry.viewport);
+	 //    } else {
+	 //      map.setCenter(place.geometry.location);
+	 //      map.setZoom(17);
+	 //    }
 
-	 });
+	 //    // Set the position of the marker using the place ID and location.
+	 //    marker.setPlace(/** @type {!google.maps.Place} */ ({
+	 //      placeId: place.place_id,
+	 //      location: place.geometry.location
+	 //    }));
+	 //    marker.setVisible(true);
+	 //    infowindow.setContent('<div><strong>'+place.name+'</strong><br><br>'+'<p>'+place.formatted_address+'</p></div><strong>'+marker.place.location.lat()+'</strong><br><strong>'+marker.place.location.lng()+'</strong>');
+	 //    infowindow.open(map, marker);
+
+	 // });
 
 
 	// LOAD APT/WORKPLACE/FREQUENTED.LOCATION DATA
 	// LOAD APT/WORKPLACE/FREQUENTED.LOCATION DATA
 	// LOAD APT/WORKPLACE/FREQUENTED.LOCATION DATA
 
-		var apartments = [
-		    @foreach ($apartments as $apt)
-		        [ {{ $apt->lat }}, {{ $apt->lng }}, "{{ $apt->title }}", "{{ $apt->address }}", "{{ $apt->city }}", "{{ $apt->state }}" ],     
-		    @endforeach
-	    ];
+		// var workplaces = [
+		//     @foreach ($workplaces as $wp)
+		//         [ {{ $wp->lat }}, {{ $wp->lng }}, "{{ $wp->title }}", "{{ $wp->address }}", "{{ $wp->city }}", "{{ $wp->state }}" ]    
+		//     @endforeach
+	 //    ];
 
-		var workplaces = [
-		    @foreach ($workplaces as $wp)
-		        [ {{ $wp->lat }}, {{ $wp->lng }}, "{{ $wp->title }}", "{{ $wp->address }}", "{{ $wp->city }}", "{{ $wp->state }}" ]    
-		    @endforeach
-	    ];
+		// var frequentedLocations = [
+		//     @foreach ($frequented_locations as $fl)
+		//         [ {{ $fl->lat }}, {{ $fl->lng }}, "{{ $fl->title }}", "{{ $fl->address }}", "{{ $fl->city }}", "{{ $fl->state }}" ]    
+		//     @endforeach
+	 //    ];
 
-		var frequentedLocations = [
-		    @foreach ($frequented_locations as $fl)
-		        [ {{ $fl->lat }}, {{ $fl->lng }}, "{{ $fl->title }}", "{{ $fl->address }}", "{{ $fl->city }}", "{{ $fl->state }}" ]    
-		    @endforeach
-	    ];
+	 //    var apartment;
 
-	    var apartment;
+	 //    var home = new google.maps.LatLng(apartments[0][0], apartments[0][1]);
+	 //    var work = new google.maps.LatLng(workplaces[0][0], workplaces[0][1]);
+	 //    console.log(home.lat()+', '+home.lng());
+	 //    console.log(work.lat()+', '+work.lng());
 
-	    var home = new google.maps.LatLng(apartments[0][0], apartments[0][1]);
-	    var work = new google.maps.LatLng(workplaces[0][0], workplaces[0][1]);
-	    console.log(home.lat()+', '+home.lng());
-	    console.log(work.lat()+', '+work.lng());
+	 //    for (i = 0; i < apartments.length; i++) {
 
-	    for (i = 0; i < apartments.length; i++) {
+	 //        apartment = new google.maps.LatLng(apartments[i][0], apartments[i][1]);
 
-	        apartment = new google.maps.LatLng(apartments[i][0], apartments[i][1]);
+		// 	// console.log(apartment);
+	 //        var marker = new google.maps.Marker({
+	 //            position: apartment,
+	 //            map: map,
+	 //        });
 
-			// console.log(apartment);
-	        var marker = new google.maps.Marker({
-	            position: apartment,
-	            map: map,
-	        });
+	 //        marker.setVisible(true); 
 
-	        marker.setVisible(true); 
-
-	        infowindow.setContent('<div>'+apartments[i][2]+'<br>'+apartments[i][3]+', '+apartments[i][4]+', '+apartments[i][5]+'</div>');
-	        infowindow.open(map, marker);
-	    }
+	 //        infowindow.setContent('<div>'+apartments[i][2]+'<br>'+apartments[i][3]+', '+apartments[i][4]+', '+apartments[i][5]+'</div>');
+	 //        infowindow.open(map, marker);
+	 //    }
 	
-	    var workplace;
+	 //    var workplace;
 
-	    for (i = 0; i < workplaces.length; i++) {
+	 //    for (i = 0; i < workplaces.length; i++) {
 
-	        workplace = new google.maps.LatLng(workplaces[i][0], workplaces[i][1]);
+	 //        workplace = new google.maps.LatLng(workplaces[i][0], workplaces[i][1]);
 
-			// console.log(workplace);
-	        var marker = new google.maps.Marker({
-	            position: workplace,
-	            map: map,
-	        });
+		// 	// console.log(workplace);
+	 //        var marker = new google.maps.Marker({
+	 //            position: workplace,
+	 //            map: map,
+	 //        });
 
-	        marker.setVisible(true); 
+	 //        marker.setVisible(true); 
 
-	        infowindow.setContent('<div>'+workplaces[i][2]+'<br>'+workplaces[i][3]+', '+workplaces[i][4]+', '+workplaces[i][5]+'</div>');
-	        infowindow.open(map, marker);
+	 //        infowindow.setContent('<div>'+workplaces[i][2]+'<br>'+workplaces[i][3]+', '+workplaces[i][4]+', '+workplaces[i][5]+'</div>');
+	 //        infowindow.open(map, marker);
 
-	    }
+	 //    }
 
-	    var freqLoc;
+	 //    var freqLoc;
 
-	    for (i = 0; i < frequentedLocations.length; i++) {
+	 //    for (i = 0; i < frequentedLocations.length; i++) {
 
-	        freqLoc = new google.maps.LatLng(frequentedLocations[i][0], frequentedLocations[i][1]);
+	 //        freqLoc = new google.maps.LatLng(frequentedLocations[i][0], frequentedLocations[i][1]);
 
-			// console.log(workplace);
-	        var marker = new google.maps.Marker({
-	            position: freqLoc,
-	            map: map,
-	        });
+		// 	// console.log(workplace);
+	 //        var marker = new google.maps.Marker({
+	 //            position: freqLoc,
+	 //            map: map,
+	 //        });
 
-	        marker.setVisible(true); 
+	 //        marker.setVisible(true); 
 
-	        infowindow.setContent('<div>'+frequentedLocations[i][2]+'<br>'+frequentedLocations[i][3]+', '+frequentedLocations[i][4]+', '+frequentedLocations[i][5]+'</div>');
-	        infowindow.open(map, marker);
+	 //        infowindow.setContent('<div>'+frequentedLocations[i][2]+'<br>'+frequentedLocations[i][3]+', '+frequentedLocations[i][4]+', '+frequentedLocations[i][5]+'</div>');
+	 //        infowindow.open(map, marker);
 
-	    }
+	 //    }
 
 	// var home = new google.maps.LatLng(55.930385, -3.118425);
 
 	// var destinationA = "Stockholm, Sweden";
 
 
-	var service = new google.maps.DistanceMatrixService();
-	service.getDistanceMatrix(
-	{
-	origins: [home],
-	destinations: [work],
-	travelMode: google.maps.TravelMode.TRANSIT,
-	}, callback);
+	// var service = new google.maps.DistanceMatrixService();
+	// service.getDistanceMatrix(
+	// {
+	// origins: [home],
+	// destinations: [work],
+	// travelMode: google.maps.TravelMode.TRANSIT,
+	// }, callback);
 
-	function callback(response, status) {
-		console.log(response);
-		console.log(status);
-		calcRoute();
-	}
-	function calcRoute() {
-				var start = home;
-				var end = work;
-				var request = {
-				origin:start,
-				destination:end,
-				travelMode: google.maps.TravelMode.TRANSIT
-				};
-				directionsService.route(request, function(result, status) {
-				if (status == google.maps.DirectionsStatus.OK) {
-				  directionsDisplay.setDirections(result);
-				}
-			});
-		}
-	}
+	// function callback(response, status) {
+	// 	console.log(response);
+	// 	console.log(status);
+	// 	calcRoute();
+	// }
+	// function calcRoute() {
+	// 			var start = home;
+	// 			var end = work;
+	// 			var request = {
+	// 			origin:start,
+	// 			destination:end,
+	// 			travelMode: google.maps.TravelMode.TRANSIT
+	// 			};
+	// 			directionsService.route(request, function(result, status) {
+	// 			if (status == google.maps.DirectionsStatus.OK) {
+	// 			  directionsDisplay.setDirections(result);
+	// 			}
+	// 		});
+	// 	}
 
-	
+	}
 
 	google.maps.event.addDomListener(document, 'load', initialize);
 

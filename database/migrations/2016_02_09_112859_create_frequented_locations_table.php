@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateApartmentsTable extends Migration {
+class CreateFrequentedLocationsTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,11 +12,13 @@ class CreateApartmentsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('apartments', function(Blueprint $table)
+		Schema::create('frequented_locations', function(Blueprint $table)
 		{
 			$table->increments('id');
+			$table->integer('temp_user_id')->unsigned();
+			$table->foreign('temp_user_id')->references('id')->on('temp_users');
 			$table->string('title')->nullable();
-			$table->string('address');
+			$table->string('address')->nullable();
 			$table->string('city');
 			$table->string('state');
 			$table->decimal('lat', 10, 8);

@@ -3,10 +3,11 @@
 use Auth;
 use Session;
 use Redirect;
+use Illuminate\Http\Request as Request;
 
-use App\Apartment as Apartment;
 use App\Workplace as Workplace;
 use App\FrequentedLocation as FrequentedLocation;
+use App\TempUser as TempUser;
 
 class HomeController extends Controller {
 
@@ -34,16 +35,24 @@ class HomeController extends Controller {
 
 	/**
 	 * Show the application dashboard to the user.
-	 *
+	 * @param  Request  $request
+     * @param  int  $id
 	 * @return Response
 	 */
-	public function index()
+	public function index(Request $request)
 	{
-		$apartments = Apartment::all();
 		$workplaces = Workplace::all();
 		$frequented_locations = FrequentedLocation::all();
 
-		return view('home')->with(compact('apartments', 'workplaces', 'frequented_locations'));
+		$session = Session::all();
+		$new_temp_user = new TempUser;
+		$new_temp_user['payload'] = $session['_token'];
+		
+		$new_temp_user->save();
+
+		return view('home')->with(compact('workplaces', 'frequented_locations', 'new_temp_user'));
+
+
 	}
 
 	public function logout()

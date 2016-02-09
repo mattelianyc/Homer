@@ -2,8 +2,8 @@
 
 use Illuminate\Database\Eloquent\Model;
 
-class Apartment extends Model {
+class TempUser extends Model {
 
-	protected $table = 'apartments';
+	protected $table = 'temp_users';
 
 }
