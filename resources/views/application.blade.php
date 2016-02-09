@@ -48,12 +48,13 @@
 			// var freqLocMarker = document.getElementById('insert-freq-loc-before-marker');
 			// console.log(freqLocMarker);
 			// $(freqLocMarker).append('<div class="input-group"><input id="freq-loc-'+counter+'" class="form-control" placeholder="Enter Frequented Location Address"><span class="input-group-addon" onclick="$(this).parent().remove();"><i class="fa fa-minus"></i></span></div>');
+			if(counter == 5) {
+				$('#add-freq-loc-input').attr('disabled', 'disabled');
+			}
 		});		
 
 	});
 
-	// initialize GMAP function
-	// initialize GMAP function
 	// initialize GMAP function
 
 	var panorama;
