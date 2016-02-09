@@ -22,14 +22,21 @@
 	.modal-body > .page-header {
 		margin:10px 0px 10px 0px;
 	}
-	.form-control {
-		display: inline;
+	
+	.input-group {
+		margin:10px 0px 10px 0px;
 	}
 
 	#freq-loc-input-wrapper {
 		max-height: 240px;
 		overflow-y: auto;
 		overflow-x: hidden;
+	}
+
+	.input-group-addon {
+		background-color: #d9534f;
+		color:white;
+		cursor: pointer;
 	}
 
 #map { height: 100%; width: 100%; position: absolute; z-index: 10;}
