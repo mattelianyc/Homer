@@ -44,7 +44,7 @@
 		$('#add-freq-loc-input').click(function() {
 			var freqLocMarker = document.getElementById('insert-freq-loc-before-marker');
 			console.log(freqLocMarker);
-			$(freqLocMarker).append('<div class="form-group"><div class="col-xs-12"><input class="form-control" style="width:90%;" placeholder="Enter Frequented Location"></input>&nbsp;<a class="btn btn-danger" onclick="$(this).parent().parent().children().remove();"><i class="fa fa-minus"></i></a></div>');
+			$(freqLocMarker).append('<div class="form-group"><div class="col-xs-12"><input class="form-control" style="width:90%;" placeholder="Enter Frequented Location Address"></input>&nbsp;<a class="btn btn-danger" onclick="$(this).parent().parent().children().remove();"><i class="fa fa-minus"></i></a></div>');
 		});		
 
 		$('.remove-freq-loc-input').click(function() {

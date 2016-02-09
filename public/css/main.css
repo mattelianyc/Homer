@@ -28,7 +28,7 @@
 
 	#freq-loc-input-wrapper {
 		max-height: 240px;
-		overflow-y: scroll;
+		overflow-y: auto;
 		overflow-x: hidden;
 	}
 
