@@ -11,11 +11,7 @@
 		<input type="hidden" id="token" name="temp_user_id" value="{{ csrf_token() }}">
 	    <!-- Modal content-->
 	    <div class="modal-content">
-	      <div class="modal-header">
-	        <button type="button" class="close" data-dismiss="modal">&times;</button>
-	        <h4 class="modal-title">Welcome!</h4>
 
-	      </div>
 	      <div class="modal-body">
 	      	
 		    <div class="page-header">
