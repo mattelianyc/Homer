@@ -171,6 +171,9 @@
 
 
 	@if(Route::currentRouteName() == 'dovetail')
+
+	var home = new google.maps.LatLng(40.712551,-74.00435);
+	var service = new google.maps.DistanceMatrixService();
 	
 		var infowindow = new google.maps.InfoWindow();
 		  marker = new google.maps.Marker({
@@ -216,11 +219,14 @@
 
 	    }
 
+	    var freqLocArray = new Array();
 	    var freqLoc;
 
 	    for (i = 0; i < frequentedLocations.length; i++) {
 
-	        freqLoc = new google.maps.LatLng(frequentedLocations[i][0], frequentedLocations[i][1]);
+	    	freqLoc = new google.maps.LatLng(frequentedLocations[i][0], frequentedLocations[i][1]);
+
+	        freqLocArray.push(freqLoc);
 
 			// console.log(workplace);
 	        var marker = new google.maps.Marker({
@@ -232,37 +238,200 @@
 
 	        // infowindow.setContent('<div>'+frequentedLocations[i][2]+'<br>'+frequentedLocations[i][3]+', '+frequentedLocations[i][4]+', '+frequentedLocations[i][5]+'</div>');
 	        // infowindow.open(map, marker);
-
+	    
+	        
 	    }
+
+	    var pathOne;
+	    var pathTwo;
+	    var pathThree;
+
+	    freq_loc_1 = new google.maps.LatLng(freqLocArray[0].lat(), freqLocArray[0].lng());
+	    freq_loc_2 = new google.maps.LatLng(freqLocArray[1].lat(), freqLocArray[1].lng());
+	    freq_loc_3 = new google.maps.LatLng(freqLocArray[2].lat(), freqLocArray[2].lng());
+
+		service= new google.maps.DistanceMatrixService();
+
+		    service.getDistanceMatrix(
+			{
+			origins: [home],
+			destinations: [freq_loc_1, freq_loc_2, freq_loc_3],
+			travelMode: google.maps.TravelMode.TRANSIT,
+			}, callback);
+		
+			function callback(response, status) {
+				console.log(response);
+				console.log(status);
+				calcRouteOne();
+				calcRouteTwo();
+				calcRouteThree();
+				calcRouteWork();
+			}
+
+			function calcRouteOne() {
+					var start = home;
+					var end = freq_loc_1;
+					var request = {
+					origin:start,
+					destination:end,
+					travelMode: google.maps.TravelMode.TRANSIT
+					};
+					directionsService.route(request, function(result, status) {
+					if (status == google.maps.DirectionsStatus.OK) {
+					  directionsDisplay.setDirections(result);
+
+					   console.log(result);
+
+						console.log(result.routes[0].legs[0].steps);
+						// console.log(result.routes[0].legs[0].steps[0].start_point.lat());
+						// console.log(result.routes[0].legs[0].steps[0].start_point.lng());
+						// console.log(result.routes[0].legs[0].steps[0].end_point.lat());
+						// console.log(result.routes[0].legs[0].steps[0].end_point.lng());
+
+					   var pathCoords = [
+					    {lat: result.routes[0].legs[0].steps[0].start_point.lat(), lng: result.routes[0].legs[0].steps[0].start_point.lng()},
+					    {lat: result.routes[0].legs[0].steps[0].end_point.lat(), lng: result.routes[0].legs[0].steps[0].end_point.lng()},
+					    {lat: result.routes[0].legs[0].steps[1].start_point.lat(), lng: result.routes[0].legs[0].steps[1].start_point.lng()},
+					    {lat: result.routes[0].legs[0].steps[1].end_point.lat(), lng: result.routes[0].legs[0].steps[1].end_point.lng()},
+					    {lat: result.routes[0].legs[0].steps[2].start_point.lat(), lng: result.routes[0].legs[0].steps[2].start_point.lng()},
+					    {lat: result.routes[0].legs[0].steps[2].end_point.lat(), lng: result.routes[0].legs[0].steps[2].end_point.lng()},
+					  ];
+					  pathOne = new google.maps.Polyline({
+					    path: pathCoords,
+					    geodesic: true,
+					    strokeColor: 'red',
+					    strokeOpacity: 1.0,
+					    strokeWeight: 4
+					  });
+  					 pathOne.setMap(map);
+					}
+				});
+			}
+
+			function calcRouteTwo() {
+					var start = home;
+					var end = freq_loc_2;
+					var request = {
+					origin:start,
+					destination:end,
+					travelMode: google.maps.TravelMode.TRANSIT
+					};
+					directionsService.route(request, function(result, status) {
+					if (status == google.maps.DirectionsStatus.OK) {
+					  directionsDisplay.setDirections(result);
+					  console.log(result);
+
+						console.log(result.routes[0].legs[0].steps);
+						// console.log(result.routes[0].legs[0].steps[0].start_point.lat());
+						// console.log(result.routes[0].legs[0].steps[0].start_point.lng());
+						// console.log(result.routes[0].legs[0].steps[0].end_point.lat());
+						// console.log(result.routes[0].legs[0].steps[0].end_point.lng());
+
+					   var pathCoords = [
+					    {lat: result.routes[0].legs[0].steps[0].start_point.lat(), lng: result.routes[0].legs[0].steps[0].start_point.lng()},
+					    {lat: result.routes[0].legs[0].steps[0].end_point.lat(), lng: result.routes[0].legs[0].steps[0].end_point.lng()},
+					    {lat: result.routes[0].legs[0].steps[1].start_point.lat(), lng: result.routes[0].legs[0].steps[1].start_point.lng()},
+					    {lat: result.routes[0].legs[0].steps[1].end_point.lat(), lng: result.routes[0].legs[0].steps[1].end_point.lng()},
+					    {lat: result.routes[0].legs[0].steps[2].start_point.lat(), lng: result.routes[0].legs[0].steps[2].start_point.lng()},
+					    {lat: result.routes[0].legs[0].steps[2].end_point.lat(), lng: result.routes[0].legs[0].steps[2].end_point.lng()},
+					  ];
+					  pathTwo = new google.maps.Polyline({
+					    path: pathCoords,
+					    geodesic: true,
+					    strokeColor: 'red',
+					    strokeOpacity: 1.0,
+					    strokeWeight: 4
+					  });
+  					 pathTwo.setMap(map);
+					}
+				});
+			}
+
+			function calcRouteThree() {
+					var start = home;
+					var end = freq_loc_3;
+					var request = {
+					origin:start,
+					destination:end,
+					travelMode: google.maps.TravelMode.TRANSIT
+					};
+					directionsService.route(request, function(result, status) {
+					if (status == google.maps.DirectionsStatus.OK) {
+					  directionsDisplay.setDirections(result);
+
+					   console.log(result);
+
+						console.log(result.routes[0].legs[0].steps);
+						// console.log(result.routes[0].legs[0].steps[0].start_point.lat());
+						// console.log(result.routes[0].legs[0].steps[0].start_point.lng());
+						// console.log(result.routes[0].legs[0].steps[0].end_point.lat());
+						// console.log(result.routes[0].legs[0].steps[0].end_point.lng());
+
+					   var pathCoords = [
+					    {lat: result.routes[0].legs[0].steps[0].start_point.lat(), lng: result.routes[0].legs[0].steps[0].start_point.lng()},
+					    {lat: result.routes[0].legs[0].steps[0].end_point.lat(), lng: result.routes[0].legs[0].steps[0].end_point.lng()},
+					    {lat: result.routes[0].legs[0].steps[1].start_point.lat(), lng: result.routes[0].legs[0].steps[1].start_point.lng()},
+					    {lat: result.routes[0].legs[0].steps[1].end_point.lat(), lng: result.routes[0].legs[0].steps[1].end_point.lng()},
+					    {lat: result.routes[0].legs[0].steps[2].start_point.lat(), lng: result.routes[0].legs[0].steps[2].start_point.lng()},
+					    {lat: result.routes[0].legs[0].steps[2].end_point.lat(), lng: result.routes[0].legs[0].steps[2].end_point.lng()},
+					  ];
+					  pathThree = new google.maps.Polyline({
+					    path: pathCoords,
+					    geodesic: true,
+					    strokeColor: 'red',
+					    strokeOpacity: 1.0,
+					    strokeWeight: 4
+					  });
+  					 pathThree.setMap(map);
+
+					}
+				});
+			}
+
+			function calcRouteWork() {
+					var start = home;
+					var end = workplace;
+					var request = {
+					origin:start,
+					destination:end,
+					travelMode: google.maps.TravelMode.TRANSIT
+					};
+					directionsService.route(request, function(result, status) {
+					if (status == google.maps.DirectionsStatus.OK) {
+					  directionsDisplay.setDirections(result);
+
+					 //   console.log(result);
+
+						// console.log(result.routes[0].legs[0].steps);
+						// // console.log(result.routes[0].legs[0].steps[0].start_point.lat());
+						// // console.log(result.routes[0].legs[0].steps[0].start_point.lng());
+						// // console.log(result.routes[0].legs[0].steps[0].end_point.lat());
+						// // console.log(result.routes[0].legs[0].steps[0].end_point.lng());
+
+					 //   var pathCoords = [
+					 //    {lat: result.routes[0].legs[0].steps[0].start_point.lat(), lng: result.routes[0].legs[0].steps[0].start_point.lng()},
+					 //    {lat: result.routes[0].legs[0].steps[0].end_point.lat(), lng: result.routes[0].legs[0].steps[0].end_point.lng()},
+					 //    {lat: result.routes[0].legs[0].steps[1].start_point.lat(), lng: result.routes[0].legs[0].steps[1].start_point.lng()},
+					 //    {lat: result.routes[0].legs[0].steps[1].end_point.lat(), lng: result.routes[0].legs[0].steps[1].end_point.lng()},
+					 //    {lat: result.routes[0].legs[0].steps[2].start_point.lat(), lng: result.routes[0].legs[0].steps[2].start_point.lng()},
+					 //    {lat: result.routes[0].legs[0].steps[2].end_point.lat(), lng: result.routes[0].legs[0].steps[2].end_point.lng()},
+					 //  ];
+					 //  pathThree = new google.maps.Polyline({
+					 //    path: pathCoords,
+					 //    geodesic: true,
+					 //    strokeColor: 'red',
+					 //    strokeOpacity: 1.0,
+					 //    strokeWeight: 4
+					 //  });
+  				// 	 pathThree.setMap(map);
+
+					}
+				});
+			}
+
 	@endif
-
-	// var service = new google.maps.DistanceMatrixService();
-	// service.getDistanceMatrix(
-	// {
-	// origins: [40.712551,-74.00435],
-	// destinations: [work],
-	// travelMode: google.maps.TravelMode.TRANSIT,
-	// }, callback);
-
-	// function callback(response, status) {
-	// 	console.log(response);
-	// 	console.log(status);
-	// 	calcRoute();
-	// }
-	// function calcRoute() {
-	// 			var start = home;
-	// 			var end = work;
-	// 			var request = {
-	// 			origin:start,
-	// 			destination:end,
-	// 			travelMode: google.maps.TravelMode.TRANSIT
-	// 			};
-	// 			directionsService.route(request, function(result, status) {
-	// 			if (status == google.maps.DirectionsStatus.OK) {
-	// 			  directionsDisplay.setDirections(result);
-	// 			}
-	// 		});
-	// 	}
+	
+	
 
 	}
 
