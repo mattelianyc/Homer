@@ -98,7 +98,7 @@
 	    {name: "Styled Map"});
 
 	  var mapOptions = {
-	    center: {lat:40.75, lng: -73.978},
+	    center: {lat:40.72, lng: -73.978},
 	    zoom: 13,
 	    scrollwheel: true,
 	    mapTypeControl: false,
@@ -170,10 +170,76 @@
 	});
 
 
+	@if(Route::currentRouteName() == 'dovetail')
+	
+		var infowindow = new google.maps.InfoWindow();
+		  marker = new google.maps.Marker({
+		    map: map
+		  });
+		  google.maps.event.addListener(marker, 'click', function() {
+		    infowindow.open(map, marker);
+		  });
+	// LOAD APT/WORKPLACE/FREQUENTED.LOCATION DATA
+	// LOAD APT/WORKPLACE/FREQUENTED.LOCATION DATA
+	// LOAD APT/WORKPLACE/FREQUENTED.LOCATION DATA
+
+		var workplaces = [
+		    @foreach ($workplace as $wp)
+		        [ {{ $wp->lat }}, {{ $wp->lng }}, "{{ $wp->title }}", "{{ $wp->address }}", "{{ $wp->city }}", "{{ $wp->state }}" ]    
+		    @endforeach
+	    ];
+
+		var frequentedLocations = [
+		    @foreach ($frequented_locations as $fl)
+		        [ {{ $fl->lat }}, {{ $fl->lng }}, "{{ $fl->title }}", "{{ $fl->address }}", "{{ $fl->city }}", "{{ $fl->state }}" ], 
+		    @endforeach
+	    ];
+
+	    var work = new google.maps.LatLng(workplaces[0][0], workplaces[0][1]);
+	
+	    var workplace;
+
+	    for (i = 0; i < workplaces.length; i++) {
+
+	        workplace = new google.maps.LatLng(workplaces[i][0], workplaces[i][1]);
+
+			// console.log(workplace);
+	        var marker = new google.maps.Marker({
+	            position: workplace,
+	            map: map,
+	        });
+
+	        marker.setVisible(true); 
+
+	        // infowindow.setContent('<div>'+workplaces[i][2]+'<br>'+workplaces[i][3]+', '+workplaces[i][4]+', '+workplaces[i][5]+'</div>');
+	        // infowindow.open(map, marker);
+
+	    }
+
+	    var freqLoc;
+
+	    for (i = 0; i < frequentedLocations.length; i++) {
+
+	        freqLoc = new google.maps.LatLng(frequentedLocations[i][0], frequentedLocations[i][1]);
+
+			// console.log(workplace);
+	        var marker = new google.maps.Marker({
+	            position: freqLoc,
+	            map: map,
+	        });
+
+	        marker.setVisible(true); 
+
+	        // infowindow.setContent('<div>'+frequentedLocations[i][2]+'<br>'+frequentedLocations[i][3]+', '+frequentedLocations[i][4]+', '+frequentedLocations[i][5]+'</div>');
+	        // infowindow.open(map, marker);
+
+	    }
+	@endif
+
 	// var service = new google.maps.DistanceMatrixService();
 	// service.getDistanceMatrix(
 	// {
-	// origins: [home],
+	// origins: [40.712551,-74.00435],
 	// destinations: [work],
 	// travelMode: google.maps.TravelMode.TRANSIT,
 	// }, callback);

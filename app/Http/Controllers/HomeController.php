@@ -128,13 +128,13 @@ class HomeController extends Controller {
 
 		$freqLoc3 = new FrequentedLocation;
 		$freqLoc3['temp_user_id'] = $temp_user['payload'];
-		$freqLoc3['title'] = "Home";
-		$freqLoc3['address'] = $freqLoc3Array[0];
-		$freqLoc3['city'] = $freqLoc3Array[1];
-		$freqLoc3['state'] = $freqLoc3Array[2];
-		$freqLoc3['country'] = $freqLoc3Array[3];
-		$freqLoc3['lat'] = $freqLoc3Array[4][0];
-		$freqLoc3['lng'] = $freqLoc3Array[4][1];
+		$freqLoc3['title'] = $freqLoc3Array[0];
+		$freqLoc3['address'] = $freqLoc3Array[1];
+		$freqLoc3['city'] = $freqLoc3Array[2];
+		$freqLoc3['state'] = $freqLoc3Array[3];
+		$freqLoc3['country'] = $freqLoc3Array[4];
+		$freqLoc3['lat'] = $freqLoc3Array[5][0];
+		$freqLoc3['lng'] = $freqLoc3Array[5][1];
         $freqLoc3->save();
 
         // return response()->json(['response' => $new_workplace]);
@@ -146,7 +146,10 @@ class HomeController extends Controller {
 
 	public function dovetail(Request $request, $id) {
 
-		return view('dovetails');
+		$workplace = Workplace::where('temp_user_id','=',$id)->get();
+		$frequented_locations = FrequentedLocation::where('temp_user_id','=',$id)->get();
+
+		return view('dovetails')->with(compact('workplace', 'frequented_locations'));
 	}
 
 	public function logout()
