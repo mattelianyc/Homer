@@ -74,16 +74,14 @@ class HomeController extends Controller {
 		$freqLoc3Array = explode(', ', $freqLoc3);
 
 		$workplace_CoordsArray = explode(', ', $workplace_coordinates);
-		$freqLoc1_CoordsArray = explode(', ', $freqLoc1_coordinates);
-		$freqLoc2_CoordsArray = explode(', ', $freqLoc2_coordinates);
-		$freqLoc3_CoordsArray = explode(', ', $freqLoc3_coordinates);
+		$FL1_coords_array = explode(', ', $freqLoc1_coordinates);
+		$FL2_coords_array = explode(', ', $freqLoc2_coordinates);
+		$FL3_coords_array = explode(', ', $freqLoc3_coordinates);
 
 		array_push($workplaceArray, $workplace_CoordsArray);
-		array_push($freqLoc1Array, $freqLoc1_CoordsArray);
-		array_push($freqLoc2Array, $freqLoc2_CoordsArray);
-		array_push($freqLoc3Array, $freqLoc3_CoordsArray);
-
-		dd($workplaceArray);
+		array_push($freqLoc1Array, $FL1_coords_array);
+		array_push($freqLoc2Array, $FL2_coords_array);
+		array_push($freqLoc3Array, $FL3_coords_array);
 
 		// $session = Session::all();
 		// $temp_user = TempUser::where('payload', '=', $request->get('temp_user_id'))->get();
