@@ -6,7 +6,7 @@
 
 	<div id="user-info-modal">
 	  <div class="modal-dialog">
-		{!! Form::open(['action' => 'HomeController@workplace']) !!}
+		{!! Form::open(['action' => 'HomeController@workplace', 'id' => 'csrf_token()']) !!}
 		<input type="hidden" id="token" name="_token" value="{{ csrf_token() }}">
 		<input type="hidden" id="token" name="temp_user_id" value="{{ csrf_token() }}">
 	    <!-- Modal content-->
@@ -71,9 +71,6 @@
        {!! Form::close() !!}
 	  </div>	
 	</div>
-
-	<div id="map"></div>
-
 
 </div>
 

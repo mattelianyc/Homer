@@ -12,11 +12,11 @@ class CreateTempUsersTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('temp_users', function(Blueprint $table)
+		Schema::create('temp_users', function($t)
 		{
-			$table->increments('id');
-			$table->string('payload')->unique();
-			$table->timestamps();
+			$t->increments('id')->unsigned();
+			$t->string('payload')->unique();
+			$t->timestamps();
 		});
 	}
 
@@ -27,7 +27,7 @@ class CreateTempUsersTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('temp_users');
+		//
 	}
 
 }
