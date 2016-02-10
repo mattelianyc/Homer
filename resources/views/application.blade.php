@@ -46,20 +46,15 @@
 		$('#add-freq-loc-input').click(function() {
 			counter++;
 			$('#input-group-'+counter+'').show();
-			// var freqLocMarker = document.getElementById('insert-freq-loc-before-marker');
-			// console.log(freqLocMarker);
-			// $(freqLocMarker).append('<div class="input-group"><input id="freq-loc-'+counter+'" class="form-control" placeholder="Enter Frequented Location Address"><span class="input-group-addon" onclick="$(this).parent().remove();"><i class="fa fa-minus"></i></span></div>');
-			if(counter == 5) {
+			if(counter == 3) {
 				$('#add-freq-loc-input').attr('disabled', 'disabled');
 			}
 		});
 
-		// $('.input-group-addon').click(function() {
-		// 	if($('#input-group-5').css('display') == 'none') {
-		// 		$('#add-freq-loc-input').removeAttr('disabled', 'disabled');
-		// 		counter = counter--;
-		// 	}
-		// });
+		$('.input-group-addon').click(function() {
+				counter--;
+				$('#add-freq-loc-input').removeAttr('disabled', 'disabled');
+		});
 
 	});
 
