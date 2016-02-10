@@ -173,7 +173,7 @@
 
 	@if(Route::currentRouteName() == 'dovetail')
 
-	var home = new google.maps.LatLng(40.712551,-74.00435);
+	var home = new google.maps.LatLng(40.724709, -73.98274200000003);
 	var service = new google.maps.DistanceMatrixService();
 	
 		var infowindow = new google.maps.InfoWindow();
@@ -263,10 +263,10 @@
 			function callback(response, status) {
 				console.log(response);
 				console.log(status);
+				calcRouteWork();
 				calcRouteOne();
 				calcRouteTwo();
 				calcRouteThree();
-				calcRouteWork();
 			}
 
 			function calcRouteWork() {
@@ -375,7 +375,7 @@
 					if (status == google.maps.DirectionsStatus.OK) {
 					  // directionsDisplay.setDirections(result);
 
-					   console.log(result);
+				   		console.log(result);
 
 						console.log(result.routes[0].legs[0].steps);
 						// console.log(result.routes[0].legs[0].steps[0].start_point.lat());

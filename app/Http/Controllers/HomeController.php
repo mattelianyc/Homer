@@ -95,7 +95,7 @@ class HomeController extends Controller {
 
 		$new_workplace = new Workplace;
 		$new_workplace['temp_user_id'] = $temp_user['payload'];
-		$new_workplace['title'] = "fuck jeremy";
+		$new_workplace['title'] = "the office";
 		$new_workplace['address'] = $workplaceArray[0];
 		$new_workplace['city'] = $workplaceArray[1];
 		$new_workplace['state'] = $workplaceArray[2];
@@ -106,7 +106,7 @@ class HomeController extends Controller {
 
 		$freqLoc1 = new FrequentedLocation;
 		$freqLoc1['temp_user_id'] = $temp_user['payload'];
-		$freqLoc1['title'] = "Garby's Apt";
+		$freqLoc1['title'] = "Garbs Apt";
 		$freqLoc1['address'] = $freqLoc1Array[0];
 		$freqLoc1['city'] = $freqLoc1Array[1];
 		$freqLoc1['state'] = $freqLoc1Array[2];
