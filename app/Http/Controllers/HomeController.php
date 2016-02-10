@@ -4,6 +4,7 @@ use Auth;
 use Session;
 use Redirect;
 use Illuminate\Http\Request as Request;
+use Input;
 
 use App\Workplace as Workplace;
 use App\FrequentedLocation as FrequentedLocation;
@@ -57,29 +58,56 @@ class HomeController extends Controller {
 	 */
 	public function workplace(Request $request) {
 
-		$session = Session::all();
-		$temp_user = TempUser::where('payload', '=', $request->get('temp_user_id'))->get();
+		$workplace = Input::get('workplace_address');
+		$freqLoc1 = Input::get('freq_loc_address_1');
+		$freqLoc2 = Input::get('freq_loc_address_2');
+		$freqLoc3 = Input::get('freq_loc_address_3');
 
-		if($temp_user) {
+		$workplace_coordinates = Input::get('workplace_coords');
+		$freqLoc1_coordinates = Input::get('freq_loc_coords_1');
+		$freqLoc2_coordinates = Input::get('freq_loc_coords_2');
+		$freqLoc3_coordinates = Input::get('freq_loc_coords_3');
 
-			$new_temp_user = new TempUser;
-			$new_temp_user['payload'] = $session['_token'];
-			$new_temp_user->save();
+		$workplaceArray = explode(', ', $workplace);
+		$freqLoc1Array = explode(', ', $freqLoc1);
+		$freqLoc2Array = explode(', ', $freqLoc2);
+		$freqLoc3Array = explode(', ', $freqLoc3);
+
+		$workplace_CoordsArray = explode(', ', $workplace_coordinates);
+		$freqLoc1_CoordsArray = explode(', ', $freqLoc1_coordinates);
+		$freqLoc2_CoordsArray = explode(', ', $freqLoc2_coordinates);
+		$freqLoc3_CoordsArray = explode(', ', $freqLoc3_coordinates);
+
+		array_push($workplaceArray, $workplace_CoordsArray);
+		array_push($freqLoc1Array, $freqLoc1_CoordsArray);
+		array_push($freqLoc2Array, $freqLoc2_CoordsArray);
+		array_push($freqLoc3Array, $freqLoc3_CoordsArray);
+
+		dd($workplaceArray);
+
+		// $session = Session::all();
+		// $temp_user = TempUser::where('payload', '=', $request->get('temp_user_id'))->get();
+
+		// if($temp_user) {
+
+		// 	$new_temp_user = new TempUser;
+		// 	$new_temp_user['payload'] = $session['_token'];
+		// 	$new_temp_user->save();
 
 
-			$new_workplace = new Workplace($request->all());
-			$new_workplace['temp_user_id'] = $new_temp_user['payload'];
-	        $new_workplace->save();
+		// 	$new_workplace = new Workplace($request->all());
+		// 	$new_workplace['temp_user_id'] = $new_temp_user['payload'];
+	 //        $new_workplace->save();
 
-		} else {
+		// } else {
 
-			$temp_user = TempUser::where('payload', '=', $request->get('temp_user_id'))->first();
-			// dd($temp_user);
-			$new_workplace = new Workplace($request->all());
-			$new_workplace['temp_user_id'] = $temp_user['payload'];
-	        $new_workplace->save();
+		// 	$temp_user = TempUser::where('payload', '=', $request->get('temp_user_id'))->first();
+		// 	// dd($temp_user);
+		// 	$new_workplace = new Workplace($request->all());
+		// 	$new_workplace['temp_user_id'] = $temp_user['payload'];
+	 //        $new_workplace->save();
 
-		}
+		// }
 
 
 

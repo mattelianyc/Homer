@@ -19,7 +19,8 @@
 		      <h4>1. Where do you commute to and from for work?</h4>
 		    </div>
 	      	<div class="form-group">
-	        	<input id="workplace-search-input" name="address" class="form-control" placeholder="Enter Work Address">
+	        	<input id="workplace-search-input" class="form-control" placeholder="Enter Work Address" name="workplace_address">
+	        	<input type="hidden" id="workplace-coords-input" name="workplace_coords">
 	      	</div>
       		<hr>
 
@@ -39,15 +40,18 @@
 				<div class="row">
 		    		<div class="col-xs-12">
 		    			<div id="input-group-1" class="input-group" style="display:none;">
-		    				<input id="freq-loc-input-1" class="form-control" placeholder="Enter Frequented Location Address">
+		    				<input id="freq-loc-input-1" class="form-control" placeholder="Enter Frequented Location Address" name="freq_loc_address_1">
+		    				<input type="hidden" id="freq-loc-coords-input-1" name="freq_loc_coords_1">
 		    				<span class="input-group-addon" onclick="$(this).parent().hide();"><i class="fa fa-minus"></i></span>
 		    			</div>
 		    			<div id="input-group-2" class="input-group" style="display:none;">
-		    				<input id="freq-loc-input-2" class="form-control" placeholder="Enter Frequented Location Address">
+		    				<input id="freq-loc-input-2" class="form-control" placeholder="Enter Frequented Location Address" name="freq_loc_address_2">
+		    				<input type="hidden" id="freq-loc-coords-input-2" name="freq_loc_coords_2">
 		    				<span class="input-group-addon" onclick="$(this).parent().hide();"><i class="fa fa-minus"></i></span>
 		    			</div>
 		    			<div id="input-group-3" class="input-group" style="display:none;">
-		    				<input id="freq-loc-input-3" class="form-control" placeholder="Enter Frequented Location Address">
+		    				<input id="freq-loc-input-3" class="form-control" placeholder="Enter Frequented Location Address" name="freq_loc_address_3">
+		    				<input type="hidden" id="freq-loc-coords-input-3" name="freq_loc_coords_3">
 		    				<span class="input-group-addon" onclick="$(this).parent().hide();"><i class="fa fa-minus"></i></span>
 		    			</div>
 					</div>

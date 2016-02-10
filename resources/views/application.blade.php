@@ -116,8 +116,11 @@
 	  var freqLocInput1 = document.getElementById('freq-loc-input-1');
 	  var freqLocInput2 = document.getElementById('freq-loc-input-2');
 	  var freqLocInput3 = document.getElementById('freq-loc-input-3');
-	  var freqLocInput4 = document.getElementById('freq-loc-input-4');
-	  var freqLocInput5 = document.getElementById('freq-loc-input-5');
+
+	  var workplaceCoordsInput = document.getElementById('workplace-coords-input');
+	  var freqLocCoordsInput1 = document.getElementById('freq-loc-coords-input-1');
+	  var freqLocCoordsInput2 = document.getElementById('freq-loc-coords-input-2');
+	  var freqLocCoordsInput3 = document.getElementById('freq-loc-coords-input-3');
 
 	  // Create the autocomplete helper, and associate it with
 	  // an HTML text input box.
@@ -125,15 +128,44 @@
 	  var autocompleteFreqLoc1 = new google.maps.places.Autocomplete(freqLocInput1);
 	  var autocompleteFreqLoc2 = new google.maps.places.Autocomplete(freqLocInput2);
 	  var autocompleteFreqLoc3 = new google.maps.places.Autocomplete(freqLocInput3);
-	  var autocompleteFreqLoc4 = new google.maps.places.Autocomplete(freqLocInput4);
-	  var autocompleteFreqLoc5 = new google.maps.places.Autocomplete(freqLocInput5);
 
 	  autocompleteWorkplace.bindTo('bounds', map);
 	  autocompleteFreqLoc1.bindTo('bounds', map);
 	  autocompleteFreqLoc2.bindTo('bounds', map);
 	  autocompleteFreqLoc3.bindTo('bounds', map);
-	  autocompleteFreqLoc4.bindTo('bounds', map);
-	  autocompleteFreqLoc5.bindTo('bounds', map);
+
+	google.maps.event.addListener(autocompleteWorkplace, 'place_changed', function() {
+		var workplaceCoordinates = autocompleteWorkplace.getPlace();
+		var wpLat = workplaceCoordinates.geometry.location.lat();
+		var wpLng = workplaceCoordinates.geometry.location.lng();
+		// console.log(''+wpLat+', '+wpLng+'');
+		workplaceCoordsInput.value = wpLat+', '+wpLng;
+		console.log(workplaceCoordsInput.value);
+	});
+	google.maps.event.addListener(autocompleteFreqLoc1, 'place_changed', function() {
+		var freqLoc1Coordinates = autocompleteFreqLoc1.getPlace();
+		var freqLoc1Lat = freqLoc1Coordinates.geometry.location.lat();
+		var freqLoc1Lng = freqLoc1Coordinates.geometry.location.lng();
+		// console.log(''+freqLoc1Lat+', '+freqLoc1Lng+'');
+		freqLocCoordsInput1.value = freqLoc1Lat+', '+freqLoc1Lng;
+		console.log(freqLocCoordsInput1.value);
+	});
+	google.maps.event.addListener(autocompleteFreqLoc2, 'place_changed', function() {
+		var freqLoc2Coordinates = autocompleteFreqLoc2.getPlace();
+		var freqLoc2Lat = freqLoc2Coordinates.geometry.location.lat();
+		var freqLoc2Lng = freqLoc2Coordinates.geometry.location.lng();
+		// console.log(''+freqLoc2Lat+', '+freqLoc2Lng+'');
+		freqLocCoordsInput2.value = freqLoc2Lat+', '+freqLoc2Lng;
+		console.log(freqLocCoordsInput2.value);
+	});
+	google.maps.event.addListener(autocompleteFreqLoc3, 'place_changed', function() {
+		var freqLoc3Coordinates = autocompleteFreqLoc3.getPlace();
+		var freqLoc3Lat = freqLoc3Coordinates.geometry.location.lat();
+		var freqLoc3Lng = freqLoc3Coordinates.geometry.location.lng();
+		// console.log(''+freqLoc3Lat+', '+freqLoc3Lng+'');
+		freqLocCoordsInput3.value = freqLoc3Lat+', '+freqLoc3Lng;
+		console.log(freqLocCoordsInput3.value);
+	});
 
 	  // map.controls[google.maps.ControlPosition.TOP_LEFT].push(workplaceInput);
 
