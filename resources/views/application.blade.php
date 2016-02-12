@@ -311,11 +311,15 @@
 					    {lat: result.routes[0].legs[0].steps[1].end_point.lat(), lng: result.routes[0].legs[0].steps[1].end_point.lng()},
 					    {lat: result.routes[0].legs[0].steps[2].start_point.lat(), lng: result.routes[0].legs[0].steps[2].start_point.lng()},
 					    {lat: result.routes[0].legs[0].steps[2].end_point.lat(), lng: result.routes[0].legs[0].steps[2].end_point.lng()},
+					    // {lat: result.routes[0].legs[0].steps[3].start_point.lat(), lng: result.routes[0].legs[0].steps[3].start_point.lng()},
+					    // {lat: result.routes[0].legs[0].steps[3].end_point.lat(), lng: result.routes[0].legs[0].steps[3].end_point.lng()},
+					    // {lat: result.routes[0].legs[0].steps[4].start_point.lat(), lng: result.routes[0].legs[0].steps[4].start_point.lng()},
+					    // {lat: result.routes[0].legs[0].steps[4].end_point.lat(), lng: result.routes[0].legs[0].steps[4].end_point.lng()},
 					  ];
 					  pathOne = new google.maps.Polyline({
 					    path: pathCoords,
 					    geodesic: true,
-					    strokeColor: 'red',
+					    strokeColor: 'purple',
 					    strokeOpacity: 0.7,
 					    strokeWeight: 4
 					  });
@@ -350,11 +354,13 @@
 					    {lat: result.routes[0].legs[0].steps[1].end_point.lat(), lng: result.routes[0].legs[0].steps[1].end_point.lng()},
 					    {lat: result.routes[0].legs[0].steps[2].start_point.lat(), lng: result.routes[0].legs[0].steps[2].start_point.lng()},
 					    {lat: result.routes[0].legs[0].steps[2].end_point.lat(), lng: result.routes[0].legs[0].steps[2].end_point.lng()},
+					    {lat: result.routes[0].legs[0].steps[3].start_point.lat(), lng: result.routes[0].legs[0].steps[3].start_point.lng()},
+					    {lat: result.routes[0].legs[0].steps[3].end_point.lat(), lng: result.routes[0].legs[0].steps[3].end_point.lng()},
 					  ];
 					  pathTwo = new google.maps.Polyline({
 					    path: pathCoords,
 					    geodesic: true,
-					    strokeColor: 'red',
+					    strokeColor: 'yellow',
 					    strokeOpacity: 0.7,
 					    strokeWeight: 4
 					  });
@@ -390,6 +396,10 @@
 					    {lat: result.routes[0].legs[0].steps[1].end_point.lat(), lng: result.routes[0].legs[0].steps[1].end_point.lng()},
 					    {lat: result.routes[0].legs[0].steps[2].start_point.lat(), lng: result.routes[0].legs[0].steps[2].start_point.lng()},
 					    {lat: result.routes[0].legs[0].steps[2].end_point.lat(), lng: result.routes[0].legs[0].steps[2].end_point.lng()},
+					    {lat: result.routes[0].legs[0].steps[3].start_point.lat(), lng: result.routes[0].legs[0].steps[3].start_point.lng()},
+					    {lat: result.routes[0].legs[0].steps[3].end_point.lat(), lng: result.routes[0].legs[0].steps[3].end_point.lng()},
+					    {lat: result.routes[0].legs[0].steps[4].start_point.lat(), lng: result.routes[0].legs[0].steps[4].start_point.lng()},
+					    {lat: result.routes[0].legs[0].steps[4].end_point.lat(), lng: result.routes[0].legs[0].steps[4].end_point.lng()},
 					  ];
 					  pathThree = new google.maps.Polyline({
 					    path: pathCoords,
