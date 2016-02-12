@@ -54,6 +54,16 @@
 		    				<input type="hidden" id="freq-loc-coords-input-3" name="freq_loc_coords_3">
 		    				<span class="input-group-addon" onclick="$(this).parent().hide();"><i class="fa fa-minus"></i></span>
 		    			</div>
+		    			<div id="input-group-4" class="input-group" style="display:none;">
+		    				<input id="freq-loc-input-4" class="form-control" placeholder="Enter Frequented Location Address" name="freq_loc_address_4">
+		    				<input type="hidden" id="freq-loc-coords-input-4" name="freq_loc_coords_4">
+		    				<span class="input-group-addon" onclick="$(this).parent().hide();"><i class="fa fa-minus"></i></span>
+		    			</div>
+		    			<div id="input-group-5" class="input-group" style="display:none;">
+		    				<input id="freq-loc-input-5" class="form-control" placeholder="Enter Frequented Location Address" name="freq_loc_address_5">
+		    				<input type="hidden" id="freq-loc-coords-input-5" name="freq_loc_coords_5">
+		    				<span class="input-group-addon" onclick="$(this).parent().hide();"><i class="fa fa-minus"></i></span>
+		    			</div>
 					</div>
 				</div>
   			</div>

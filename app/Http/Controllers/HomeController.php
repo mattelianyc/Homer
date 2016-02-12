@@ -64,26 +64,36 @@ class HomeController extends Controller {
 		$freqLoc1 = Input::get('freq_loc_address_1');
 		$freqLoc2 = Input::get('freq_loc_address_2');
 		$freqLoc3 = Input::get('freq_loc_address_3');
+		$freqLoc4 = Input::get('freq_loc_address_4');
+		$freqLoc5 = Input::get('freq_loc_address_5');
 
 		$workplace_coordinates = Input::get('workplace_coords');
 		$freqLoc1_coordinates = Input::get('freq_loc_coords_1');
 		$freqLoc2_coordinates = Input::get('freq_loc_coords_2');
 		$freqLoc3_coordinates = Input::get('freq_loc_coords_3');
+		$freqLoc4_coordinates = Input::get('freq_loc_coords_4');
+		$freqLoc5_coordinates = Input::get('freq_loc_coords_5');
 
 		$workplaceArray = explode(', ', $workplace);
 		$freqLoc1Array = explode(', ', $freqLoc1);
 		$freqLoc2Array = explode(', ', $freqLoc2);
 		$freqLoc3Array = explode(', ', $freqLoc3);
+		$freqLoc4Array = explode(', ', $freqLoc4);
+		$freqLoc5Array = explode(', ', $freqLoc5);
 
 		$workplace_CoordsArray = explode(', ', $workplace_coordinates);
 		$FL1_coords_array = explode(', ', $freqLoc1_coordinates);
 		$FL2_coords_array = explode(', ', $freqLoc2_coordinates);
 		$FL3_coords_array = explode(', ', $freqLoc3_coordinates);
+		$FL4_coords_array = explode(', ', $freqLoc4_coordinates);
+		$FL5_coords_array = explode(', ', $freqLoc5_coordinates);
 
 		array_push($workplaceArray, $workplace_CoordsArray);
 		array_push($freqLoc1Array, $FL1_coords_array);
 		array_push($freqLoc2Array, $FL2_coords_array);
 		array_push($freqLoc3Array, $FL3_coords_array);
+		array_push($freqLoc4Array, $FL4_coords_array);
+		array_push($freqLoc5Array, $FL5_coords_array);
 
 		// dd(sizeof($workplaceArray));
 		// dd($freqLoc1Array);
@@ -235,6 +245,75 @@ class HomeController extends Controller {
 			$freqLoc3['lat'] = $freqLoc3Array[5][0];
 			$freqLoc3['lng'] = $freqLoc3Array[5][1];
 	        $freqLoc3->save();
+		}		
+
+		if(sizeof($freqLoc4Array) === 4) {
+			$freqLoc4 = new FrequentedLocation;
+			$freqLoc4['temp_user_id'] = $temp_user['payload'];
+			$freqLoc4['title'] = $freqLoc4Array[0];
+			$freqLoc4['address'] = $freqLoc4Array[0];
+			$freqLoc4['city'] = "new york";
+			$freqLoc4['state'] = $freqLoc4Array[1];
+			$freqLoc4['country'] = $freqLoc4Array[2];
+			$freqLoc4['lat'] = $freqLoc4Array[3][0];
+			$freqLoc4['lng'] = $freqLoc4Array[3][1];
+	        $freqLoc4->save();
+		} elseif (sizeof($freqLoc4Array) === 5) {
+			$freqLoc4 = new FrequentedLocation;
+			$freqLoc4['temp_user_id'] = $temp_user['payload'];
+			$freqLoc4['title'] = $freqLoc4Array[0];
+			$freqLoc4['address'] = $freqLoc4Array[0];
+			$freqLoc4['city'] = $freqLoc4Array[1];
+			$freqLoc4['state'] = $freqLoc4Array[2];
+			$freqLoc4['country'] = $freqLoc4Array[3];
+			$freqLoc4['lat'] = $freqLoc4Array[4][0];
+			$freqLoc4['lng'] = $freqLoc4Array[4][1];
+	        $freqLoc4->save();
+		} elseif (sizeof($freqLoc4Array) === 6) {
+			$freqLoc4 = new FrequentedLocation;
+			$freqLoc4['temp_user_id'] = $temp_user['payload'];
+			$freqLoc4['title'] = $freqLoc4Array[0];
+			$freqLoc4['address'] = $freqLoc4Array[1];
+			$freqLoc4['city'] = $freqLoc4Array[2];
+			$freqLoc4['state'] = $freqLoc4Array[3];
+			$freqLoc4['country'] = $freqLoc4Array[4];
+			$freqLoc4['lat'] = $freqLoc4Array[5][0];
+			$freqLoc4['lng'] = $freqLoc4Array[5][1];
+	        $freqLoc4->save();
+		}		
+		if(sizeof($freqLoc5Array) === 4) {
+			$freqLoc5 = new FrequentedLocation;
+			$freqLoc5['temp_user_id'] = $temp_user['payload'];
+			$freqLoc5['title'] = $freqLoc5Array[0];
+			$freqLoc5['address'] = $freqLoc5Array[0];
+			$freqLoc5['city'] = "new york";
+			$freqLoc5['state'] = $freqLoc5Array[1];
+			$freqLoc5['country'] = $freqLoc5Array[2];
+			$freqLoc5['lat'] = $freqLoc5Array[3][0];
+			$freqLoc5['lng'] = $freqLoc5Array[3][1];
+	        $freqLoc5->save();
+		} elseif (sizeof($freqLoc5Array) === 5) {
+			$freqLoc5 = new FrequentedLocation;
+			$freqLoc5['temp_user_id'] = $temp_user['payload'];
+			$freqLoc5['title'] = $freqLoc5Array[0];
+			$freqLoc5['address'] = $freqLoc5Array[0];
+			$freqLoc5['city'] = $freqLoc5Array[1];
+			$freqLoc5['state'] = $freqLoc5Array[2];
+			$freqLoc5['country'] = $freqLoc5Array[3];
+			$freqLoc5['lat'] = $freqLoc5Array[4][0];
+			$freqLoc5['lng'] = $freqLoc5Array[4][1];
+	        $freqLoc5->save();
+		} elseif (sizeof($freqLoc5Array) === 6) {
+			$freqLoc5 = new FrequentedLocation;
+			$freqLoc5['temp_user_id'] = $temp_user['payload'];
+			$freqLoc5['title'] = $freqLoc5Array[0];
+			$freqLoc5['address'] = $freqLoc5Array[1];
+			$freqLoc5['city'] = $freqLoc5Array[2];
+			$freqLoc5['state'] = $freqLoc5Array[3];
+			$freqLoc5['country'] = $freqLoc5Array[4];
+			$freqLoc5['lat'] = $freqLoc5Array[5][0];
+			$freqLoc5['lng'] = $freqLoc5Array[5][1];
+	        $freqLoc5->save();
 		}
 
 

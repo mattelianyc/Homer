@@ -48,7 +48,7 @@
 		$('#add-freq-loc-input').click(function() {
 			counter++;
 			$('#input-group-'+counter+'').show();
-			if(counter == 3) {
+			if(counter == 5) {
 				$('#add-freq-loc-input').attr('disabled', 'disabled');
 			}
 		});
@@ -118,11 +118,15 @@
 	  var freqLocInput1 = document.getElementById('freq-loc-input-1');
 	  var freqLocInput2 = document.getElementById('freq-loc-input-2');
 	  var freqLocInput3 = document.getElementById('freq-loc-input-3');
+	  var freqLocInput4 = document.getElementById('freq-loc-input-4');
+	  var freqLocInput5 = document.getElementById('freq-loc-input-5');
 
 	  var workplaceCoordsInput = document.getElementById('workplace-coords-input');
 	  var freqLocCoordsInput1 = document.getElementById('freq-loc-coords-input-1');
 	  var freqLocCoordsInput2 = document.getElementById('freq-loc-coords-input-2');
 	  var freqLocCoordsInput3 = document.getElementById('freq-loc-coords-input-3');
+	  var freqLocCoordsInput4 = document.getElementById('freq-loc-coords-input-4');
+	  var freqLocCoordsInput5 = document.getElementById('freq-loc-coords-input-5');
 
 	  // Create the autocomplete helper, and associate it with
 	  // an HTML text input box.
@@ -130,11 +134,15 @@
 	  var autocompleteFreqLoc1 = new google.maps.places.Autocomplete(freqLocInput1);
 	  var autocompleteFreqLoc2 = new google.maps.places.Autocomplete(freqLocInput2);
 	  var autocompleteFreqLoc3 = new google.maps.places.Autocomplete(freqLocInput3);
+	  var autocompleteFreqLoc4 = new google.maps.places.Autocomplete(freqLocInput4);
+	  var autocompleteFreqLoc5 = new google.maps.places.Autocomplete(freqLocInput5);
 
 	  autocompleteWorkplace.bindTo('bounds', map);
 	  autocompleteFreqLoc1.bindTo('bounds', map);
 	  autocompleteFreqLoc2.bindTo('bounds', map);
 	  autocompleteFreqLoc3.bindTo('bounds', map);
+	  autocompleteFreqLoc4.bindTo('bounds', map);
+	  autocompleteFreqLoc5.bindTo('bounds', map);
 
 	google.maps.event.addListener(autocompleteWorkplace, 'place_changed', function() {
 		var workplaceCoordinates = autocompleteWorkplace.getPlace();
@@ -168,6 +176,22 @@
 		// console.log(''+freqLoc3Lat+', '+freqLoc3Lng+'');
 		freqLocCoordsInput3.value = freqLoc3Lat+', '+freqLoc3Lng;
 		console.log(freqLocCoordsInput3.value);
+	});
+	google.maps.event.addListener(autocompleteFreqLoc4, 'place_changed', function() {
+		var freqLoc4Coordinates = autocompleteFreqLoc4.getPlace();
+		var freqLoc4Lat = freqLoc4Coordinates.geometry.location.lat();
+		var freqLoc4Lng = freqLoc4Coordinates.geometry.location.lng();
+		// console.log(''+freqLoc4Lat+', '+freqLoc4Lng+'');
+		freqLocCoordsInput4.value = freqLoc4Lat+', '+freqLoc4Lng;
+		console.log(freqLocCoordsInput4.value);
+	});
+	google.maps.event.addListener(autocompleteFreqLoc5, 'place_changed', function() {
+		var freqLoc5Coordinates = autocompleteFreqLoc5.getPlace();
+		var freqLoc5Lat = freqLoc5Coordinates.geometry.location.lat();
+		var freqLoc5Lng = freqLoc5Coordinates.geometry.location.lng();
+		// console.log(''+freqLoc5Lat+', '+freqLoc5Lng+'');
+		freqLocCoordsInput5.value = freqLoc5Lat+', '+freqLoc5Lng;
+		console.log(freqLocCoordsInput5.value);
 	});
 
 
@@ -211,6 +235,7 @@
 	        var marker = new google.maps.Marker({
 	            position: workplace,
 	            map: map,
+	            icon: '/images/markers/orange_MarkerW.png'
 	        });
 
 	        marker.setVisible(true); 
@@ -233,6 +258,7 @@
 	        var marker = new google.maps.Marker({
 	            position: freqLoc,
 	            map: map,
+	            icon: '/images/markers/yellow_MarkerF.png'
 	        });
 
 	        marker.setVisible(true); 
@@ -246,17 +272,21 @@
 	    var pathOne;
 	    var pathTwo;
 	    var pathThree;
+	    var pathFour;
+	    var pathFive;
 
 	    freq_loc_1 = new google.maps.LatLng(freqLocArray[0].lat(), freqLocArray[0].lng());
 	    freq_loc_2 = new google.maps.LatLng(freqLocArray[1].lat(), freqLocArray[1].lng());
 	    freq_loc_3 = new google.maps.LatLng(freqLocArray[2].lat(), freqLocArray[2].lng());
+	    freq_loc_4 = new google.maps.LatLng(freqLocArray[3].lat(), freqLocArray[3].lng());
+	    freq_loc_5 = new google.maps.LatLng(freqLocArray[4].lat(), freqLocArray[4].lng());
 
 		service = new google.maps.DistanceMatrixService();
 
 		    service.getDistanceMatrix(
 			{
 			origins: [home],
-			destinations: [workplace, freq_loc_1, freq_loc_2, freq_loc_3],
+			destinations: [workplace, freq_loc_1, freq_loc_2, freq_loc_3, freq_loc_4, freq_loc_5],
 			travelMode: google.maps.TravelMode.TRANSIT,
 			}, callback);
 		
@@ -267,6 +297,8 @@
 				calcRouteOne();
 				calcRouteTwo();
 				calcRouteThree();
+				calcRouteFour();
+				calcRouteFive();
 			}
 
 			function calcRouteWork() {
@@ -314,8 +346,8 @@
 					  pathOne = new google.maps.Polyline({
 					    path: pathCoords,
 					    geodesic: true,
-					    strokeColor: 'purple',
-					    strokeOpacity: 0.7,
+					    strokeColor: 'aqua',
+					    strokeOpacity: 0.6,
 					    strokeWeight: 4
 					  });
   					 pathOne.setMap(map);
@@ -353,8 +385,8 @@
 					  pathTwo = new google.maps.Polyline({
 					    path: pathCoords,
 					    geodesic: true,
-					    strokeColor: 'yellow',
-					    strokeOpacity: 0.7,
+					    strokeColor: 'slateblue',
+					    strokeOpacity: 0.6,
 					    strokeWeight: 4
 					  });
   					 pathTwo.setMap(map);
@@ -392,11 +424,91 @@
 					  pathThree = new google.maps.Polyline({
 					    path: pathCoords,
 					    geodesic: true,
-					    strokeColor: 'red',
-					    strokeOpacity: 0.7,
+					    strokeColor: 'cornflowerblue',
+					    strokeOpacity: 0.6,
 					    strokeWeight: 4
 					  });
   					 pathThree.setMap(map);
+
+					}
+				});
+			}
+
+			function calcRouteFour() {
+					var start = home;
+					var end = freq_loc_4;
+					var request = {
+					origin:start,
+					destination:end,
+					travelMode: google.maps.TravelMode.TRANSIT
+					};
+					directionsService.route(request, function(result, status) {
+					if (status == google.maps.DirectionsStatus.OK) {
+					  // directionsDisplay.setDirections(result);
+
+				   		console.log(result);
+						// console.log(result.routes[0].legs[0].steps);
+						// console.log(result.routes[0].legs[0].steps.length);
+
+						var routeFourSteps = result.routes[0].legs[0].steps;
+
+					   var pathCoords = [];
+					   
+					   for (i = 0; i < routeFourSteps.length; i++) {
+						   startLatLng = {lat: result.routes[0].legs[0].steps[i].start_point.lat(), lng: result.routes[0].legs[0].steps[i].start_point.lng()};
+						   endLatLng = {lat: result.routes[0].legs[0].steps[i].end_point.lat(), lng: result.routes[0].legs[0].steps[i].end_point.lng()};
+						   pathCoords.push(startLatLng);
+						   pathCoords.push(endLatLng);
+					   }
+
+					  pathFour = new google.maps.Polyline({
+					    path: pathCoords,
+					    geodesic: true,
+					    strokeColor: 'teal',
+					    strokeOpacity: 0.6,
+					    strokeWeight: 4
+					  });
+  					 pathFour.setMap(map);
+
+					}
+				});
+			}
+
+			function calcRouteFive() {
+					var start = home;
+					var end = freq_loc_5;
+					var request = {
+					origin:start,
+					destination:end,
+					travelMode: google.maps.TravelMode.TRANSIT
+					};
+					directionsService.route(request, function(result, status) {
+					if (status == google.maps.DirectionsStatus.OK) {
+					  // directionsDisplay.setDirections(result);
+
+				   		console.log(result);
+						// console.log(result.routes[0].legs[0].steps);
+						// console.log(result.routes[0].legs[0].steps.length);
+
+						var routeFiveSteps = result.routes[0].legs[0].steps;
+
+					   var pathCoords = [];
+					   
+					   for (i = 0; i < routeFiveSteps.length; i++) {
+						   startLatLng = {lat: result.routes[0].legs[0].steps[i].start_point.lat(), lng: result.routes[0].legs[0].steps[i].start_point.lng()};
+						   endLatLng = {lat: result.routes[0].legs[0].steps[i].end_point.lat(), lng: result.routes[0].legs[0].steps[i].end_point.lng()};
+						   pathCoords.push(startLatLng);
+						   pathCoords.push(endLatLng);
+					   }
+
+					  pathFive = new google.maps.Polyline({
+					    path: pathCoords,
+					    geodesic: true,
+					    strokeColor: 'navy',
+					    strokeOpacity: 0.6,
+					    strokeWeight: 4
+					  });
+  					 pathFive.setMap(map);
 
 					}
 				});
