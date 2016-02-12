@@ -275,6 +275,13 @@
 	    var pathFour;
 	    var pathFive;
 
+	    var workRouteDuration;
+	    var routeOneDuration;
+	    var routeTwoDuration;
+	    var routeThreeDuration;
+	    var routeFourDuration;
+	    var routeFiveDuration;
+
 	    freq_loc_1 = new google.maps.LatLng(freqLocArray[0].lat(), freqLocArray[0].lng());
 	    freq_loc_2 = new google.maps.LatLng(freqLocArray[1].lat(), freqLocArray[1].lng());
 	    freq_loc_3 = new google.maps.LatLng(freqLocArray[2].lat(), freqLocArray[2].lng());
@@ -312,6 +319,11 @@
 					directionsService.route(request, function(result, status) {
 					if (status == google.maps.DirectionsStatus.OK) {
 					  directionsDisplay.setDirections(result);
+
+					  workRouteDuration = result.routes[0].legs[0].duration.text;
+					  workRouteDuration = workRouteDuration.substring(0,2);
+					  console.log(workRouteDuration);
+
 					}
 				});
 			}
@@ -329,10 +341,18 @@
 					  // directionsDisplay.setDirections(result);
 
 					   console.log(result);
+
 						// console.log(result.routes[0].legs[0].steps);
 						// console.log(result.routes[0].legs[0].steps.length);
 
 					   var routeOneSteps = result.routes[0].legs[0].steps;
+					   routeOneDuration = result.routes[0].legs[0].duration.text;
+					   routeOneDuration = routeOneDuration.substring(0,2);
+
+					   console.log(routeOneDuration);
+					   
+					   // var dur = document.getElementById('duration');
+					   // dur.innerHTML = '<li>'+routeOneDuration+'</li>';
 
 					   var pathCoords = [];
 					   
@@ -346,7 +366,7 @@
 					  pathOne = new google.maps.Polyline({
 					    path: pathCoords,
 					    geodesic: true,
-					    strokeColor: 'aqua',
+					    strokeColor: 'blue',
 					    strokeOpacity: 0.6,
 					    strokeWeight: 4
 					  });
@@ -372,6 +392,14 @@
 						// console.log(result.routes[0].legs[0].steps.length);
 
 					var routeTwoSteps = result.routes[0].legs[0].steps;
+
+					routeTwoDuration = result.routes[0].legs[0].duration.text;
+					routeTwoDuration = routeTwoDuration.substring(0,2);
+
+					console.log(routeTwoDuration);
+					   
+					   // var dur = document.getElementById('duration');
+					   // dur.innerHTML = '<li>'+routeTwoDuration+'</li>';
 
 					   var pathCoords = [];
 					   
@@ -411,6 +439,10 @@
 						// console.log(result.routes[0].legs[0].steps.length);
 
 						var routeThreeSteps = result.routes[0].legs[0].steps;
+
+						routeThreeDuration = result.routes[0].legs[0].duration.text;
+						routeThreeDuration = routeThreeDuration.substring(0,2);
+						console.log(routeThreeDuration);
 
 					   var pathCoords = [];
 					   
@@ -452,6 +484,10 @@
 
 						var routeFourSteps = result.routes[0].legs[0].steps;
 
+						routeFourDuration = result.routes[0].legs[0].duration.text;
+						routeFourDuration = routeFourDuration.substring(0,2);
+						console.log(routeFourDuration);
+
 					   var pathCoords = [];
 					   
 					   for (i = 0; i < routeFourSteps.length; i++) {
@@ -492,6 +528,10 @@
 
 						var routeFiveSteps = result.routes[0].legs[0].steps;
 
+						routeFiveDuration = result.routes[0].legs[0].duration.text;
+						routeFiveDuration = routeFiveDuration.substring(0,2);
+						console.log(routeFiveDuration);
+
 					   var pathCoords = [];
 					   
 					   for (i = 0; i < routeFiveSteps.length; i++) {
@@ -514,10 +554,11 @@
 				});
 			}
 
-
 	@endif
-	
-	
+
+	setTimeout(function() {
+		console.log(parseInt(workRouteDuration)+parseInt(routeOneDuration)+parseInt(routeTwoDuration)+parseInt(routeThreeDuration)+parseInt(routeFourDuration)+parseInt(routeFiveDuration));
+	}, 5000);	
 
 	}
 
