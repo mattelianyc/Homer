@@ -85,6 +85,10 @@ class HomeController extends Controller {
 		array_push($freqLoc2Array, $FL2_coords_array);
 		array_push($freqLoc3Array, $FL3_coords_array);
 
+		// dd(sizeof($workplaceArray));
+		// dd($freqLoc1Array);
+		// dd($freqLoc2Array);
+		// dd($freqLoc3Array);
 
 		$session = Session::all();
 
@@ -93,49 +97,147 @@ class HomeController extends Controller {
 		$temp_user['payload'] = $session['_token'];
 		$temp_user->save();
 
-		$new_workplace = new Workplace;
-		$new_workplace['temp_user_id'] = $temp_user['payload'];
-		$new_workplace['title'] = "the office";
-		$new_workplace['address'] = $workplaceArray[0];
-		$new_workplace['city'] = $workplaceArray[1];
-		$new_workplace['state'] = $workplaceArray[2];
-		$new_workplace['country'] = $workplaceArray[3];
-		$new_workplace['lat'] = $workplaceArray[4][0];
-		$new_workplace['lng'] = $workplaceArray[4][1];
-        $new_workplace->save();
+		if(sizeof($workplaceArray) === 4) {
+			$new_workplace = new Workplace;
+			$new_workplace['temp_user_id'] = $temp_user['payload'];
+			$new_workplace['title'] = $workplaceArray[0];
+			$new_workplace['address'] = $workplaceArray[0];
+			$new_workplace['city'] = "new york";
+			$new_workplace['state'] = $workplaceArray[1];
+			$new_workplace['country'] = $workplaceArray[2];
+			$new_workplace['lat'] = $workplaceArray[3][0];
+			$new_workplace['lng'] = $workplaceArray[3][1];
+	        $new_workplace->save();
+		} elseif (sizeof($workplaceArray) === 5) {
+			$new_workplace = new Workplace;
+			$new_workplace['temp_user_id'] = $temp_user['payload'];
+			$new_workplace['title'] = $workplaceArray[0];
+			$new_workplace['address'] = $workplaceArray[0]; 
+			$new_workplace['city'] = $workplaceArray[1];
+			$new_workplace['state'] = $workplaceArray[2];
+			$new_workplace['country'] = $workplaceArray[3];
+			$new_workplace['lat'] = $workplaceArray[4][0];
+			$new_workplace['lng'] = $workplaceArray[4][1];
+	        $new_workplace->save();
+		} elseif (sizeof($workplaceArray) === 6) {
+			$new_workplace = new Workplace;
+			$new_workplace['temp_user_id'] = $temp_user['payload'];
+			$new_workplace['title'] = $workplaceArray[0];
+			$new_workplace['address'] = $workplaceArray[1]; 
+			$new_workplace['city'] = $workplaceArray[2];
+			$new_workplace['state'] = $workplaceArray[3];
+			$new_workplace['country'] = $workplaceArray[4];
+			$new_workplace['lat'] = $workplaceArray[5][0];
+			$new_workplace['lng'] = $workplaceArray[5][1];
+	        $new_workplace->save();
+		}
 
-		$freqLoc1 = new FrequentedLocation;
-		$freqLoc1['temp_user_id'] = $temp_user['payload'];
-		$freqLoc1['title'] = "Garbs Apt";
-		$freqLoc1['address'] = $freqLoc1Array[0];
-		$freqLoc1['city'] = $freqLoc1Array[1];
-		$freqLoc1['state'] = $freqLoc1Array[2];
-		$freqLoc1['country'] = $freqLoc1Array[3];
-		$freqLoc1['lat'] = $freqLoc1Array[4][0];
-		$freqLoc1['lng'] = $freqLoc1Array[4][1];
-        $freqLoc1->save();
+		if(sizeof($freqLoc1Array) === 4) {
+			$freqLoc1 = new FrequentedLocation;
+			$freqLoc1['temp_user_id'] = $temp_user['payload'];
+			$freqLoc1['title'] = $freqLoc1Array[0];
+			$freqLoc1['address'] = $freqLoc1Array[0];
+			$freqLoc1['city'] = "new york";
+			$freqLoc1['state'] = $freqLoc1Array[1];
+			$freqLoc1['country'] = $freqLoc1Array[2];
+			$freqLoc1['lat'] = $freqLoc1Array[3][0];
+			$freqLoc1['lng'] = $freqLoc1Array[3][1];
+	        $freqLoc1->save();
+		} elseif (sizeof($freqLoc1Array) === 5) {
+			$freqLoc1 = new FrequentedLocation;
+			$freqLoc1['temp_user_id'] = $temp_user['payload'];
+			$freqLoc1['title'] = $freqLoc1Array[0];
+			$freqLoc1['address'] = $freqLoc1Array[0];
+			$freqLoc1['city'] = $freqLoc1Array[1];
+			$freqLoc1['state'] = $freqLoc1Array[2];
+			$freqLoc1['country'] = $freqLoc1Array[3];
+			$freqLoc1['lat'] = $freqLoc1Array[4][0];
+			$freqLoc1['lng'] = $freqLoc1Array[4][1];
+	        $freqLoc1->save();
+		} elseif (sizeof($freqLoc1Array) === 6) {
+			$freqLoc1 = new FrequentedLocation;
+			$freqLoc1['temp_user_id'] = $temp_user['payload'];
+			$freqLoc1['title'] = $freqLoc1Array[0];
+			$freqLoc1['address'] = $freqLoc1Array[1];
+			$freqLoc1['city'] = $freqLoc1Array[2];
+			$freqLoc1['state'] = $freqLoc1Array[3];
+			$freqLoc1['country'] = $freqLoc1Array[4];
+			$freqLoc1['lat'] = $freqLoc1Array[5][0];
+			$freqLoc1['lng'] = $freqLoc1Array[5][1];
+	        $freqLoc1->save();
+		}
 
-		$freqLoc2 = new FrequentedLocation;
-		$freqLoc2['temp_user_id'] = $temp_user['payload'];
-		$freqLoc2['title'] = $freqLoc2Array[0];
-		$freqLoc2['address'] = $freqLoc2Array[1];
-		$freqLoc2['city'] = $freqLoc2Array[2];
-		$freqLoc2['state'] = $freqLoc2Array[3];
-		$freqLoc2['country'] = $freqLoc2Array[4];
-		$freqLoc2['lat'] = $freqLoc2Array[5][0];
-		$freqLoc2['lng'] = $freqLoc2Array[5][1];
-        $freqLoc2->save();
+		if(sizeof($freqLoc2Array) === 4) {
+			$freqLoc2 = new FrequentedLocation;
+			$freqLoc2['temp_user_id'] = $temp_user['payload'];
+			$freqLoc2['title'] = $freqLoc2Array[0];
+			$freqLoc2['address'] = $freqLoc2Array[0];
+			$freqLoc2['city'] = "new york";
+			$freqLoc2['state'] = $freqLoc2Array[1];
+			$freqLoc2['country'] = $freqLoc2Array[2];
+			$freqLoc2['lat'] = $freqLoc2Array[3][0];
+			$freqLoc2['lng'] = $freqLoc2Array[3][1];
+	        $freqLoc2->save();
+		} elseif (sizeof($freqLoc2Array) === 5) {
+			$freqLoc2 = new FrequentedLocation;
+			$freqLoc2['temp_user_id'] = $temp_user['payload'];
+			$freqLoc2['title'] = $freqLoc2Array[0];
+			$freqLoc2['address'] = $freqLoc2Array[0];
+			$freqLoc2['city'] = $freqLoc2Array[1];
+			$freqLoc2['state'] = $freqLoc2Array[2];
+			$freqLoc2['country'] = $freqLoc2Array[3];
+			$freqLoc2['lat'] = $freqLoc2Array[4][0];
+			$freqLoc2['lng'] = $freqLoc2Array[4][1];
+	        $freqLoc2->save();
+		} elseif (sizeof($freqLoc2Array) === 6) {
+			$freqLoc2 = new FrequentedLocation;
+			$freqLoc2['temp_user_id'] = $temp_user['payload'];
+			$freqLoc2['title'] = $freqLoc2Array[0];
+			$freqLoc2['address'] = $freqLoc2Array[1];
+			$freqLoc2['city'] = $freqLoc2Array[2];
+			$freqLoc2['state'] = $freqLoc2Array[3];
+			$freqLoc2['country'] = $freqLoc2Array[4];
+			$freqLoc2['lat'] = $freqLoc2Array[5][0];
+			$freqLoc2['lng'] = $freqLoc2Array[5][1];
+	        $freqLoc2->save();
+		}
+		
+		if(sizeof($freqLoc3Array) === 4) {
+			$freqLoc3 = new FrequentedLocation;
+			$freqLoc3['temp_user_id'] = $temp_user['payload'];
+			$freqLoc3['title'] = $freqLoc3Array[0];
+			$freqLoc3['address'] = $freqLoc3Array[0];
+			$freqLoc3['city'] = "new york";
+			$freqLoc3['state'] = $freqLoc3Array[1];
+			$freqLoc3['country'] = $freqLoc3Array[2];
+			$freqLoc3['lat'] = $freqLoc3Array[3][0];
+			$freqLoc3['lng'] = $freqLoc3Array[3][1];
+	        $freqLoc3->save();
+		} elseif (sizeof($freqLoc3Array) === 5) {
+			$freqLoc3 = new FrequentedLocation;
+			$freqLoc3['temp_user_id'] = $temp_user['payload'];
+			$freqLoc3['title'] = $freqLoc3Array[0];
+			$freqLoc3['address'] = $freqLoc3Array[0];
+			$freqLoc3['city'] = $freqLoc3Array[1];
+			$freqLoc3['state'] = $freqLoc3Array[2];
+			$freqLoc3['country'] = $freqLoc3Array[3];
+			$freqLoc3['lat'] = $freqLoc3Array[4][0];
+			$freqLoc3['lng'] = $freqLoc3Array[4][1];
+	        $freqLoc3->save();
+		} elseif (sizeof($freqLoc3Array) === 6) {
+			$freqLoc3 = new FrequentedLocation;
+			$freqLoc3['temp_user_id'] = $temp_user['payload'];
+			$freqLoc3['title'] = $freqLoc3Array[0];
+			$freqLoc3['address'] = $freqLoc3Array[1];
+			$freqLoc3['city'] = $freqLoc3Array[2];
+			$freqLoc3['state'] = $freqLoc3Array[3];
+			$freqLoc3['country'] = $freqLoc3Array[4];
+			$freqLoc3['lat'] = $freqLoc3Array[5][0];
+			$freqLoc3['lng'] = $freqLoc3Array[5][1];
+	        $freqLoc3->save();
+		}
 
-		$freqLoc3 = new FrequentedLocation;
-		$freqLoc3['temp_user_id'] = $temp_user['payload'];
-		$freqLoc3['title'] = $freqLoc3Array[0];
-		$freqLoc3['address'] = $freqLoc3Array[1];
-		$freqLoc3['city'] = $freqLoc3Array[2];
-		$freqLoc3['state'] = $freqLoc3Array[3];
-		$freqLoc3['country'] = $freqLoc3Array[4];
-		$freqLoc3['lat'] = $freqLoc3Array[5][0];
-		$freqLoc3['lng'] = $freqLoc3Array[5][1];
-        $freqLoc3->save();
+
 
         // return response()->json(['response' => $new_workplace]);
         return Redirect::route('dovetail', array('id' => $temp_user['payload']));
