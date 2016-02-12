@@ -297,25 +297,20 @@
 					  // directionsDisplay.setDirections(result);
 
 					   console.log(result);
+						// console.log(result.routes[0].legs[0].steps);
+						// console.log(result.routes[0].legs[0].steps.length);
 
-						console.log(result.routes[0].legs[0].steps);
-						// console.log(result.routes[0].legs[0].steps[0].start_point.lat());
-						// console.log(result.routes[0].legs[0].steps[0].start_point.lng());
-						// console.log(result.routes[0].legs[0].steps[0].end_point.lat());
-						// console.log(result.routes[0].legs[0].steps[0].end_point.lng());
+					   var routeOneSteps = result.routes[0].legs[0].steps;
 
-					   var pathCoords = [
-					    {lat: result.routes[0].legs[0].steps[0].start_point.lat(), lng: result.routes[0].legs[0].steps[0].start_point.lng()},
-					    {lat: result.routes[0].legs[0].steps[0].end_point.lat(), lng: result.routes[0].legs[0].steps[0].end_point.lng()},
-					    {lat: result.routes[0].legs[0].steps[1].start_point.lat(), lng: result.routes[0].legs[0].steps[1].start_point.lng()},
-					    {lat: result.routes[0].legs[0].steps[1].end_point.lat(), lng: result.routes[0].legs[0].steps[1].end_point.lng()},
-					    {lat: result.routes[0].legs[0].steps[2].start_point.lat(), lng: result.routes[0].legs[0].steps[2].start_point.lng()},
-					    {lat: result.routes[0].legs[0].steps[2].end_point.lat(), lng: result.routes[0].legs[0].steps[2].end_point.lng()},
-					    // {lat: result.routes[0].legs[0].steps[3].start_point.lat(), lng: result.routes[0].legs[0].steps[3].start_point.lng()},
-					    // {lat: result.routes[0].legs[0].steps[3].end_point.lat(), lng: result.routes[0].legs[0].steps[3].end_point.lng()},
-					    // {lat: result.routes[0].legs[0].steps[4].start_point.lat(), lng: result.routes[0].legs[0].steps[4].start_point.lng()},
-					    // {lat: result.routes[0].legs[0].steps[4].end_point.lat(), lng: result.routes[0].legs[0].steps[4].end_point.lng()},
-					  ];
+					   var pathCoords = [];
+					   
+					   for (i = 0; i < routeOneSteps.length; i++) {
+						   startLatLng = {lat: result.routes[0].legs[0].steps[i].start_point.lat(), lng: result.routes[0].legs[0].steps[i].start_point.lng()};
+						   endLatLng = {lat: result.routes[0].legs[0].steps[i].end_point.lat(), lng: result.routes[0].legs[0].steps[i].end_point.lng()};
+						   pathCoords.push(startLatLng);
+						   pathCoords.push(endLatLng);
+					   }						
+
 					  pathOne = new google.maps.Polyline({
 					    path: pathCoords,
 					    geodesic: true,
@@ -341,22 +336,20 @@
 					  // directionsDisplay.setDirections(result);
 					  console.log(result);
 
-						console.log(result.routes[0].legs[0].steps);
-						// console.log(result.routes[0].legs[0].steps[0].start_point.lat());
-						// console.log(result.routes[0].legs[0].steps[0].start_point.lng());
-						// console.log(result.routes[0].legs[0].steps[0].end_point.lat());
-						// console.log(result.routes[0].legs[0].steps[0].end_point.lng());
+						// console.log(result.routes[0].legs[0].steps);
+						// console.log(result.routes[0].legs[0].steps.length);
 
-					   var pathCoords = [
-					    {lat: result.routes[0].legs[0].steps[0].start_point.lat(), lng: result.routes[0].legs[0].steps[0].start_point.lng()},
-					    {lat: result.routes[0].legs[0].steps[0].end_point.lat(), lng: result.routes[0].legs[0].steps[0].end_point.lng()},
-					    {lat: result.routes[0].legs[0].steps[1].start_point.lat(), lng: result.routes[0].legs[0].steps[1].start_point.lng()},
-					    {lat: result.routes[0].legs[0].steps[1].end_point.lat(), lng: result.routes[0].legs[0].steps[1].end_point.lng()},
-					    {lat: result.routes[0].legs[0].steps[2].start_point.lat(), lng: result.routes[0].legs[0].steps[2].start_point.lng()},
-					    {lat: result.routes[0].legs[0].steps[2].end_point.lat(), lng: result.routes[0].legs[0].steps[2].end_point.lng()},
-					    {lat: result.routes[0].legs[0].steps[3].start_point.lat(), lng: result.routes[0].legs[0].steps[3].start_point.lng()},
-					    {lat: result.routes[0].legs[0].steps[3].end_point.lat(), lng: result.routes[0].legs[0].steps[3].end_point.lng()},
-					  ];
+					var routeTwoSteps = result.routes[0].legs[0].steps;
+
+					   var pathCoords = [];
+					   
+					   for (i = 0; i < routeTwoSteps.length; i++) {
+						   startLatLng = {lat: result.routes[0].legs[0].steps[i].start_point.lat(), lng: result.routes[0].legs[0].steps[i].start_point.lng()};
+						   endLatLng = {lat: result.routes[0].legs[0].steps[i].end_point.lat(), lng: result.routes[0].legs[0].steps[i].end_point.lng()};
+						   pathCoords.push(startLatLng);
+						   pathCoords.push(endLatLng);
+					   }
+
 					  pathTwo = new google.maps.Polyline({
 					    path: pathCoords,
 					    geodesic: true,
@@ -382,25 +375,20 @@
 					  // directionsDisplay.setDirections(result);
 
 				   		console.log(result);
+						// console.log(result.routes[0].legs[0].steps);
+						// console.log(result.routes[0].legs[0].steps.length);
 
-						console.log(result.routes[0].legs[0].steps);
-						// console.log(result.routes[0].legs[0].steps[0].start_point.lat());
-						// console.log(result.routes[0].legs[0].steps[0].start_point.lng());
-						// console.log(result.routes[0].legs[0].steps[0].end_point.lat());
-						// console.log(result.routes[0].legs[0].steps[0].end_point.lng());
+						var routeThreeSteps = result.routes[0].legs[0].steps;
 
-					   var pathCoords = [
-					    {lat: result.routes[0].legs[0].steps[0].start_point.lat(), lng: result.routes[0].legs[0].steps[0].start_point.lng()},
-					    {lat: result.routes[0].legs[0].steps[0].end_point.lat(), lng: result.routes[0].legs[0].steps[0].end_point.lng()},
-					    {lat: result.routes[0].legs[0].steps[1].start_point.lat(), lng: result.routes[0].legs[0].steps[1].start_point.lng()},
-					    {lat: result.routes[0].legs[0].steps[1].end_point.lat(), lng: result.routes[0].legs[0].steps[1].end_point.lng()},
-					    {lat: result.routes[0].legs[0].steps[2].start_point.lat(), lng: result.routes[0].legs[0].steps[2].start_point.lng()},
-					    {lat: result.routes[0].legs[0].steps[2].end_point.lat(), lng: result.routes[0].legs[0].steps[2].end_point.lng()},
-					    {lat: result.routes[0].legs[0].steps[3].start_point.lat(), lng: result.routes[0].legs[0].steps[3].start_point.lng()},
-					    {lat: result.routes[0].legs[0].steps[3].end_point.lat(), lng: result.routes[0].legs[0].steps[3].end_point.lng()},
-					    {lat: result.routes[0].legs[0].steps[4].start_point.lat(), lng: result.routes[0].legs[0].steps[4].start_point.lng()},
-					    {lat: result.routes[0].legs[0].steps[4].end_point.lat(), lng: result.routes[0].legs[0].steps[4].end_point.lng()},
-					  ];
+					   var pathCoords = [];
+					   
+					   for (i = 0; i < routeThreeSteps.length; i++) {
+						   startLatLng = {lat: result.routes[0].legs[0].steps[i].start_point.lat(), lng: result.routes[0].legs[0].steps[i].start_point.lng()};
+						   endLatLng = {lat: result.routes[0].legs[0].steps[i].end_point.lat(), lng: result.routes[0].legs[0].steps[i].end_point.lng()};
+						   pathCoords.push(startLatLng);
+						   pathCoords.push(endLatLng);
+					   }
+
 					  pathThree = new google.maps.Polyline({
 					    path: pathCoords,
 					    geodesic: true,
