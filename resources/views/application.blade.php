@@ -225,7 +225,7 @@
 
 		var apartmentBuildings = [
 		    @foreach ($apt_bldgs as $ab)
-		        [ {{ $ab->lat }}, {{ $ab->lng }} ], 
+		        [ {{ $ab->lat }}, {{ $ab->lng }}, "{{ $ab->title }}", "{{ $ab->address }}", "{{ $ab->city }}", "{{ $ab->state }}"  ], 
 		    @endforeach
 	    ];
 
@@ -275,6 +275,9 @@
 	        
 	    }
 
+	    var totalDuration = 0;
+	    var totalDurationArray = [];
+
 	    var origin;
 	    var originArray = [];
 
@@ -294,6 +297,7 @@
 	    var travelTime;
 	    var travelDuration = [];
 	    var totalTravelTime = [];
+	    var minimumTripDuration;
 
 	    freq_loc_1 = new google.maps.LatLng(freqLocArray[0].lat(), freqLocArray[0].lng());
 	    freq_loc_2 = new google.maps.LatLng(freqLocArray[1].lat(), freqLocArray[1].lng());
@@ -302,9 +306,11 @@
 	    freq_loc_5 = new google.maps.LatLng(freqLocArray[4].lat(), freqLocArray[4].lng());
 
 	    var aptBldgCoords = [];
-		var service1 = new google.maps.DistanceMatrixService();
-		var service2 = new google.maps.DistanceMatrixService();
-		var service3 = new google.maps.DistanceMatrixService();
+
+		var service = new google.maps.DistanceMatrixService();
+		// var service1 = new google.maps.DistanceMatrixService();
+		// var service2 = new google.maps.DistanceMatrixService();
+		// var service3 = new google.maps.DistanceMatrixService();
 
 			    for (var i = 0; i < apartmentBuildings.length; i++) {
 					
@@ -319,50 +325,49 @@
 			    	// console.log(origin);
 
 			    }
-					    service1.getDistanceMatrix(
-						{
-						origins: [originArray[0]],
-						destinations: [workplace, freq_loc_1, freq_loc_2, freq_loc_3, freq_loc_4, freq_loc_5],
-						travelMode: google.maps.TravelMode.TRANSIT,
-						},callback);
-					    service2.getDistanceMatrix(
-						{
-						origins: [originArray[1]],
-						destinations: [workplace, freq_loc_1, freq_loc_2, freq_loc_3, freq_loc_4, freq_loc_5],
-						travelMode: google.maps.TravelMode.TRANSIT,
-						},callback);
-					    service3.getDistanceMatrix(
-						{
-						origins: [originArray[2]],
-						destinations: [workplace, freq_loc_1, freq_loc_2, freq_loc_3, freq_loc_4, freq_loc_5],
-						travelMode: google.maps.TravelMode.TRANSIT,
-						},callback);
 
+			    for (var i = 0; i < originArray.length; i++) {
+			    	service.getDistanceMatrix(
+			    	{
+			    		origins: [originArray[i]],
+			    		destinations: [workplace, freq_loc_1, freq_loc_2, freq_loc_3, freq_loc_4, freq_loc_5],
+			    		travelMode: google.maps.TravelMode.TRANSIT,
+			    	}, callback);
+			    }
 
-					var total=0;
+				
 
-					function callback(response, status) {
-						console.log(response);
-						console.log(status);
+				function callback(response, status) {
+					console.log(response);
+					console.log(status);
 
-						var elements = response.rows[0].elements;
-						var tripDuration = [];
+					var elements = response.rows[0].elements;
+					var tripDuration = [];
 
-						for (var i = 0; i < elements.length; i++) {
-							tripDuration.push(elements[i].duration.value);
-						}
-						for (var i = 0; i < tripDuration.length; i++) {
-							total += (tripDuration[i] / 60);
-						}
-						console.log(total);
-
-						calcRouteWork();
-						calcRouteOne();
-						calcRouteTwo();
-						calcRouteThree();
-						calcRouteFour();
-						calcRouteFive();
+					for (var i = 0; i < elements.length; i++) {
+						tripDuration.push(elements[i].duration.value);
 					}
+					for (var i = 0; i < tripDuration.length; i++) {
+						totalDuration += (tripDuration[i]);
+					}
+					totalDurationArray.push(totalDuration);
+					Array.min = function(totalDurationArray){
+					    return Math.min.apply( Math, totalDurationArray);
+					};
+
+					minimumTripDuration = Array.min(totalDurationArray);
+
+					calcRouteWork();
+					calcRouteOne();
+					calcRouteTwo();
+					calcRouteThree();
+					calcRouteFour();
+					calcRouteFive();
+				}
+
+				for (var i = 0; i < apartmentBuildings.length; i++) {
+					console.log(apartmentBuildings[i]);
+				}
 
 
 
