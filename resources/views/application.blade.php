@@ -86,8 +86,8 @@
 		  var styles = [
 		    {
 		      stylers: [
-		        { hue: "#E44D42" },
-		        { saturation: 20 }
+		        { hue: "#2C3E50" },
+		        { saturation: -50 }
 		      ]
 		    },{
 		      featureType: "road",
@@ -419,30 +419,40 @@
 			minimumTripDuration = Array.min(aggregateDurationArray);
 			console.log(minimumTripDuration);
 
+			var nuArr = [];
 			for (var i = 0; i < sumOfDurationFromOrigins.length; i++) {
 				if(sumOfDurationFromOrigins[i].duration === minimumTripDuration) {
-					theBlackDove = sumOfDurationFromOrigins[i]; 
+					nuArr = sumOfDurationFromOrigins[i].origin.split(',');
+					theBlackDove = nuArr[0];
+					theBlackDove = theBlackDove.split(' ');
+			 		console.log(theBlackDove[1]);
 				};
 			 } 
-			 console.log(theBlackDove);
-			// theBlackDove = {lat: origins[i].address[0].lat, lng: origins[i].address[0].lng};
+
+			 for (var i = 0; i < originArray.length; i++) {
+			 	if(originArray[i].address.includes(theBlackDove[1])){
+			 		alert(originArray[i].address);
+					theBlackDove = {lat: originArray[i].lat, lng: originArray[i].lng};
+			 	};
+			 }
+			 // console.log(originArray);
 
 		
-			// var service = new google.maps.DistanceMatrixService();
-			// service.getDistanceMatrix({
-	  //   		origins: [WHITEDOVE],
-	  //   		destinations: [workplace, freq_loc_1, freq_loc_2, freq_loc_3, freq_loc_4, freq_loc_5],
-	  //   		travelMode: google.maps.TravelMode.TRANSIT,
-	  //   	}, function (result, status) {
+			var service = new google.maps.DistanceMatrixService();
+			service.getDistanceMatrix({
+	    		origins: [theBlackDove],
+	    		destinations: [workplace, freq_loc_1, freq_loc_2, freq_loc_3, freq_loc_4, freq_loc_5],
+	    		travelMode: google.maps.TravelMode.TRANSIT,
+	    	}, function (result, status) {
 
-			// 	calcRouteWork();
-			// 	calcRouteOne();
-			// 	calcRouteTwo();
-			// 	calcRouteThree();
-			// 	calcRouteFour();
-			// 	calcRouteFive();
+				calcRouteWork();
+				calcRouteOne();
+				calcRouteTwo();
+				calcRouteThree();
+				calcRouteFour();
+				calcRouteFive();
 
-	  //   	});
+	    	});
 
 		}
 
@@ -457,20 +467,12 @@
 		//             equivalency++;
 		//         }
 		//     }
-
-
 		//     var weight = equivalency / maxLength;
 		//     return (weight * 100) + "%";
 		// }
 
-		// alert(similar("test","tes"));   // 75%
-		// alert(similar("test","test"));  // 100%
-		// alert(similar("test","testt")); // 80%
-		// alert(similar("test","tess"));  // 75%
-
-
 		function calcRouteWork() {
-				var start = origin;
+				var start = theBlackDove;
 				var end = workplace;
 				var request = {
 				origin:start,
@@ -483,15 +485,6 @@
 
 				  var workRouteDuration = result.routes[0].legs;
 
-				  var travelDuration = [];
-
-				for (i = 0; i < workRouteDuration.length; i++) {
-					workRouteDurationValue = workRouteDuration[i].duration.value;
-					travelDuration.push(workRouteDurationValue);
-				}
-				
-				totalTravelTime.push(travelDuration);
-
 				  // console.log(workRouteDuration);
 
 				}
@@ -499,7 +492,7 @@
 		}
 
 		function calcRouteOne() {
-				var start = origin;
+				var start = theBlackDove;
 				var end = freq_loc_1;
 				var request = {
 				origin:start,
@@ -518,15 +511,6 @@
 				   var routeOneSteps = result.routes[0].legs[0].steps;
 				   
 				   var routeOneDuration = result.routes[0].legs;
-
-				   var travelDuration = [];
-
-					for (i = 0; i < routeOneDuration.length; i++) {
-						routeOneDurationValue = routeOneDuration[i].duration.value;
-						travelDuration.push(routeOneDurationValue);
-					}
-					
-					totalTravelTime.push(travelDuration);
 				   
 				   // var dur = document.getElementById('duration');
 				   // dur.innerHTML = '<li>'+routeOneDuration+'</li>';
@@ -553,7 +537,7 @@
 		}
 
 		function calcRouteTwo() {
-				var start = origin;
+				var start = theBlackDove;
 				var end = freq_loc_2;
 				var request = {
 				origin:start,
@@ -571,15 +555,6 @@
 				var routeTwoSteps = result.routes[0].legs[0].steps;
 
 				var routeTwoDuration = result.routes[0].legs;
-
-				var travelDuration = [];
-
-				for (i = 0; i < routeTwoDuration.length; i++) {
-					routeTwoDurationValue = routeTwoDuration[i].duration.value;
-					travelDuration.push(routeTwoDurationValue);
-				}
-				
-				totalTravelTime.push(travelDuration);
 
 
 				// console.log(routeTwoDuration);
@@ -609,7 +584,7 @@
 		}
 
 		function calcRouteThree() {
-				var start = origin;
+				var start = theBlackDove;
 				var end = freq_loc_3;
 				var request = {
 				origin:start,
@@ -627,15 +602,6 @@
 					var routeThreeSteps = result.routes[0].legs[0].steps;
 					
 					var routeThreeDuration = result.routes[0].legs;
-
-					var travelDuration = [];
-
-					for (i = 0; i < routeThreeDuration.length; i++) {
-						routeThreeDurationValue = routeThreeDuration[i].duration.value;
-						travelDuration.push(routeThreeDurationValue);
-					}
-					
-					totalTravelTime.push(travelDuration);
 
 				   var pathCoords = [];
 				   
@@ -660,7 +626,7 @@
 		}
 
 		function calcRouteFour() {
-				var start = origin;
+				var start = theBlackDove;
 				var end = freq_loc_4;
 				var request = {
 				origin:start,
@@ -678,15 +644,6 @@
 					var routeFourSteps = result.routes[0].legs[0].steps;
 
 					var routeFourDuration = result.routes[0].legs;
-
-					var travelDuration = [];
-
-					for (i = 0; i < routeFourDuration.length; i++) {
-						routeFourDurationValue = routeFourDuration[i].duration.value;
-						travelDuration.push(routeFourDurationValue);
-					}
-					
-					totalTravelTime.push(travelDuration);
 
 				   var pathCoords = [];
 				   
@@ -711,7 +668,7 @@
 		}
 
 		function calcRouteFive() {
-				var start = origin;
+				var start = theBlackDove;
 				var end = freq_loc_5;
 				var request = {
 				origin:start,
@@ -729,15 +686,6 @@
 					var routeFiveSteps = result.routes[0].legs[0].steps;
 
 					var routeFiveDuration = result.routes[0].legs;
-
-					var travelDuration = [];
-
-					for (i = 0; i < routeFiveDuration.length; i++) {
-						routeFiveDurationValue = routeFiveDuration[i].duration.value;
-						travelDuration.push(routeFiveDurationValue);
-					}
-
-					totalTravelTime.push(travelDuration);
 
 				   var pathCoords = [];
 				   
