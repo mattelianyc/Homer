@@ -12,6 +12,13 @@
 	    <!-- Modal content-->
 	    <div class="modal-content">
 
+		    <div class="modal-header">
+		    	<div class="row">
+		    		<div class="col-xs-10 col-xs-offset-1">
+		    			<img class="img-responsive" src="{{ asset('/images/dovetail_logo_1.png') }}"></img>
+		    		</div>
+		    	</div>
+		    </div>
 	      <div class="modal-body">
 	      	
 		    <div class="page-header">
