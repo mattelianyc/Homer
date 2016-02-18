@@ -247,7 +247,7 @@
 
 		apartmentBuildings = [
 		    @foreach ($apt_bldgs as $ab)
-		        [ {{ $ab->lat }}, {{ $ab->lng }}, "{{ $ab->title }}", "{{ $ab->address }}", "{{ $ab->city }}", "{{ $ab->state }}"  ], 
+		        [ {{ $ab->lat }}, {{ $ab->lng }}, "{{ $ab->title }}", "{{ $ab->address }}", "{{ $ab->city }}", "{{ $ab->state }}", "{{ $ab->zip }}", "{{ $ab->country }}" ], 
 		    @endforeach
 	    ];
 
@@ -334,10 +334,12 @@
 	    		lat: apartmentBuildings[i][0], 
 	    		lng: apartmentBuildings[i][1], 
 	    		title: apartmentBuildings[i][2], 
-	    		address: apartmentBuildings[i][3], city: apartmentBuildings[i][4], state: apartmentBuildings[i][5]
+	    		address: apartmentBuildings[i][3]+', '+apartmentBuildings[i][4]+', '+apartmentBuildings[i][5]+' '+apartmentBuildings[i][6]+', '+apartmentBuildings[i][7]
 	    	});
 
 	    }
+
+	    console.log(originArray); 
 
 	    var service = new google.maps.DistanceMatrixService();
 
@@ -360,18 +362,19 @@
 		
     	// TEST NEW CALLBACK HANDLER
 
-		
+		var whiteDoveOrigins = [];
+
 		function callback(response, status) {
 
 			callbackResponseArray.push(response);
-			// console.log(callbackResponseArray);
+			console.log(callbackResponseArray);
 			
 			var intermediateDurationsObject;
 			var counter = 0;
 
 			var originsArray = [];
 			var elementsArray = [];
-			var whiteDoveOrigins = [];
+			whiteDoveOrigins = [];
 
 			var totalDuration = 0;
 			var intermediateDurationsArray = [];
@@ -380,7 +383,7 @@
 				whiteDoveOrigins.push({address: callbackResponseArray[0].originAddresses[w], elements: callbackResponseArray[0].rows[w].elements});
 			}
 
-			console.log(whiteDoveOrigins);
+			// console.log(whiteDoveOrigins);
 
 			for (var idx = 0; idx < whiteDoveOrigins.length; idx++) {
 
@@ -399,11 +402,14 @@
 				});
 
 			}
-			console.log(sumOfDurationFromOrigins);
+			// console.log(sumOfDurationFromOrigins);
 
 			findMinDurationOrigin();
 
 		};
+
+
+		var simArray = [];
 
 		function findMinDurationOrigin(dovetails) {
 
@@ -417,27 +423,68 @@
 			    return Math.min.apply(Math, aggregateDurationArray);
 			};
 			minimumTripDuration = Array.min(aggregateDurationArray);
-			console.log(minimumTripDuration);
+			// console.log(minimumTripDuration);
 
-			var nuArr = [];
 			for (var i = 0; i < sumOfDurationFromOrigins.length; i++) {
 				if(sumOfDurationFromOrigins[i].duration === minimumTripDuration) {
-					nuArr = sumOfDurationFromOrigins[i].origin.split(',');
-					theBlackDove = nuArr[0];
-					theBlackDove = theBlackDove.split(' ');
-			 		console.log(theBlackDove[1]);
+					// console.log(sumOfDurationFromOrigins[i]);
+					theBlackDove = sumOfDurationFromOrigins[i].origin;
 				};
 			 } 
 
 			 for (var i = 0; i < originArray.length; i++) {
-			 	if(originArray[i].address.includes(theBlackDove[1])){
-			 		alert(originArray[i].address);
-					theBlackDove = {lat: originArray[i].lat, lng: originArray[i].lng};
-			 	};
-			 }
-			 // console.log(originArray);
+			 	
+			 	var a = theBlackDove;
+			 	var b = originArray[i].address;
+				var zip_a = theBlackDove.match(/\b\d{5}\b/g);
+				var zip_b = originArray[i].address.match(/\b\d{5}\b/g);
 
-		
+			    var equivalency_fullstr = 0;
+			    var minLength = (a.length > b.length) ? b.length : a.length;    
+			    var maxLength = (a.length < b.length) ? b.length : a.length;    
+			    for(var k = 0; k < minLength; k++) {
+			        if(a[k] == b[k]) {
+			            equivalency_fullstr++;
+			        }
+			    }
+
+			    var weight_address = equivalency_fullstr / maxLength;
+
+			    var equivalency_zip = 0;
+			    var minLengthZip = (zip_a.length > zip_b.length) ? zip_b.length : zip_a.length;    
+			    var maxLengthZip = (zip_a.length < zip_b.length) ? zip_b.length : zip_a.length;  
+
+			    for(var kk = 0; kk < minLengthZip; kk++) {
+			        if(zip_a[kk] == zip_b[kk]) {
+			            equivalency_zip++;
+			        }
+			    }
+			    
+			    var weight_zip = equivalency_zip / maxLengthZip;
+
+			    simArray.push({ whiteDoves: originArray[i], weight: ((weight_address * 100) + (weight_zip * 100)) });
+
+			 }
+
+
+			 var weightArray = [];
+
+			 Array.max = function(){
+				for (var i = 0; i < simArray.length; i++) {
+					weightArray.push(simArray[i].weight);
+				}
+			    return Math.max.apply(Math, weightArray);
+			};
+
+			maxWeight = Array.max(weightArray);
+			// console.log(maxWeight);
+
+			for (var i = 0; i < simArray.length; i++) {
+				if(simArray[i].weight === maxWeight) {
+	    			theBlackDove = {lat: simArray[i].whiteDoves.lat, lng: simArray[i].whiteDoves.lng}; 
+				}
+			}
+
 			var service = new google.maps.DistanceMatrixService();
 			service.getDistanceMatrix({
 	    		origins: [theBlackDove],
@@ -453,23 +500,10 @@
 				calcRouteFive();
 
 	    	});
+		
 
 		}
 
-		// function similar(a,b) {
-		//     var lengthA = a.length;
-		//     var lengthB = b.length;
-		//     var equivalency = 0;
-		//     var minLength = (a.length > b.length) ? b.length : a.length;    
-		//     var maxLength = (a.length < b.length) ? b.length : a.length;    
-		//     for(var i = 0; i < minLength; i++) {
-		//         if(a[i] == b[i]) {
-		//             equivalency++;
-		//         }
-		//     }
-		//     var weight = equivalency / maxLength;
-		//     return (weight * 100) + "%";
-		// }
 
 		function calcRouteWork() {
 				var start = theBlackDove;
