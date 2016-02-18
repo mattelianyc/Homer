@@ -86,8 +86,24 @@
 		  var styles = [
 		    {
 		      stylers: [
-		        { hue: "#2C3E50" },
-		        { saturation: -50 }
+		        { hue: "#3498DB" },
+		        { saturation: 50 }
+		      ]
+		    },
+		    {
+		    	featureType: "poi",
+		    	elementType: "all",
+		    	stylers: [
+		    	{visibility: "off"}
+		    	]
+		    },
+		    {
+		      featureType: "water",
+		      elementType: "geometry",
+		      stylers: [
+		        { lightness: 100 },
+		        { color: "#2980B9" },
+		        { visibility: "simplified" }
 		      ]
 		    },{
 		      featureType: "road",
@@ -402,7 +418,7 @@
 				});
 
 			}
-			// console.log(sumOfDurationFromOrigins);
+			console.log(sumOfDurationFromOrigins);
 
 			findMinDurationOrigin();
 
