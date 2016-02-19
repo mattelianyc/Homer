@@ -152,7 +152,7 @@
 		      featureType: "road",
 		      elementType: "labels",
 		      stylers: [
-		        { visibility: "off" }
+		        { visibility: "simplified" }
 		      ]
 		    }
 		  ];
@@ -460,9 +460,9 @@
 		};
 
 
-		var simArray = [];
 
-		function findMinDurationOrigin(dovetails) {
+		function findMinDurationOrigin() {
+			
 
 			var aggregateDurationArray = [];
 
@@ -470,18 +470,22 @@
 				for (var i = 0; i < sumOfDurationFromOrigins.length; i++) {
 					aggregateDurationArray.push(sumOfDurationFromOrigins[i].duration);
 				}
-				// console.log(aggregateDurationArray);
 			    return Math.min.apply(Math, aggregateDurationArray);
 			};
 			minimumTripDuration = Array.min(aggregateDurationArray);
-			// console.log(minimumTripDuration);
 
 			for (var i = 0; i < sumOfDurationFromOrigins.length; i++) {
 				if(sumOfDurationFromOrigins[i].duration === minimumTripDuration) {
-					// console.log(sumOfDurationFromOrigins[i]);
 					theBlackDove = sumOfDurationFromOrigins[i].origin;
 				};
-			 } 
+			 }
+			 
+			 findMatchingDatabaseRecord();
+		}
+
+		function findMatchingDatabaseRecord() {
+
+			var simArray = [];
 
 			 for (var i = 0; i < originArray.length; i++) {
 			 	
@@ -491,32 +495,30 @@
 				var zip_b = originArray[i].address.match(/\b\d{5}\b/g);
 
 			    var equivalency_fullstr = 0;
+			    var equivalency_zip = 0;
+			    
 			    var minLength = (a.length > b.length) ? b.length : a.length;    
 			    var maxLength = (a.length < b.length) ? b.length : a.length;    
+			    var minLengthZip = (zip_a.length > zip_b.length) ? zip_b.length : zip_a.length;    
+			    var maxLengthZip = (zip_a.length < zip_b.length) ? zip_b.length : zip_a.length;  
+
 			    for(var k = 0; k < minLength; k++) {
 			        if(a[k] == b[k]) {
 			            equivalency_fullstr++;
 			        }
 			    }
-
-			    var weight_address = equivalency_fullstr / maxLength;
-
-			    var equivalency_zip = 0;
-			    var minLengthZip = (zip_a.length > zip_b.length) ? zip_b.length : zip_a.length;    
-			    var maxLengthZip = (zip_a.length < zip_b.length) ? zip_b.length : zip_a.length;  
-
 			    for(var kk = 0; kk < minLengthZip; kk++) {
 			        if(zip_a[kk] == zip_b[kk]) {
 			            equivalency_zip++;
 			        }
 			    }
 			    
+			    var weight_address = equivalency_fullstr / maxLength;
 			    var weight_zip = equivalency_zip / maxLengthZip;
 
 			    simArray.push({ whiteDoves: originArray[i], weight: ((weight_address * 100) + (weight_zip * 100)) });
 
 			 }
-
 
 			 var weightArray = [];
 
@@ -536,6 +538,11 @@
 				}
 			}
 
+			dovetailor();
+		}
+
+		function dovetailor () {
+
 			var service = new google.maps.DistanceMatrixService();
 			service.getDistanceMatrix({
 	    		origins: [theBlackDove],
@@ -551,8 +558,6 @@
 				calcRouteFive();
 
 	    	});
-		
-
 		}
 
 
@@ -566,12 +571,7 @@
 				};
 				directionsService.route(request, function(result, status) {
 				if (status == google.maps.DirectionsStatus.OK) {
-				  directionsDisplay.setDirections(result);
-
-				  var workRouteDuration = result.routes[0].legs;
-
-				  // console.log(workRouteDuration);
-
+					directionsDisplay.setDirections(result);
 				}
 			});
 		}
@@ -586,7 +586,6 @@
 				};
 				directionsService.route(request, function(result, status) {
 				if (status == google.maps.DirectionsStatus.OK) {
-				  // directionsDisplay.setDirections(result);
 
 				   console.log(result);
 
@@ -596,9 +595,6 @@
 				   var routeOneSteps = result.routes[0].legs[0].steps;
 				   
 				   var routeOneDuration = result.routes[0].legs;
-				   
-				   // var dur = document.getElementById('duration');
-				   // dur.innerHTML = '<li>'+routeOneDuration+'</li>';
 
 				   var pathCoords = [];
 				   
@@ -631,8 +627,8 @@
 				};
 				directionsService.route(request, function(result, status) {
 				if (status == google.maps.DirectionsStatus.OK) {
-				  // directionsDisplay.setDirections(result);
-				  // console.log(result);
+				    
+				    // console.log(result);
 
 					// console.log(result.routes[0].legs[0].steps);
 					// console.log(result.routes[0].legs[0].steps.length);
@@ -640,12 +636,6 @@
 				var routeTwoSteps = result.routes[0].legs[0].steps;
 
 				var routeTwoDuration = result.routes[0].legs;
-
-
-				// console.log(routeTwoDuration);
-				   
-				   // var dur = document.getElementById('duration');
-				   // dur.innerHTML = '<li>'+routeTwoDuration+'</li>';
 
 				   var pathCoords = [];
 				   
@@ -678,9 +668,9 @@
 				};
 				directionsService.route(request, function(result, status) {
 				if (status == google.maps.DirectionsStatus.OK) {
-				  // directionsDisplay.setDirections(result);
 
 			   		// console.log(result);
+
 					// console.log(result.routes[0].legs[0].steps);
 					// console.log(result.routes[0].legs[0].steps.length);
 
@@ -720,9 +710,9 @@
 				};
 				directionsService.route(request, function(result, status) {
 				if (status == google.maps.DirectionsStatus.OK) {
-				  // directionsDisplay.setDirections(result);
 
 			   		// console.log(result);
+
 					// console.log(result.routes[0].legs[0].steps);
 					// console.log(result.routes[0].legs[0].steps.length);
 
@@ -761,48 +751,41 @@
 				travelMode: google.maps.TravelMode.TRANSIT
 				};
 				directionsService.route(request, function(result, status) {
-				if (status == google.maps.DirectionsStatus.OK) {
-				  // directionsDisplay.setDirections(result);
+					if (status == google.maps.DirectionsStatus.OK) {
 
-			   		// console.log(result);
-					// console.log(result.routes[0].legs[0].steps);
-					// console.log(result.routes[0].legs[0].steps.length);
+				   		// console.log(result);
 
-					var routeFiveSteps = result.routes[0].legs[0].steps;
+						// console.log(result.routes[0].legs[0].steps);
+						// console.log(result.routes[0].legs[0].steps.length);
 
-					var routeFiveDuration = result.routes[0].legs;
+						var routeFiveSteps = result.routes[0].legs[0].steps;
 
-				   var pathCoords = [];
-				   
-				   for (i = 0; i < routeFiveSteps.length; i++) {
-					   startLatLng = {lat: result.routes[0].legs[0].steps[i].start_point.lat(), lng: result.routes[0].legs[0].steps[i].start_point.lng()};
-					   endLatLng = {lat: result.routes[0].legs[0].steps[i].end_point.lat(), lng: result.routes[0].legs[0].steps[i].end_point.lng()};
-					   pathCoords.push(startLatLng);
-					   pathCoords.push(endLatLng);
-				   }
+						var routeFiveDuration = result.routes[0].legs;
 
-				  pathFive = new google.maps.Polyline({
-				    path: pathCoords,
-				    geodesic: true,
-				    strokeColor: 'darkgreen',
-				    strokeOpacity: 1.0,
-				    strokeWeight: 4
-				  });
-					 pathFive.setMap(map);
+					   var pathCoords = [];
+					   
+					   for (i = 0; i < routeFiveSteps.length; i++) {
+						   startLatLng = {lat: result.routes[0].legs[0].steps[i].start_point.lat(), lng: result.routes[0].legs[0].steps[i].start_point.lng()};
+						   endLatLng = {lat: result.routes[0].legs[0].steps[i].end_point.lat(), lng: result.routes[0].legs[0].steps[i].end_point.lng()};
+						   pathCoords.push(startLatLng);
+						   pathCoords.push(endLatLng);
+					   }
 
-				}
-			});
+					  pathFive = new google.maps.Polyline({
+					    path: pathCoords,
+					    geodesic: true,
+					    strokeColor: 'darkgreen',
+					    strokeOpacity: 1.0,
+					    strokeWeight: 4
+					  });
+						 pathFive.setMap(map);
 
+					}
+				});
 
-		}
-
-
-
-	    	
-
+			}
 		
 	@endif
-
 
 	}
 

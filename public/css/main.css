@@ -30,7 +30,7 @@ html {
 #user-info-modal {
 	position:absolute;
 	z-index: 11;
-	top:5%;
+	top:10%;
 	left:10%;
 	right:10%;
 	width:80%;
