@@ -27,6 +27,13 @@ html {
 	color:white;
 }
 
+.navbar-toggle  {
+	background-color: white !important;
+}
+.navbar-toggle > .icon-bar {
+	background-color: #E74C3C !important;
+}
+
 #user-info-modal {
 	position:absolute;
 	z-index: 11;

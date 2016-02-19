@@ -36,7 +36,9 @@
 	        <span class="icon-bar"></span>
 	        <span class="icon-bar"></span> 
 	      </button>
-	      <img class="navbar-brand img-responsive" src="{{ asset('/images/dovetail_logo_1_white.svg') }}" style="padding:15px;height:80px;">
+	      <a class="navbar-brand" href="/home">
+	      	<img class="img-responsive" src="{{ asset('/images/dovetail_logo_1_white.svg') }}" style="width: 200px; height: auto;">
+	      </a>
 	    </div>
 	    <div class="collapse navbar-collapse" id="myNavbar">
 	      <ul class="nav navbar-nav">
@@ -419,22 +421,21 @@
 		function callback(response, status) {
 
 			callbackResponseArray.push(response);
-			console.log(callbackResponseArray);
-			
-			var intermediateDurationsObject;
-			var counter = 0;
+			// console.log(callbackResponseArray);
 
-			var elementsArray = [];
-			whiteDoveOrigins = [];
-
-			var totalDuration = 0;
-			var intermediateDurationsArray = [];
-			
 			for (var w = 0; w < callbackResponseArray[0].originAddresses.length; w++) {
 				whiteDoveOrigins.push({address: callbackResponseArray[0].originAddresses[w], elements: callbackResponseArray[0].rows[w].elements});
 			}
 
-			// console.log(whiteDoveOrigins);
+			calculateTotalDurationFromOrigins();
+
+		}
+
+		function calculateTotalDurationFromOrigins() {
+			
+			var counter = 0;
+			var totalDuration = 0;
+			var intermediateDurationsArray = [];
 
 			for (var idx = 0; idx < whiteDoveOrigins.length; idx++) {
 
@@ -453,16 +454,14 @@
 				});
 
 			}
-			console.log(sumOfDurationFromOrigins);
+
+			// console.log(sumOfDurationFromOrigins);
 
 			findMinDurationOrigin();
 
 		};
 
-
-
 		function findMinDurationOrigin() {
-			
 
 			var aggregateDurationArray = [];
 
@@ -479,7 +478,7 @@
 					theBlackDove = sumOfDurationFromOrigins[i].origin;
 				};
 			 }
-			 
+
 			 findMatchingDatabaseRecord();
 		}
 
@@ -539,6 +538,7 @@
 			}
 
 			dovetailor();
+
 		}
 
 		function dovetailor () {
@@ -551,15 +551,25 @@
 	    	}, function (result, status) {
 
 				calcRouteWork();
+	    		setTimeout(function() {
 				calcRouteOne();
+	    		}, 2000);
+	    		setTimeout(function() {
 				calcRouteTwo();
+	    		}, 4000);
+	    		setTimeout(function() {
 				calcRouteThree();
+	    		}, 6000);
+	    		setTimeout(function() {
 				calcRouteFour();
+	    		}, 8000);
+	    		setTimeout(function() {
 				calcRouteFive();
+	    		}, 10000);
 
 	    	});
-		}
 
+		}
 
 		function calcRouteWork() {
 				var start = theBlackDove;
