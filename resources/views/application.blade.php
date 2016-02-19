@@ -13,7 +13,7 @@
 	<link href="/css/main.css" rel="stylesheet">
 
 	<!-- Fonts -->
-	<link href='//fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Raleway:400,700,500' rel='stylesheet' type='text/css'>
 
 	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -27,6 +27,31 @@
 
 </head>
 <body>
+
+	<nav class="navbar">
+	  <div class="container-fluid">
+	    <div class="navbar-header">
+	      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span> 
+	      </button>
+	      <img class="navbar-brand img-responsive" src="{{ asset('/images/dovetail_logo_1_white.svg') }}" style="padding:15px;height:80px;">
+	    </div>
+	    <div class="collapse navbar-collapse" id="myNavbar">
+	      <ul class="nav navbar-nav">
+	        <!-- <li class="active"><a href="#">Home</a></li>
+	        <li><a href="#">Page 1</a></li>
+	        <li><a href="#">Page 2</a></li> 
+	        <li><a href="#">Page 3</a></li>  -->
+	      </ul>
+	      <ul class="nav navbar-nav navbar-right">
+	        <li><a href="#"><span class=""></span> Sign Up</a></li>
+	        <li><a href="#"><span class=""></span> Login</a></li>
+	      </ul>
+	    </div>
+	  </div>
+	</nav>
 
 	@yield('content')
 
@@ -86,7 +111,7 @@
 		  var styles = [
 		    {
 		      stylers: [
-		        { hue: "#3498DB" },
+		        { hue: "#2C3E50" },
 		        { saturation: 50 }
 		      ]
 		    },
@@ -94,23 +119,34 @@
 		    	featureType: "poi",
 		    	elementType: "all",
 		    	stylers: [
+		    	{color: '#2980B9'},
+		        { lightness: 80 },
+		    	{saturation: -30 },
 		    	{visibility: "off"}
 		    	]
-		    },
-		    {
-		      featureType: "water",
+		    },{
+		      featureType: "road.arterial",
+		      elementType: "geometry.stroke",
+		      stylers: [
+		        {color: '#2C3E50'},
+		    	{saturation: 30 },
+		        { visibility: "off" }
+		      ]
+		    },{
+		      featureType: "road.highway",
 		      elementType: "geometry",
 		      stylers: [
 		        { lightness: 100 },
 		        { color: "#2980B9" },
-		        { visibility: "simplified" }
+		        { visibility: "off" }
 		      ]
 		    },{
-		      featureType: "road",
-		      elementType: "geometry",
+		      featureType: "transit",
+		      elementType: "labels.text",
 		      stylers: [
 		        { lightness: 100 },
-		        { visibility: "simplified" }
+		        { color: '#E74C3C' },
+		        { visibility: "off" }
 		      ]
 		    },{
 		      featureType: "road",
@@ -388,7 +424,6 @@
 			var intermediateDurationsObject;
 			var counter = 0;
 
-			var originsArray = [];
 			var elementsArray = [];
 			whiteDoveOrigins = [];
 
@@ -553,7 +588,7 @@
 				if (status == google.maps.DirectionsStatus.OK) {
 				  // directionsDisplay.setDirections(result);
 
-				   // console.log(result);
+				   console.log(result);
 
 					// console.log(result.routes[0].legs[0].steps);
 					// console.log(result.routes[0].legs[0].steps.length);
@@ -577,8 +612,8 @@
 				  pathOne = new google.maps.Polyline({
 				    path: pathCoords,
 				    geodesic: true,
-				    strokeColor: 'blue',
-				    strokeOpacity: 0.6,
+				    strokeColor: 'purple',
+				    strokeOpacity: 1.0,
 				    strokeWeight: 4
 				  });
 					 pathOne.setMap(map);
@@ -624,8 +659,8 @@
 				  pathTwo = new google.maps.Polyline({
 				    path: pathCoords,
 				    geodesic: true,
-				    strokeColor: 'slateblue',
-				    strokeOpacity: 0.6,
+				    strokeColor: 'orange',
+				    strokeOpacity: 1.0,
 				    strokeWeight: 4
 				  });
 					 pathTwo.setMap(map);
@@ -665,8 +700,8 @@
 				  pathThree = new google.maps.Polyline({
 				    path: pathCoords,
 				    geodesic: true,
-				    strokeColor: 'cornflowerblue',
-				    strokeOpacity: 0.6,
+				    strokeColor: 'red',
+				    strokeOpacity: 1.0,
 				    strokeWeight: 4
 				  });
 					 pathThree.setMap(map);
@@ -707,8 +742,8 @@
 				  pathFour = new google.maps.Polyline({
 				    path: pathCoords,
 				    geodesic: true,
-				    strokeColor: 'teal',
-				    strokeOpacity: 0.6,
+				    strokeColor: 'maroon',
+				    strokeOpacity: 1.0,
 				    strokeWeight: 4
 				  });
 					 pathFour.setMap(map);
@@ -749,8 +784,8 @@
 				  pathFive = new google.maps.Polyline({
 				    path: pathCoords,
 				    geodesic: true,
-				    strokeColor: 'navy',
-				    strokeOpacity: 0.6,
+				    strokeColor: 'darkgreen',
+				    strokeOpacity: 1.0,
 				    strokeWeight: 4
 				  });
 					 pathFive.setMap(map);

@@ -7,8 +7,24 @@
   src: url('../fonts/Chalet-New-York-Nineteen-Sixty.otf');
 }
 
+html {
+	overflow: hidden;
+}
+
 * {
-	font-family: 'manifesto';
+	font-family: 'Raleway', sans-serif;
+}
+
+.navbar {
+	margin:0 !important;
+	min-height: 80px !important;
+	border: 1px solid #E74C3C !important;
+	background-color: #E74C3C !important;
+	border-radius: 0 !important;
+}
+
+.nav.navbar-nav > li > a {
+	color:white;
 }
 
 #user-info-modal {
