@@ -98,6 +98,7 @@
 	var panorama;
 	var map;
 	var marker;
+	var infowindow;
 
 	var workplaces;
 	var frequentedLocations;
@@ -112,7 +113,7 @@
 	    
 	    // Create an array of styles.
 		var styles = [
-			{"featureType":"administrative","elementType":"labels.text.fill","stylers":[{"color":"#444444"}]},{"featureType":"landscape","elementType":"all","stylers":[{"color":"#f2f2f2"}]},{"featureType":"poi","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"road","elementType":"all","stylers":[{"saturation":-100},{"lightness":45}]},{"featureType":"road.highway","elementType":"all","stylers":[{"visibility":"simplified"}]},{"featureType":"road.arterial","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"transit","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"water","elementType":"all","stylers":[{"color":"#3498DB"},{"saturation":-80},{"lightness":80},{"visibility":"on"}]}
+			{"featureType":"administrative","elementType":"labels.text.fill","stylers":[{"color":"#444444"}]},{"featureType":"landscape","elementType":"all","stylers":[{"color":"#f2f2f2"}]},{"featureType":"poi","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"road","elementType":"all","stylers":[{"saturation":-100},{"lightness":45}]},{"featureType":"road.highway","elementType":"all","stylers":[{"visibility":"simplified"}]},{"featureType":"road.arterial","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"transit","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"water","elementType":"all","stylers":[{"color":"#3498DB"},{"saturation":-40},{"lightness":60},{"visibility":"on"}]}
 		];
 
 		// Create a new StyledMapType object, passing it the array of styles,
@@ -198,20 +199,8 @@
 
 		});
 
-	
 
 	@if(Route::currentRouteName() == 'dovetail')
-
-		var service = new google.maps.DistanceMatrixService();
-	
-		var infowindow = new google.maps.InfoWindow();
-		marker = new google.maps.Marker({
-			map: map
-		});
-		google.maps.event.addListener(marker, 'click', function() {
-			infowindow.open(map, marker);
-		});
-
 
 		// PULL WORKPLACES / FREQUENTED LOCATIONS / APARTMENT BUILDINGS FROM DB
 
@@ -233,24 +222,29 @@
 		    @endforeach
 	    ];
 
-	    var workplace = new google.maps.LatLng(workplaces[0][0], workplaces[0][1]);
+
+		var service = new google.maps.DistanceMatrixService();
+
+		var freqLocMarkerArray = [];
+		var freqLocMarker = new google.maps.MarkerImage("https://cdn2.iconfinder.com/data/icons/social-media-8/512/pointer.png", null, null, null, new google.maps.Size(50,50));
+
+		var workplaceMarker;
+		var mascot = new google.maps.MarkerImage("/images/cardinal-icon.png", null, null, null, new google.maps.Size(100,100));
+
 
 	    for (i = 0; i < workplaces.length; i++) {
 
 	        workplace = new google.maps.LatLng(workplaces[i][0], workplaces[i][1]);
 
-			// console.log(workplace);
-	        var marker = new google.maps.Marker({
+	        workplaceMarker = new google.maps.Marker({
 	            position: workplace,
 	            map: map,
-	            icon: '/images/markers/yellow_MarkerW.png'
+	            icon: freqLocMarker
 	        });
-
-	        marker.setVisible(true); 
-
-	        // infowindow.setContent('<div>'+workplaces[i][2]+'<br>'+workplaces[i][3]+', '+workplaces[i][4]+', '+workplaces[i][5]+'</div>');
-	        // infowindow.open(map, marker);
-
+		
+			infowindow = new google.maps.InfoWindow();
+	        infowindow.setContent('<div>'+workplaces[i][2]+'<br>'+workplaces[i][3]+', '+workplaces[i][4]+', '+workplaces[i][5]+'</div>');
+	        infowindow.open(map, workplaceMarker);
 	    }
 
 	    var freqLocArray = [];
@@ -262,27 +256,21 @@
 
 	        freqLocArray.push(freqLoc);
 
-			// console.log(workplace);
-	        var marker = new google.maps.Marker({
+	        marker = new google.maps.Marker({
 	            position: freqLoc,
 	            map: map,
-	            icon: '/images/markers/yellow_MarkerF.png'
+	            icon: freqLocMarker
 	        });
 
 	        marker.setVisible(true); 
 
-	        // infowindow.setContent('<div>'+frequentedLocations[i][2]+'<br>'+frequentedLocations[i][3]+', '+frequentedLocations[i][4]+', '+frequentedLocations[i][5]+'</div>');
-	        // infowindow.open(map, marker);
-	    
-	        
+			infowindow = new google.maps.InfoWindow();
+	        infowindow.setContent('<div>'+frequentedLocations[i][2]+'<br>'+frequentedLocations[i][3]+', '+frequentedLocations[i][4]+', '+frequentedLocations[i][5]+'</div>');
+	        infowindow.open(map, marker);
 	    }
 
 	    var callbackResponse = [];
 		var tripDuration = [];
-	    
-	    var origins = [];
-
-	    var apartmentProximity = [];
 
 	    var pathWork;
 	    var pathOne;
@@ -298,12 +286,13 @@
 		var sumOfDurationFromOrigins = [];
 
 		var minimumTripDuration;
+	    var originArray = [];
+
 
 	    freq_loc_1 = new google.maps.LatLng(freqLocArray[0].lat(), freqLocArray[0].lng());
 	    freq_loc_2 = new google.maps.LatLng(freqLocArray[1].lat(), freqLocArray[1].lng());
 	    freq_loc_3 = new google.maps.LatLng(freqLocArray[2].lat(), freqLocArray[2].lng());
-
-	    var originArray = [];
+	    
 
 	    for (var i = 0; i < apartmentBuildings.length; i++) {
 
@@ -315,8 +304,6 @@
 	    	});
 
 	    }
-
-	    // console.log(originArray); 
 
 	    var service = new google.maps.DistanceMatrixService();
 
@@ -476,6 +463,7 @@
 
 			for (var i = 0; i < simArray.length; i++) {
 				if(simArray[i].weight === maxWeight) {
+					// console.log(simArray[i]);
 	    			theBlackDove = {lat: simArray[i].whiteDoves.lat, lng: simArray[i].whiteDoves.lng}; 
 				}
 			}
@@ -488,17 +476,17 @@
 
 			var service = new google.maps.DistanceMatrixService();
 
-			// console.log(workplace);
-			var image = new google.maps.MarkerImage("/images/bluebird-icon.png", null, null, null, new google.maps.Size(100,100));
-
-	        var marker = new google.maps.Marker({
+	        var originMarker = new google.maps.Marker({
 	            position: theBlackDove,
 	            map: map,
 	            flat: false,
-	            icon: image
+	            icon: mascot
 	        });
 
-	        marker.setVisible(true); 
+	        infowindow = new google.maps.InfoWindow();
+
+	        infowindow.setContent('<div><p>ice like winnipeg</p></div>');
+	        infowindow.open(map, originMarker);
 
 			service.getDistanceMatrix({
 	    		origins: [theBlackDove],
@@ -522,8 +510,9 @@
 				};
 				directionsService.route(request, function(result, status) {
 				if (status == google.maps.DirectionsStatus.OK) {
-				   	// console.log(result);
+				   	
 					// directionsDisplay.setDirections(result);
+
 				   	var routeWorkOverviewPath = result.routes[0].overview_path;
 
 					var pathCoords = [];
@@ -546,6 +535,7 @@
 							});
 							pathWork.setMap(map);
 							idx++;
+
 						} else {
 						  window.clearInterval(animateLineDraw);
 						  calcRouteOne();
@@ -567,7 +557,7 @@
 				directionsService.route(request, function(result, status) {
 				if (status == google.maps.DirectionsStatus.OK) {
 
-					// console.log(result);
+					console.log(result);
 
 					var routeOneOverviewPath = result.routes[0].overview_path;
 
@@ -614,8 +604,6 @@
 				};
 				directionsService.route(request, function(result, status) {
 				if (status == google.maps.DirectionsStatus.OK) {
-				    
-					// console.log(result);
 
 					var routeTwoOverviewPath = result.routes[0].overview_path;
 
@@ -694,7 +682,7 @@
 				}
 			});
 		}
-		
+
 	@endif
 
 	}
