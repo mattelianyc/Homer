@@ -233,7 +233,7 @@
 		// var freqLocMarker = new google.maps.MarkerImage("http://www.clker.com/cliparts/8/6/U/z/k/o/google-maps-marker-for-residencelamontagne-hi.png", null, null, null, new google.maps.Size(20,35));
 		var destinationMarker = new google.maps.MarkerImage("http://www.mdbarry.com/girlsinstem/graphics/m2.png", null, null, null, new google.maps.Size(27,45));
 		// var destinationMarker = '/images/markers/yellow_MarkerX.png';
-		var mascot = new google.maps.MarkerImage("/images/bluebird-icon.png", null, null, null, new google.maps.Size(100,100));
+		var mascot = new google.maps.MarkerImage("/images/cardinal-icon.png", null, null, null, new google.maps.Size(100,100));
 
 	    for (i = 0; i < workplaces.length; i++) {
 
@@ -508,7 +508,7 @@
     		sidebar.display = 'block';
     		navbar.width = '27%';
 
-    		document.getElementById('blackDoveDetails').innerHTML = '<h3>'+blackDoveTitle+'</h3><h4>'+blackDoveAddress+'</h4><h4><strong style="font-size:30px;">'+blackDoveDuration+' </strong><p style="font-size:18px;">minutes per year</p></h4><hr>';
+    		document.getElementById('blackDoveDetails').innerHTML = '<h3>'+blackDoveTitle+'</h3><h4>'+blackDoveAddress+'</h4><h4><strong style="font-size:30px;">'+blackDoveDuration+' </strong><p style="font-size:18px;">minutes per year in transit</p></h4><hr>';
 
 			service.getDistanceMatrix({
 	    		origins: [theBlackDove],
@@ -568,7 +568,7 @@
 							pathWork = new google.maps.Polyline({
 								path: pathCoords,
 								geodesic: true,
-								strokeColor: '#E74C3C',
+								strokeColor: '#3498DB',
 								strokeOpacity: 0.5,
 								strokeWeight: 3.5
 							});
@@ -617,7 +617,7 @@
 							pathOne = new google.maps.Polyline({
 								path: pathCoords,
 								geodesic: true,
-								strokeColor: '#E74C3C',
+								strokeColor: '#3498DB',
 								strokeOpacity: 0.5,
 								strokeWeight: 3.5
 							});
@@ -663,7 +663,7 @@
 							pathTwo = new google.maps.Polyline({
 								path: pathCoords,
 								geodesic: true,
-								strokeColor: '#E74C3C',
+								strokeColor: '#3498DB',
 								strokeOpacity: 0.5,
 								strokeWeight: 3.5
 							});
@@ -709,7 +709,7 @@
 							pathThree = new google.maps.Polyline({
 								path: pathCoords,
 								geodesic: true,
-								strokeColor: '#E74C3C',
+								strokeColor: '#3498DB',
 								strokeOpacity: 0.5,
 								strokeWeight: 3.5
 							});
