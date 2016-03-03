@@ -28,7 +28,7 @@
 </head>
 <body>
 
-	<nav class="navbar">
+	<nav id="navbar" class="navbar">
 	  <div class="container-fluid">
 	    <div class="navbar-header">
 	      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -48,8 +48,8 @@
 	        <li><a href="#">Page 3</a></li>  -->
 	      </ul>
 	      <ul class="nav navbar-nav navbar-right">
-	        <li><a href="#"><span class=""></span> Sign Up</a></li>
-	        <li><a href="#"><span class=""></span> Login</a></li>
+	        <!-- <li><a href="#"><span class=""></span> Sign Up</a></li>
+	        <li><a href="#"><span class=""></span> Login</a></li> -->
 	      </ul>
 	    </div>
 	  </div>
@@ -231,8 +231,9 @@
 		var service = new google.maps.DistanceMatrixService();
 
 		// var freqLocMarker = new google.maps.MarkerImage("http://www.clker.com/cliparts/8/6/U/z/k/o/google-maps-marker-for-residencelamontagne-hi.png", null, null, null, new google.maps.Size(20,35));
-		var destinationMarker = new google.maps.MarkerImage("https://cdn2.iconfinder.com/data/icons/social-media-8/512/pointer.png", null, null, null, new google.maps.Size(50,50));
-		var mascot = new google.maps.MarkerImage("/images/cardinal-icon.png", null, null, null, new google.maps.Size(88,88));
+		var destinationMarker = new google.maps.MarkerImage("http://www.mdbarry.com/girlsinstem/graphics/m2.png", null, null, null, new google.maps.Size(27,45));
+		// var destinationMarker = '/images/markers/yellow_MarkerX.png';
+		var mascot = new google.maps.MarkerImage("/images/bluebird-icon.png", null, null, null, new google.maps.Size(100,100));
 
 	    for (i = 0; i < workplaces.length; i++) {
 
@@ -498,12 +499,16 @@
 
 	        var mapCSS = document.getElementById('map').style;
 	    		mapCSS.right = 0;
-	    		mapCSS.width = '80%';
+	    		mapCSS.top = 0;
+	    		mapCSS.width = '73%';
 
     		var sidebar = document.getElementById('sidebar').style;
+    		var navbar = document.getElementById('navbar').style;
+    		navbar.left = 0;
     		sidebar.display = 'block';
+    		navbar.width = '27%';
 
-    		document.getElementById('blackDoveDetails').innerHTML = '<h3>'+blackDoveTitle+'</h3><h5>'+blackDoveAddress+'</h5><strong>Travel Time: </strong><h4>'+blackDoveDuration+' minutes per year</h4>';
+    		document.getElementById('blackDoveDetails').innerHTML = '<h3>'+blackDoveTitle+'</h3><h4>'+blackDoveAddress+'</h4><h4><strong style="font-size:30px;">'+blackDoveDuration+' </strong><p style="font-size:18px;">minutes per year</p></h4><hr>';
 
 			service.getDistanceMatrix({
 	    		origins: [theBlackDove],
@@ -517,8 +522,18 @@
 				}
 
 				map.fitBounds(bounds);
+				map.panBy(222, 0);
 
 				calcRouteWork();
+				setTimeout(function() {
+					calcRouteOne();
+				}, 1000);
+				setTimeout(function() {
+					calcRouteTwo();
+				}, 2000);
+				setTimeout(function() {
+					calcRouteThree();
+				}, 3000);
 
 	    	});
 
@@ -553,19 +568,19 @@
 							pathWork = new google.maps.Polyline({
 								path: pathCoords,
 								geodesic: true,
-								strokeColor: '#3498DB',
-								strokeOpacity: 0.8,
-								strokeWeight: 3.3
+								strokeColor: '#E74C3C',
+								strokeOpacity: 0.5,
+								strokeWeight: 3.5
 							});
 							pathWork.setMap(map);
 							idx++;
 
 						} else {
 						  window.clearInterval(animateLineDraw);
-						  calcRouteOne();
+						  
 						}
 
-					}, 50);
+					}, 40);
 				}
 			});
 		}
@@ -602,18 +617,18 @@
 							pathOne = new google.maps.Polyline({
 								path: pathCoords,
 								geodesic: true,
-								strokeColor: '#3498DB',
-								strokeOpacity: 0.8,
-								strokeWeight: 3.3
+								strokeColor: '#E74C3C',
+								strokeOpacity: 0.5,
+								strokeWeight: 3.5
 							});
 							pathOne.setMap(map);
 							idx++;
 						} else {
 						  window.clearInterval(animateLineDraw);
-						  calcRouteTwo();
+						  
 						}
 
-					}, 50);
+					}, 30);
 						
 
 
@@ -648,18 +663,18 @@
 							pathTwo = new google.maps.Polyline({
 								path: pathCoords,
 								geodesic: true,
-								strokeColor: '#3498DB',
-								strokeOpacity: 0.8,
-								strokeWeight: 3.3
+								strokeColor: '#E74C3C',
+								strokeOpacity: 0.5,
+								strokeWeight: 3.5
 							});
 							pathTwo.setMap(map);
 							idx++;
 						} else {
 						  window.clearInterval(animateLineDraw);
-						  calcRouteThree();
+						  
 						}
 
-					}, 50);
+					}, 20);
 
 				}
 			});
@@ -694,9 +709,9 @@
 							pathThree = new google.maps.Polyline({
 								path: pathCoords,
 								geodesic: true,
-								strokeColor: '#3498DB',
-								strokeOpacity: 0.8,
-								strokeWeight: 3.3
+								strokeColor: '#E74C3C',
+								strokeOpacity: 0.5,
+								strokeWeight: 3.5
 							});
 							pathThree.setMap(map);
 							idx++;
@@ -704,7 +719,7 @@
 						  	window.clearInterval(animateLineDraw);
 						}
 
-					}, 50);
+					}, 10);
 
 				}
 			});
