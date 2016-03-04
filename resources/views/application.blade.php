@@ -288,7 +288,11 @@
 	    var routeThreeDuration;
 
 	    var callbackResponseArray = [];
+
 		var sumOfDurationFromOrigins = [];
+		var aggregateDurationArray = [];
+		var sortedOriginsArray = [];
+
 		var blackDoveDuration;
 
 		var minimumTripDuration;
@@ -399,7 +403,7 @@
 
 		function findMinDurationOrigin() {
 
-			var aggregateDurationArray = [];
+			aggregateDurationArray = [];
 
 			Array.min = function(){
 				for (var i = 0; i < sumOfDurationFromOrigins.length; i++) {
@@ -416,7 +420,28 @@
 				};
 			 }
 
+			 matchmaker();
+
+		}
+
+		function matchmaker () {
+			
+			sortedOriginsArray = [];
+			
+			aggregateDurationArray.sort(function(a, b){return a-b});
+
+			for (var x = 0; x < sumOfDurationFromOrigins.length; x++) {
+				for (var y = 0; y < aggregateDurationArray.length; y++) {
+					if(sumOfDurationFromOrigins[x].duration === aggregateDurationArray[y]) {
+						sortedOriginsArray.push({duration: aggregateDurationArray[y], address: sumOfDurationFromOrigins[x].origin});
+					}
+				}
+			}
+
+			sortedOriginsArray.sort(function(a,b){return a.duration - b.duration});
+			// console.log(sortedOriginsArray);
 			 findMatchingDatabaseRecord();
+
 		}
 
 		function findMatchingDatabaseRecord() {
@@ -508,7 +533,18 @@
     		sidebar.display = 'block';
     		navbar.width = '27%';
 
-    		document.getElementById('blackDoveDetails').innerHTML = '<h3>'+blackDoveTitle+'</h3><h4>'+blackDoveAddress+'</h4><h4><strong style="font-size:30px;">'+blackDoveDuration+' </strong><p style="font-size:18px;">minutes per year in transit</p></h4><hr>';
+    		// var primeLocation = document.getElementById('primeLocation');
+			var cunt = document.getElementById('cunt');
+
+    		// primeLocation.innerHTML = '<h3>'+blackDoveTitle+'</h3><h4>'+blackDoveAddress+'</h4><h4><strong style="font-size:30px;">'+blackDoveDuration+' </strong><p style="font-size:18px;">minutes per year in transit</p></h4><hr>';
+
+    		for (var i = 0; i < sortedOriginsArray.length; i++) {
+    			var nu = document.createElement('div');
+				nu.innerHTML = '<h3>'+sortedOriginsArray[i].address+'</h3><h4><strong style="font-size:30px;">'+sortedOriginsArray[i].duration+' </strong><p style="font-size:18px;">minutes per year in transit</p></h4><hr>';
+				cunt.appendChild(nu);
+	    	}
+
+	    	cunt.firstChild.style.color = 'tomato';
 
 			service.getDistanceMatrix({
 	    		origins: [theBlackDove],
@@ -537,6 +573,7 @@
 
 	    	});
 
+			// matchmaker();
 		}
 
 		function calcRouteWork() {
