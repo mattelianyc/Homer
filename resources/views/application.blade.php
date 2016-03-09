@@ -582,7 +582,10 @@
 				var request = {
 				origin:start,
 				destination:end,
-				travelMode: google.maps.TravelMode.TRANSIT
+				travelMode: google.maps.TravelMode.TRANSIT,
+				transitOptions: {
+						departureTime: new Date(1457958911110)
+					}
 				};
 				directionsService.route(request, function(result, status) {
 				if (status == google.maps.DirectionsStatus.OK) {
@@ -628,7 +631,10 @@
 				var request = {
 				origin:start,
 				destination:end,
-				travelMode: google.maps.TravelMode.TRANSIT
+				travelMode: google.maps.TravelMode.TRANSIT,
+				transitOptions: {
+						departureTime: new Date(1457958911110)
+					}
 				};
 				directionsService.route(request, function(result, status) {
 				if (status == google.maps.DirectionsStatus.OK) {
@@ -681,7 +687,10 @@
 				var request = {
 				origin:start,
 				destination:end,
-				travelMode: google.maps.TravelMode.TRANSIT
+				travelMode: google.maps.TravelMode.TRANSIT,
+				transitOptions: {
+						departureTime: new Date(1457958911110)
+					}
 				};
 				directionsService.route(request, function(result, status) {
 				if (status == google.maps.DirectionsStatus.OK) {
@@ -727,7 +736,10 @@
 				var request = {
 				origin:start,
 				destination:end,
-				travelMode: google.maps.TravelMode.TRANSIT
+				travelMode: google.maps.TravelMode.TRANSIT,
+				transitOptions: {
+						departureTime: new Date(1457958911110)
+					}
 				};
 				directionsService.route(request, function(result, status) {
 				if (status == google.maps.DirectionsStatus.OK) {
