@@ -244,7 +244,7 @@
 	        marker = new google.maps.Marker({
 	            position: workplace,
 	            map: map,
-	            icon: workplaceMarker
+	            icon: destinationMarker
 	        });
 
 	        markersArray.push(marker);
@@ -607,7 +607,7 @@
 							pathWork = new google.maps.Polyline({
 								path: pathCoords,
 								geodesic: true,
-								strokeColor: '#E74C3C',
+								strokeColor: 'tomato',
 								strokeOpacity: 1,
 								strokeWeight: 4
 							});
@@ -623,7 +623,7 @@
 							calcRouteOne();
 						}
 
-					}, 40);
+					}, 60);
 				}
 			});
 		}
@@ -676,7 +676,7 @@
 						  calcRouteTwo();
 						}
 
-					}, 30);
+					}, 60);
 						
 
 
@@ -727,7 +727,7 @@
 						  calcRouteThree();
 						}
 
-					}, 20);
+					}, 60);
 
 				}
 			});
@@ -767,7 +767,7 @@
 								geodesic: true,
 								strokeColor: 'seagreen',
 								strokeOpacity: 1,
-								strokeWeight: 3
+								strokeWeight: 4
 							});
 							pathThree.setMap(map);
 							idx++;
@@ -779,7 +779,7 @@
 					    //     infowindow.open(map, originMarker);
 						}
 
-					}, 10);
+					}, 60);
 
 				}
 			});
