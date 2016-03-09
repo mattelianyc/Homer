@@ -623,7 +623,7 @@
 							calcRouteOne();
 						}
 
-					}, 60);
+					}, 36);
 				}
 			});
 		}
@@ -676,7 +676,7 @@
 						  calcRouteTwo();
 						}
 
-					}, 60);
+					}, 36);
 						
 
 
@@ -727,7 +727,7 @@
 						  calcRouteThree();
 						}
 
-					}, 60);
+					}, 36);
 
 				}
 			});
@@ -779,7 +779,7 @@
 					    //     infowindow.open(map, originMarker);
 						}
 
-					}, 60);
+					}, 36);
 
 				}
 			});
