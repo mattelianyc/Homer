@@ -365,25 +365,25 @@
 					
 					if(v == 0){
 
-						intermediateDurationsArray.push(((k.duration.value * 5 * 52)/60));
+						intermediateDurationsArray.push((((k.duration.value * 5 * 52)/60)/60));
 
 					} else if(v == 1){
 
-						intermediateDurationsArray.push(((k.duration.value * 3 * 52)/60));
+						intermediateDurationsArray.push((((k.duration.value * 1 * 52)/60)/60));
 
 					} else if(v == 2){
 
-						intermediateDurationsArray.push(((k.duration.value * 1 * 52)/60));
+						intermediateDurationsArray.push((((k.duration.value * 1 * 52)/60)/60));
 
 					} else if(v == 3){
 						
-						intermediateDurationsArray.push(((k.duration.value * 0.25 * 52)/60));
+						intermediateDurationsArray.push((((k.duration.value * 1 * 52)/60)/60));
 
 						for (var y = 0; y < intermediateDurationsArray.length; y++) {
 							totalDuration += (intermediateDurationsArray[y]);
 						}	
 
-						sumOfDurationFromOrigins.push({origin: whiteDoveOrigins[counter].address, duration: totalDuration});
+						sumOfDurationFromOrigins.push({origin: whiteDoveOrigins[counter].address, duration: parseInt(totalDuration)});
 						totalDuration=0;
 						intermediateDurationsArray = [];
 						counter++;
@@ -534,13 +534,13 @@
     		var primeLocation = document.getElementById('primeLocation');
 			var aptListings = document.getElementById('aptListings');
 
-    		primeLocation.innerHTML = '<h3>'+blackDoveTitle+'</h3><h4>'+blackDoveAddress+'</h4><h4><strong style="font-size:30px;">'+blackDoveDuration+' </strong><p style="font-size:18px;">minutes per year in transit</p></h4><hr>';
+    		primeLocation.innerHTML = '<h3>'+blackDoveTitle+'</h3><h4>'+blackDoveAddress+'</h4><h4><strong style="font-size:30px;">'+blackDoveDuration+' </strong><p style="font-size:18px;">hours per year in transit</p></h4><hr>';
 
 	    	primeLocation.style.color = 'tomato';
 
     		for (var i = 1; i < sortedOriginsArray.length; i++) {
     			var nu = document.createElement('div');
-				nu.innerHTML = '<h3>'+sortedOriginsArray[i].address+'</h3><h4><strong style="font-size:30px;">'+sortedOriginsArray[i].duration+' </strong><p style="font-size:18px;">minutes per year in transit</p></h4><hr>';
+				nu.innerHTML = '<h3>'+sortedOriginsArray[i].address+'</h3><h4><strong style="font-size:30px;">'+sortedOriginsArray[i].duration+' </strong><p style="font-size:18px;">hours per year in transit</p></h4><hr>';
 				aptListings.appendChild(nu);
 	    	}
 
@@ -635,6 +635,8 @@
 
 					console.log(result);
 
+					// directionsDisplay.setDirections(result);
+
 					var routeOneOverviewPath = result.routes[0].overview_path;
 					var routeOneSteps = result.routes[0].legs[0].steps;
 
@@ -684,6 +686,8 @@
 				directionsService.route(request, function(result, status) {
 				if (status == google.maps.DirectionsStatus.OK) {
 
+					// directionsDisplay.setDirections(result);
+
 					var routeTwoOverviewPath = result.routes[0].overview_path;
 
 					var pathCoords = [];
@@ -728,7 +732,7 @@
 				directionsService.route(request, function(result, status) {
 				if (status == google.maps.DirectionsStatus.OK) {
 
-			   		// console.log(result);
+			   		// directionsDisplay.setDirections(result);
 
 					var routeThreeOverviewPath = result.routes[0].overview_path;
 
@@ -753,6 +757,7 @@
 							pathThree.setMap(map);
 							idx++;
 						} else {
+						  	console.log(pathThree);
 						  	window.clearInterval(animateLineDraw);
 						}
 
