@@ -102,6 +102,7 @@
 	var map;
 	var marker;
 	var markersArray = [];
+	var originMarker;
 
 	var infowindow;
 
@@ -230,9 +231,11 @@
 
 		var service = new google.maps.DistanceMatrixService();
 
-		var destinationMarker = new google.maps.MarkerImage("http://www.myiconfinder.com/uploads/iconsets/128-128-2cf65dcba39e9ba577fccb630a2b93bf.png", null, null, null, new google.maps.Size(50,50));
+		var workplaceMarker = new google.maps.MarkerImage("http://www.myiconfinder.com/uploads/iconsets/128-128-2cf65dcba39e9ba577fccb630a2b93bf.png", null, null, null, new google.maps.Size(60,55));
 
-		var mascot = new google.maps.MarkerImage("/images/cardinal-icon.png", null, null, null, new google.maps.Size(88,88));
+		var destinationMarker = new google.maps.MarkerImage("http://images.clipartpanda.com/blue-location-icon-Location-Icon-Blue.png", null, null, null, new google.maps.Size(50,50));
+
+		var mascot = new google.maps.MarkerImage("http://res.cloudinary.com/hrscywv4p/image/upload/c_limit,f_auto,h_1440,q_80,w_720/w0jfkulxbfdzht7ww4fq.png", null, null, null, new google.maps.Size(50,50));
 
 	    for (i = 0; i < workplaces.length; i++) {
 
@@ -241,14 +244,14 @@
 	        marker = new google.maps.Marker({
 	            position: workplace,
 	            map: map,
-	            icon: destinationMarker
+	            icon: workplaceMarker
 	        });
 
 	        markersArray.push(marker);
 		
-			infowindow = new google.maps.InfoWindow();
-	        infowindow.setContent('<div>'+workplaces[i][2]+'<br>'+workplaces[i][3]+', '+workplaces[i][4]+', '+workplaces[i][5]+'</div>');
-	        // infowindow.open(map, marker);
+			// infowindow = new google.maps.InfoWindow();
+	  //       infowindow.setContent('<div>'+workplaces[i][2]+'<br>'+workplaces[i][3]+', '+workplaces[i][4]+', '+workplaces[i][5]+'</div>');
+	  //       infowindow.open(map, marker);
 	    }
 
 	    var freqLocArray = [];
@@ -268,9 +271,9 @@
 
 	        markersArray.push(marker);
 
-			infowindow = new google.maps.InfoWindow();
-	        infowindow.setContent('<div>'+frequentedLocations[i][2]+'<br>'+frequentedLocations[i][3]+', '+frequentedLocations[i][4]+', '+frequentedLocations[i][5]+'</div>');
-	        // infowindow.open(map, marker);
+			// infowindow = new google.maps.InfoWindow();
+	  //       infowindow.setContent('<div>'+frequentedLocations[i][2]+'<br>'+frequentedLocations[i][3]+', '+frequentedLocations[i][4]+', '+frequentedLocations[i][5]+'</div>');
+	  //       // infowindow.open(map, marker);
 	    }
 
 	    var callbackResponse = [];
@@ -509,16 +512,12 @@
 
 			var service = new google.maps.DistanceMatrixService();
 
-	        var originMarker = new google.maps.Marker({
+	        originMarker = new google.maps.Marker({
 	            position: theBlackDove,
 	            map: map,
 	            flat: false,
 	            icon: mascot
 	        });
-
-	        // infowindow = new google.maps.InfoWindow();
-	        // infowindow.setContent('<div><p>ice like winnipeg</p></div>');
-	        // infowindow.open(map, originMarker);
 
 	        var mapCSS = document.getElementById('map').style;
     		mapCSS.right = 0;
@@ -562,15 +561,15 @@
 
 				calcRouteWork();
 
-				setTimeout(function() {
-					calcRouteOne();
-				}, 1000);
-				setTimeout(function() {
-					calcRouteTwo();
-				}, 2000);
-				setTimeout(function() {
-					calcRouteThree();
-				}, 3000);
+				// setTimeout(function() {
+				// 	calcRouteOne();
+				// }, 1000);
+				// setTimeout(function() {
+				// 	calcRouteTwo();
+				// }, 2000);
+				// setTimeout(function() {
+				// 	calcRouteThree();
+				// }, 3000);
 
 	    	});
 
@@ -608,16 +607,20 @@
 							pathWork = new google.maps.Polyline({
 								path: pathCoords,
 								geodesic: true,
-								strokeColor: '#3498DB',
+								strokeColor: '#E74C3C',
 								strokeOpacity: 1,
-								strokeWeight: 3.5
+								strokeWeight: 4
 							});
 							pathWork.setMap(map);
 							idx++;
 
 						} else {
-						  window.clearInterval(animateLineDraw);
-						  
+							window.clearInterval(animateLineDraw);
+
+							// infowindow = new google.maps.InfoWindow();
+							// infowindow.setContent('<h3>'+blackDoveTitle+'</h3><h4>'+blackDoveAddress+'</h4>');
+							// infowindow.open(map, marker);
+							calcRouteOne();
 						}
 
 					}, 40);
@@ -662,15 +665,15 @@
 							pathOne = new google.maps.Polyline({
 								path: pathCoords,
 								geodesic: true,
-								strokeColor: '#3498DB',
+								strokeColor: 'violet',
 								strokeOpacity: 1,
-								strokeWeight: 3.5
+								strokeWeight: 5
 							});
 							pathOne.setMap(map);
 							idx++;
 						} else {
 						  window.clearInterval(animateLineDraw);
-						  
+						  calcRouteTwo();
 						}
 
 					}, 30);
@@ -713,15 +716,15 @@
 							pathTwo = new google.maps.Polyline({
 								path: pathCoords,
 								geodesic: true,
-								strokeColor: '#3498DB',
+								strokeColor: 'brown',
 								strokeOpacity: 1,
-								strokeWeight: 3.5
+								strokeWeight: 4
 							});
 							pathTwo.setMap(map);
 							idx++;
 						} else {
 						  window.clearInterval(animateLineDraw);
-						  
+						  calcRouteThree();
 						}
 
 					}, 20);
@@ -762,15 +765,18 @@
 							pathThree = new google.maps.Polyline({
 								path: pathCoords,
 								geodesic: true,
-								strokeColor: '#3498DB',
+								strokeColor: 'seagreen',
 								strokeOpacity: 1,
-								strokeWeight: 3.5
+								strokeWeight: 3
 							});
 							pathThree.setMap(map);
 							idx++;
 						} else {
 						  	console.log(pathThree);
 						  	window.clearInterval(animateLineDraw);
+						  	// infowindow = new google.maps.InfoWindow();
+					    //     infowindow.setContent('<div><strong>'+blackDoveTitle+'</strong><br><p>'+blackDoveAddress+'</p></div>');
+					    //     infowindow.open(map, originMarker);
 						}
 
 					}, 10);
