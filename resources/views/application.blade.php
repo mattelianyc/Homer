@@ -616,11 +616,11 @@
 								strokeOpacity: 1,
 								strokeWeight: 4
 							});
+							pathWork.setMap(map);
 							idx++;
 
 						} else {
 
-							pathWork.setMap(map);
 
 							window.clearInterval(animateLineDraw);
 
@@ -638,6 +638,7 @@
 								pathTwo.setVisible(true);
 								pathThree.setVisible(true);
 
+								pathWork.setMap(map);
 								directionsDisplay.setDirections(result);
 
 
@@ -687,11 +688,11 @@
 								strokeOpacity: 0.8,
 								strokeWeight: 3.8
 							});
+							pathOne.setMap(map);
 							idx++;
 
 						} else {
 							
-							pathOne.setMap(map);
 
 							window.clearInterval(animateLineDraw);
 
@@ -708,8 +709,7 @@
 								pathTwo.setVisible(true);
 								pathThree.setVisible(true);
 
-
-
+								pathOne.setMap(map);
 								directionsDisplay.setDirections(result);
 
 							});
@@ -757,10 +757,10 @@
 								strokeOpacity: 0.8,
 								strokeWeight: 3.8
 							});
-							idx++;
-						} else {
-
 							pathTwo.setMap(map);
+							idx++;
+
+						} else {
 
 						  window.clearInterval(animateLineDraw);
 						  
@@ -776,6 +776,7 @@
 									pathTwo.setVisible(false);
 									pathThree.setVisible(true);
 
+									pathTwo.setMap(map);
 									directionsDisplay.setDirections(result);
 
 								});
@@ -822,10 +823,10 @@
 								strokeOpacity: 0.8,
 								strokeWeight: 3.8
 							});
+							pathThree.setMap(map);
 							idx++;
 						} else {
 
-							pathThree.setMap(map);
 
 							window.clearInterval(animateLineDraw);
 
@@ -841,6 +842,7 @@
 								pathTwo.setVisible(true);
 								pathThree.setVisible(false);
 								
+								pathThree.setMap(map);
 								directionsDisplay.setDirections(result);
 
 							});
