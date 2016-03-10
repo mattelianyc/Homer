@@ -101,6 +101,7 @@
 	var panorama;
 	var map;
 	var marker;
+	var workplaceMarker;
 	var markersArray = [];
 	var originMarker;
 
@@ -114,7 +115,10 @@
     function initialize() {
 
     	var directionsService = new google.maps.DirectionsService;
-		var directionsDisplay = new google.maps.DirectionsRenderer;
+		var directionsDisplay = new google.maps.DirectionsRenderer(
+		{
+			suppressMarkers: false
+		});
 		var geocoder = new google.maps.Geocoder();
 	    
 	    // Create an array of styles.
@@ -231,23 +235,23 @@
 
 		var service = new google.maps.DistanceMatrixService();
 
-		var workplaceMarker = new google.maps.MarkerImage("http://www.myiconfinder.com/uploads/iconsets/128-128-2cf65dcba39e9ba577fccb630a2b93bf.png", null, null, null, new google.maps.Size(60,55));
+		var workplaceMarker = new google.maps.MarkerImage("http://walkersstuff.com/wp-content/uploads/2015/06/stepThree.png", null, null, null, new google.maps.Size(40,40));
 
-		var destinationMarker = new google.maps.MarkerImage("http://images.clipartpanda.com/blue-location-icon-Location-Icon-Blue.png", null, null, null, new google.maps.Size(50,50));
+		var destinationMarker = new google.maps.MarkerImage("http://www.envirovent.com/img/location-trade.png", null, null, null, new google.maps.Size(40,50));
 
-		var mascot = new google.maps.MarkerImage("http://res.cloudinary.com/hrscywv4p/image/upload/c_limit,f_auto,h_1440,q_80,w_720/w0jfkulxbfdzht7ww4fq.png", null, null, null, new google.maps.Size(50,50));
+		var mascot = new google.maps.MarkerImage("http://res.cloudinary.com/hrscywv4p/image/upload/c_limit,f_auto,h_1440,q_80,w_720/w0jfkulxbfdzht7ww4fq.png", null, null, null, new google.maps.Size(40,40));
 
 	    for (i = 0; i < workplaces.length; i++) {
 
 	        workplace = new google.maps.LatLng(workplaces[i][0], workplaces[i][1]);
 
-	        marker = new google.maps.Marker({
+	        workplaceMarker = new google.maps.Marker({
 	            position: workplace,
 	            map: map,
 	            icon: destinationMarker
 	        });
 
-	        markersArray.push(marker);
+	        markersArray.push(workplaceMarker);
 		
 			// infowindow = new google.maps.InfoWindow();
 	  //       infowindow.setContent('<div>'+workplaces[i][2]+'<br>'+workplaces[i][3]+', '+workplaces[i][4]+', '+workplaces[i][5]+'</div>');
@@ -266,7 +270,8 @@
 	        marker = new google.maps.Marker({
 	            position: freqLoc,
 	            map: map,
-	            icon: destinationMarker
+	            icon: destinationMarker,
+	            zIndex: 100
 	        }); 
 
 	        markersArray.push(marker);
@@ -561,15 +566,15 @@
 
 				calcRouteWork();
 
-				// setTimeout(function() {
-				// 	calcRouteOne();
-				// }, 1000);
-				// setTimeout(function() {
-				// 	calcRouteTwo();
-				// }, 2000);
-				// setTimeout(function() {
-				// 	calcRouteThree();
-				// }, 3000);
+
+					calcRouteOne();
+
+
+					calcRouteTwo();
+
+
+					calcRouteThree();
+
 
 	    	});
 
@@ -588,8 +593,8 @@
 				};
 				directionsService.route(request, function(result, status) {
 				if (status == google.maps.DirectionsStatus.OK) {
-				   	
-					// directionsDisplay.setDirections(result);
+
+					console.log(result);
 
 				   	var routeWorkOverviewPath = result.routes[0].overview_path;
 
@@ -607,20 +612,37 @@
 							pathWork = new google.maps.Polyline({
 								path: pathCoords,
 								geodesic: true,
-								strokeColor: 'tomato',
+								strokeColor: 'red',
 								strokeOpacity: 1,
 								strokeWeight: 4
 							});
-							pathWork.setMap(map);
 							idx++;
 
 						} else {
+
+							pathWork.setMap(map);
+
 							window.clearInterval(animateLineDraw);
 
-							// infowindow = new google.maps.InfoWindow();
-							// infowindow.setContent('<h3>'+blackDoveTitle+'</h3><h4>'+blackDoveAddress+'</h4>');
-							// infowindow.open(map, marker);
-							calcRouteOne();
+
+							google.maps.event.addListener(workplaceMarker, 'click', function() {
+
+								
+								workplaceMarker.setVisible(false);
+								markersArray[1].setVisible(true);
+								markersArray[2].setVisible(true);
+								markersArray[3].setVisible(true);
+
+								pathWork.setVisible(false);
+								pathOne.setVisible(true);
+								pathTwo.setVisible(true);
+								pathThree.setVisible(true);
+
+								directionsDisplay.setDirections(result);
+
+
+							});
+							
 						}
 
 					}, 36);
@@ -642,10 +664,6 @@
 				directionsService.route(request, function(result, status) {
 				if (status == google.maps.DirectionsStatus.OK) {
 
-					console.log(result);
-
-					// directionsDisplay.setDirections(result);
-
 					var routeOneOverviewPath = result.routes[0].overview_path;
 					var routeOneSteps = result.routes[0].legs[0].steps;
 
@@ -665,15 +683,36 @@
 							pathOne = new google.maps.Polyline({
 								path: pathCoords,
 								geodesic: true,
-								strokeColor: 'violet',
-								strokeOpacity: 1,
-								strokeWeight: 5
+								strokeColor: 'blueviolet',
+								strokeOpacity: 0.8,
+								strokeWeight: 3.8
 							});
-							pathOne.setMap(map);
 							idx++;
+
 						} else {
-						  window.clearInterval(animateLineDraw);
-						  calcRouteTwo();
+							
+							pathOne.setMap(map);
+
+							window.clearInterval(animateLineDraw);
+
+
+							google.maps.event.addListener(markersArray[1], 'click', function() {
+
+								workplaceMarker.setVisible(true);
+								markersArray[1].setVisible(false);
+								markersArray[2].setVisible(true);
+								markersArray[3].setVisible(true);
+
+							    pathWork.setVisible(true);
+							    pathOne.setVisible(false);
+								pathTwo.setVisible(true);
+								pathThree.setVisible(true);
+
+
+
+								directionsDisplay.setDirections(result);
+
+							});
 						}
 
 					}, 36);
@@ -698,8 +737,6 @@
 				directionsService.route(request, function(result, status) {
 				if (status == google.maps.DirectionsStatus.OK) {
 
-					// directionsDisplay.setDirections(result);
-
 					var routeTwoOverviewPath = result.routes[0].overview_path;
 
 					var pathCoords = [];
@@ -716,18 +753,36 @@
 							pathTwo = new google.maps.Polyline({
 								path: pathCoords,
 								geodesic: true,
-								strokeColor: 'brown',
-								strokeOpacity: 1,
-								strokeWeight: 4
+								strokeColor: 'purple',
+								strokeOpacity: 0.8,
+								strokeWeight: 3.8
 							});
-							pathTwo.setMap(map);
 							idx++;
 						} else {
+
+							pathTwo.setMap(map);
+
 						  window.clearInterval(animateLineDraw);
-						  calcRouteThree();
+						  
+									google.maps.event.addListener(markersArray[2], 'click', function() {
+									
+									workplaceMarker.setVisible(true);
+									markersArray[1].setVisible(true);
+									markersArray[2].setVisible(false);
+									markersArray[3].setVisible(true);
+
+									pathWork.setVisible(true);
+									pathOne.setVisible(true);
+									pathTwo.setVisible(false);
+									pathThree.setVisible(true);
+
+									directionsDisplay.setDirections(result);
+
+								});
+
 						}
 
-					}, 36);
+					}, 50);
 
 				}
 			});
@@ -747,8 +802,6 @@
 				directionsService.route(request, function(result, status) {
 				if (status == google.maps.DirectionsStatus.OK) {
 
-			   		// directionsDisplay.setDirections(result);
-
 					var routeThreeOverviewPath = result.routes[0].overview_path;
 
 					var pathCoords = [];
@@ -765,18 +818,38 @@
 							pathThree = new google.maps.Polyline({
 								path: pathCoords,
 								geodesic: true,
-								strokeColor: 'seagreen',
-								strokeOpacity: 1,
-								strokeWeight: 4
+								strokeColor: 'violet',
+								strokeOpacity: 0.8,
+								strokeWeight: 3.8
 							});
-							pathThree.setMap(map);
 							idx++;
 						} else {
-						  	console.log(pathThree);
-						  	window.clearInterval(animateLineDraw);
-						  	// infowindow = new google.maps.InfoWindow();
-					    //     infowindow.setContent('<div><strong>'+blackDoveTitle+'</strong><br><p>'+blackDoveAddress+'</p></div>');
-					    //     infowindow.open(map, originMarker);
+
+							pathThree.setMap(map);
+
+							window.clearInterval(animateLineDraw);
+
+							google.maps.event.addListener(markersArray[3], 'click', function() {
+								
+								workplaceMarker.setVisible(true);
+								markersArray[1].setVisible(true);
+								markersArray[2].setVisible(true);
+								markersArray[3].setVisible(false);
+
+								pathWork.setVisible(true);
+								pathOne.setVisible(true);
+								pathTwo.setVisible(true);
+								pathThree.setVisible(false);
+								
+								directionsDisplay.setDirections(result);
+
+							});
+						  	
+							google.maps.event.addListener(originMarker, 'click', function() {
+							  	infowindow = new google.maps.InfoWindow();
+							    infowindow.setContent('<div><strong>'+blackDoveTitle+'</strong><br><p>'+blackDoveAddress+'</p></div>');
+							    infowindow.open(map, originMarker);
+							});
 						}
 
 					}, 36);
@@ -784,6 +857,8 @@
 				}
 			});
 		}
+
+		// google.maps.event.addListener()
 
 	@endif
 
