@@ -538,7 +538,7 @@
     		var primeLocation = document.getElementById('primeLocation');
 			var aptListings = document.getElementById('aptListings');
 
-    		primeLocation.innerHTML = '<div id="active-bldg-selection" class="well"><h3>'+blackDoveTitle+'</h3><h4>'+blackDoveAddress+'</h4><hr><h4><strong style="font-size:30px;color:tomato;">'+blackDoveDuration+' </strong><p style="font-size:18px;">hours per year in transit</p></h4><hr><div id="bldg-listings"><h4><strong style="font-size:24px;color:tomato;">3</strong> available units<br><strong style="font-size:24px;color:tomato;">$1500 - $3250</strong> per month</h4><i id="expand-bldg-listings" class="fa fa-caret-down" style="font-size:36px;"></i><i id="collapse-bldg-listings" class="fa fa-caret-up" style="font-size:36px;color:tomato;display:none;"></i></div><div id="listing-details"></div></div><hr>';
+    		primeLocation.innerHTML = '<div id="active-bldg-selection" class="well"><h3><strong>'+blackDoveTitle+'</strong></h3><h5>'+blackDoveAddress+'</h5><hr><img src="{{ asset("/images/bldg-thumb.jpg") }}" width="75%"/><h4><hr><strong style="font-size:30px;color:tomato;">'+blackDoveDuration+' </strong><p style="font-size:18px;display:inline;">hours per year in transit</p></h4><hr><div id="bldg-listings"><h4><strong style="font-size:24px;color:tomato;">3</strong> available units</h4><h4><strong style="font-size:24px;color:tomato;">$1500 - $3250</strong> per month</h4><i id="expand-bldg-listings" class="fa fa-caret-down" style="font-size:36px;"></i><i id="collapse-bldg-listings" class="fa fa-caret-up" style="font-size:36px;color:tomato;display:none;"></i></div><div id="listing-details"></div></div><hr>';
 
 	    	primeLocation.style.color = 'tomato';
 
@@ -551,7 +551,7 @@
 				this.style.display = 'none';
 				collapseBldgListings.style.display = 'block';
 
-				listingDetails.innerHTML = "<hr><h4>Studio</h4><h4><strong>$1500</strong></h4><ul><li>Furnished</li><li>Newly-Renovated</li></ul><hr><h4>One Bedroom</h4><h4><strong>$2000</strong></h4><ul><li>In-Unit Laundry</li><li>Dogs OK</li></ul><hr><h4>Two Bedroom</h4><h4><strong>$3250</strong></h4><ul><li>Balcony</li><li>Dishwasher</li><li>360&deg; Views</li></ul>";
+				listingDetails.innerHTML = "<hr><h4>Studio</h4><h4><strong>$1500</strong></h4><br><div class='row'><div class='col-xs-6'><ul><li>Furnished</li><li>Newly-Renovated</li></ul></div><div class='col-xs-6'><img class='img-responsive' src='{{ asset('/images/studio-thumb.jpg') }}'></div></div><hr><h4>One Bedroom</h4><h4><strong>$2000</strong></h4><br><div class='row'><div class='col-xs-6'><ul><li>In-Unit Laundry</li><li>Dogs OK</li></ul></div><div class='col-xs-6'><img class='img-responsive' src='{{ asset('/images/1br-thumb.jpg') }}'></div></div><hr><h4>Two Bedroom</h4><h4><strong>$3250</strong></h4><br><div class='row'><div class='col-xs-6'><ul><li>Balcony</li><li>Dishwasher</li><li>360&deg; Views</li></ul></div><div class='col-xs-6'><img class='img-responsive' src='{{ asset('/images/2br-thumb.jpg') }}'></div></div>";
 				listingDetails.style.display = 'block';
 				// this.style.height = '100%';
 			});
