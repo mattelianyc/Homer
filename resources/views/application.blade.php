@@ -31,11 +31,11 @@
 	<nav id="navbar" class="navbar">
 	  <div class="container-fluid">
 	    <div class="navbar-header">
-	      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+	      <!-- <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
 	        <span class="icon-bar"></span>
 	        <span class="icon-bar"></span>
 	        <span class="icon-bar"></span> 
-	      </button>
+	      </button> -->
 	      <a class="navbar-brand" href="/home">
 	      	<img class="img-responsive" src="{{ asset('/images/dovetail_logo_1_white.svg') }}" style="width: 200px; height: auto;">
 	      </a>
