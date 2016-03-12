@@ -117,7 +117,7 @@
     	var directionsService = new google.maps.DirectionsService;
 		var directionsDisplay = new google.maps.DirectionsRenderer(
 		{
-			suppressMarkers: false
+			suppressMarkers: true
 		});
 		var geocoder = new google.maps.Geocoder();
 	    
@@ -524,6 +524,8 @@
 	            icon: mascot
 	        });
 
+	        markersArray.push(originMarker);
+
 	        var mapCSS = document.getElementById('map').style;
     		mapCSS.right = 0;
     		mapCSS.top = 0;
@@ -633,7 +635,7 @@
 								path: pathCoords,
 								geodesic: true,
 								strokeColor: 'red',
-								strokeOpacity: 1,
+								strokeOpacity: 0.6,
 								strokeWeight: 4
 							});
 							idx++;
@@ -648,10 +650,10 @@
 							google.maps.event.addListener(workplaceMarker, 'click', function() {
 
 								
-								workplaceMarker.setVisible(false);
-								markersArray[1].setVisible(true);
-								markersArray[2].setVisible(true);
-								markersArray[3].setVisible(true);
+								// workplaceMarker.setVisible(false);
+								// markersArray[1].setVisible(true);
+								// markersArray[2].setVisible(true);
+								// markersArray[3].setVisible(true);
 
 								pathWork.setVisible(false);
 								pathOne.setVisible(true);
@@ -703,8 +705,8 @@
 								path: pathCoords,
 								geodesic: true,
 								strokeColor: 'blueviolet',
-								strokeOpacity: 0.8,
-								strokeWeight: 3.8
+								strokeOpacity: 0.6,
+								strokeWeight: 4
 							});
 							idx++;
 
@@ -717,10 +719,10 @@
 
 							google.maps.event.addListener(markersArray[1], 'click', function() {
 
-								workplaceMarker.setVisible(true);
-								markersArray[1].setVisible(false);
-								markersArray[2].setVisible(true);
-								markersArray[3].setVisible(true);
+								// workplaceMarker.setVisible(true);
+								// markersArray[1].setVisible(false);
+								// markersArray[2].setVisible(true);
+								// markersArray[3].setVisible(true);
 
 							    pathWork.setVisible(true);
 							    pathOne.setVisible(false);
@@ -771,8 +773,8 @@
 								path: pathCoords,
 								geodesic: true,
 								strokeColor: 'purple',
-								strokeOpacity: 0.8,
-								strokeWeight: 3.8
+								strokeOpacity: 0.6,
+								strokeWeight: 4
 							});
 							idx++;
 
@@ -784,10 +786,10 @@
 						  
 									google.maps.event.addListener(markersArray[2], 'click', function() {
 									
-									workplaceMarker.setVisible(true);
-									markersArray[1].setVisible(true);
-									markersArray[2].setVisible(false);
-									markersArray[3].setVisible(true);
+									// workplaceMarker.setVisible(true);
+									// markersArray[1].setVisible(true);
+									// markersArray[2].setVisible(false);
+									// markersArray[3].setVisible(true);
 
 									pathWork.setVisible(true);
 									pathOne.setVisible(true);
@@ -837,8 +839,8 @@
 								path: pathCoords,
 								geodesic: true,
 								strokeColor: 'violet',
-								strokeOpacity: 0.8,
-								strokeWeight: 3.8
+								strokeOpacity: 0.6,
+								strokeWeight: 4
 							});
 							idx++;
 
@@ -850,10 +852,10 @@
 
 							google.maps.event.addListener(markersArray[3], 'click', function() {
 								
-								workplaceMarker.setVisible(true);
-								markersArray[1].setVisible(true);
-								markersArray[2].setVisible(true);
-								markersArray[3].setVisible(false);
+								// workplaceMarker.setVisible(true);
+								// markersArray[1].setVisible(true);
+								// markersArray[2].setVisible(true);
+								// markersArray[3].setVisible(false);
 
 								pathWork.setVisible(true);
 								pathOne.setVisible(true);
