@@ -57,7 +57,7 @@
 
 	@yield('content')
 
-	<div id="map"></div>
+	<div id="map" class="hidden-xs"></div>
 
 <!-- Scripts -->
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
@@ -100,10 +100,19 @@
 
 	var panorama;
 	var map;
+	var mapMobile;
+
 	var marker;
+	var markerMobile;
+
 	var workplaceMarker;
+	var workplaceMarkerMobile;
+
 	var markersArray = [];
+	var markersArrayMobile = [];
+
 	var originMarker;
+	var originMarkerMobile;
 
 	var infowindow;
 
@@ -141,11 +150,16 @@
 		};
 
 		map = new google.maps.Map(document.getElementById('map'), mapOptions);
+		mapMobile = new google.maps.Map(document.getElementById('map-mobile'), mapOptions);
 
 		map.mapTypes.set('map_style', styledMap);
 		map.setMapTypeId('map_style');
 
+		mapMobile.mapTypes.set('map_style', styledMap);
+		mapMobile.setMapTypeId('map_style');
+
 		directionsDisplay.setMap(map);
+		// directionsDisplay.setMap(mapMobile);
 
 		var workplaceInput = document.getElementById('workplace-search-input');
 		var freqLocInput1 = document.getElementById('freq-loc-input-1');
@@ -168,6 +182,11 @@
 		autocompleteFreqLoc1.bindTo('bounds', map);
 		autocompleteFreqLoc2.bindTo('bounds', map);
 		autocompleteFreqLoc3.bindTo('bounds', map);
+
+		autocompleteWorkplace.bindTo('bounds', mapMobile);
+		autocompleteFreqLoc1.bindTo('bounds', mapMobile);
+		autocompleteFreqLoc2.bindTo('bounds', mapMobile);
+		autocompleteFreqLoc3.bindTo('bounds', mapMobile);
 
 		google.maps.event.addListener(autocompleteWorkplace, 'place_changed', function() {
 
@@ -239,7 +258,7 @@
 
 		var destinationMarker = new google.maps.MarkerImage("http://www.envirovent.com/img/location-trade.png", null, null, null, new google.maps.Size(40,50));
 
-		var mascot = new google.maps.MarkerImage("http://prrt.co/favicon.ico?1444619009", null, null, null, new google.maps.Size(65,65));
+		var mascot = new google.maps.MarkerImage("http://icons.iconarchive.com/icons/martin-berube/flat-animal/256/parrot-icon.png", null, null, null, new google.maps.Size(100,100));
 
 	    for (i = 0; i < workplaces.length; i++) {
 
@@ -251,7 +270,14 @@
 	            icon: destinationMarker
 	        });
 
+	        workplaceMarkerMobile = new google.maps.Marker({
+	            position: workplace,
+	            map: mapMobile,
+	            icon: destinationMarker
+	        });
+
 	        markersArray.push(workplaceMarker);
+	        markersArrayMobile.push(workplaceMarkerMobile);
 		
 			// infowindow = new google.maps.InfoWindow();
 	  //       infowindow.setContent('<div>'+workplaces[i][2]+'<br>'+workplaces[i][3]+', '+workplaces[i][4]+', '+workplaces[i][5]+'</div>');
@@ -273,8 +299,15 @@
 	            icon: destinationMarker,
 	            zIndex: 100
 	        }); 
+	        markerMobile = new google.maps.Marker({
+	            position: freqLoc,
+	            map: mapMobile,
+	            icon: destinationMarker,
+	            zIndex: 100
+	        }); 
 
 	        markersArray.push(marker);
+	        markersArrayMobile.push(markerMobile);
 
 			// infowindow = new google.maps.InfoWindow();
 	  //       infowindow.setContent('<div>'+frequentedLocations[i][2]+'<br>'+frequentedLocations[i][3]+', '+frequentedLocations[i][4]+', '+frequentedLocations[i][5]+'</div>');
@@ -288,6 +321,11 @@
 	    var pathOne;
 	    var pathTwo;
 	    var pathThree;
+
+	    var pathWorkMobile;
+	    var pathOneMobile;
+	    var pathTwoMobile;
+	    var pathThreeMobile;
 
 	    var workRouteDuration;
 	    var routeOneDuration;
@@ -524,29 +562,52 @@
 	            icon: mascot
 	        });
 
+	        originMarkerMobile = new google.maps.Marker({
+	            position: theBlackDove,
+	            map: mapMobile,
+	            flat: false,
+	            icon: mascot
+	        });
+
 	        markersArray.push(originMarker);
+	        markersArrayMobile.push(originMarkerMobile);
 
 	        var mapCSS = document.getElementById('map').style;
     		mapCSS.right = 0;
     		mapCSS.top = 0;
     		mapCSS.width = '73%';
 
+	        var mapMobileCSS = document.getElementById('map-mobile').style;
+	        mapMobileCSS.height = '500px';
+    		mapMobileCSS.width = '100%';
+
     		var sidebar = document.getElementById('sidebar').style;
     		var navbar = document.getElementById('navbar').style;
     		navbar.left = 0;
     		sidebar.display = 'block';
-    		navbar.width = '27%';
 
     		var primeLocation = document.getElementById('primeLocation');
 			var aptListings = document.getElementById('aptListings');
+
+    		var primeLocationMobile = document.getElementById('primeLocationMobile');
+			var aptListingsMobile = document.getElementById('aptListingsMobile');
 
     		primeLocation.innerHTML = '<div id="active-bldg-selection" class="well"><h3><strong>'+blackDoveTitle+'</strong></h3><h5>'+blackDoveAddress+'</h5><hr><img src="{{ asset("/images/bldg-thumb.jpg") }}" width="75%"/><h4><hr><strong style="font-size:30px;color:tomato;">'+blackDoveDuration+' </strong><p style="font-size:18px;display:inline;">hours per year in transit</p></h4><hr><div id="bldg-listings"><h4><strong style="font-size:24px;color:tomato;">3</strong> available units</h4><h4><strong style="font-size:24px;color:tomato;">$1500 - $3250</strong> per month</h4><i id="expand-bldg-listings" class="fa fa-caret-down" style="font-size:36px;"></i><i id="collapse-bldg-listings" class="fa fa-caret-up" style="font-size:36px;color:tomato;display:none;"></i></div><div id="listing-details"></div></div><hr>';
 
 	    	primeLocation.style.color = 'tomato';
 
+    		primeLocationMobile.innerHTML = '<div id="active-bldg-selection-mobile" class="well"><h3><strong>'+blackDoveTitle+'</strong></h3><h5>'+blackDoveAddress+'</h5><hr><img src="{{ asset("/images/bldg-thumb.jpg") }}" width="75%"/><h4><hr><strong style="font-size:30px;color:tomato;">'+blackDoveDuration+' </strong><p style="font-size:18px;display:inline;">hours per year in transit</p></h4><hr><div id="bldg-listings-mobile"><h4><strong style="font-size:24px;color:tomato;">3</strong> available units</h4><h4><strong style="font-size:24px;color:tomato;">$1500 - $3250</strong> per month</h4><i id="expand-bldg-listings-mobile" class="fa fa-caret-down" style="font-size:36px;"></i><i id="collapse-bldg-listings-mobile" class="fa fa-caret-up" style="font-size:36px;color:tomato;display:none;"></i></div><div id="listing-details-mobile"></div></div><hr>';
+
+	    	primeLocationMobile.style.color = 'tomato';
+
 	    	var expandBldgListings = document.getElementById('expand-bldg-listings');
+	    	var expandBldgListingsMobile = document.getElementById('expand-bldg-listings-mobile');
+
 	    	var collapseBldgListings = document.getElementById('collapse-bldg-listings');
+	    	var collapseBldgListingsMobile = document.getElementById('collapse-bldg-listings-mobile');
+
 			var listingDetails = document.getElementById('listing-details');
+			var listingDetailsMobile = document.getElementById('listing-details-mobile');
 			
 			expandBldgListings.addEventListener('click', function() {
 
@@ -564,10 +625,31 @@
 				listingDetails.style.display = 'none';
 			});
 
+			expandBldgListingsMobile.addEventListener('click', function() {
+
+				this.style.display = 'none';
+				collapseBldgListingsMobile.style.display = 'block';
+
+				listingDetailsMobile.innerHTML = "<hr><h4>Studio</h4><h4><strong>$1500</strong></h4><br><div class='row'><div class='col-xs-6'><ul><li>Furnished</li><li>Newly-Renovated</li></ul></div><div class='col-xs-6'><img class='img-responsive' src='{{ asset('/images/studio-thumb.jpg') }}'></div></div><hr><h4>One Bedroom</h4><h4><strong>$2000</strong></h4><br><div class='row'><div class='col-xs-6'><ul><li>In-Unit Laundry</li><li>Dogs OK</li></ul></div><div class='col-xs-6'><img class='img-responsive' src='{{ asset('/images/1br-thumb.jpg') }}'></div></div><hr><h4>Two Bedroom</h4><h4><strong>$3250</strong></h4><br><div class='row'><div class='col-xs-6'><ul><li>Balcony</li><li>Dishwasher</li><li>360&deg; Views</li></ul></div><div class='col-xs-6'><img class='img-responsive' src='{{ asset('/images/2br-thumb.jpg') }}'></div></div>";
+				listingDetailsMobile.style.display = 'block';
+				// this.style.height = '100%';
+			});
+
+			collapseBldgListingsMobile.addEventListener('click', function() {
+				this.style.display = 'none';
+				expandBldgListingsMobile.style.display = 'block';
+				listingDetailsMobile.style.display = 'none';
+			});
+
     		for (var i = 1; i < sortedOriginsArray.length; i++) {
     			var nu = document.createElement('div');
 				nu.innerHTML = '<h3>'+sortedOriginsArray[i].address+'</h3><h4><strong style="font-size:30px;">'+sortedOriginsArray[i].duration+' </strong><p style="font-size:18px;">hours per year in transit</p></h4><hr>';
 				aptListings.appendChild(nu);
+	    	}
+    		for (var ii = 1; ii < sortedOriginsArray.length; ii++) {
+    			var nutwo = document.createElement('div');
+				nutwo.innerHTML = '<h3>'+sortedOriginsArray[ii].address+'</h3><h4><strong style="font-size:30px;">'+sortedOriginsArray[ii].duration+' </strong><p style="font-size:18px;">hours per year in transit</p></h4><hr>';
+				aptListingsMobile.appendChild(nutwo);
 	    	}
 
 
@@ -578,12 +660,19 @@
 	    	}, function (result, status) {
 
 	    		var bounds = new google.maps.LatLngBounds();
+	    		var mobileBounds = new google.maps.LatLngBounds();
 
 				for (var i = 0; i < markersArray.length; i++) {
 					bounds.extend(markersArray[i].getPosition());
 				}
 
+				for (var ii = 0; ii < markersArrayMobile.length; ii++) {
+					mobileBounds.extend(markersArrayMobile[ii].getPosition());
+				}
+
+				mapMobile.fitBounds(mobileBounds);
 				map.fitBounds(bounds);
+
 				map.panBy(222, 0);
 
 				calcRouteWork();
@@ -638,11 +727,19 @@
 								strokeOpacity: 0.6,
 								strokeWeight: 4
 							});
+							pathWorkMobile = new google.maps.Polyline({
+								path: pathCoords,
+								geodesic: true,
+								strokeColor: 'red',
+								strokeOpacity: 0.6,
+								strokeWeight: 4
+							});
 							idx++;
 
 						} else {
 
 							pathWork.setMap(map);
+							pathWorkMobile.setMap(mapMobile);
 
 							window.clearInterval(animateLineDraw);
 
@@ -708,11 +805,19 @@
 								strokeOpacity: 0.6,
 								strokeWeight: 4
 							});
+							pathOneMobile = new google.maps.Polyline({
+								path: pathCoords,
+								geodesic: true,
+								strokeColor: 'blueviolet',
+								strokeOpacity: 0.6,
+								strokeWeight: 4
+							});
 							idx++;
 
 						} else {
 							
 							pathOne.setMap(map);
+							pathOneMobile.setMap(mapMobile);
 
 							window.clearInterval(animateLineDraw);
 
@@ -776,11 +881,19 @@
 								strokeOpacity: 0.6,
 								strokeWeight: 4
 							});
+							pathTwoMobile = new google.maps.Polyline({
+								path: pathCoords,
+								geodesic: true,
+								strokeColor: 'purple',
+								strokeOpacity: 0.6,
+								strokeWeight: 4
+							});
 							idx++;
 
 						} else {
 
 							pathTwo.setMap(map);
+							pathTwoMobile.setMap(mapMobile);
 
 						  window.clearInterval(animateLineDraw);
 						  
@@ -842,11 +955,19 @@
 								strokeOpacity: 0.6,
 								strokeWeight: 4
 							});
+							pathThreeMobile = new google.maps.Polyline({
+								path: pathCoords,
+								geodesic: true,
+								strokeColor: 'violet',
+								strokeOpacity: 0.6,
+								strokeWeight: 4
+							});
 							idx++;
 
 						} else {
 
 							pathThree.setMap(map);
+							pathThreeMobile.setMap(mapMobile);
 
 							window.clearInterval(animateLineDraw);
 
