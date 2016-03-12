@@ -239,7 +239,7 @@
 
 		var destinationMarker = new google.maps.MarkerImage("http://www.envirovent.com/img/location-trade.png", null, null, null, new google.maps.Size(40,50));
 
-		var mascot = new google.maps.MarkerImage("http://res.cloudinary.com/hrscywv4p/image/upload/c_limit,f_auto,h_1440,q_80,w_720/w0jfkulxbfdzht7ww4fq.png", null, null, null, new google.maps.Size(40,40));
+		var mascot = new google.maps.MarkerImage("http://prrt.co/favicon.ico?1444619009", null, null, null, new google.maps.Size(65,65));
 
 	    for (i = 0; i < workplaces.length; i++) {
 
@@ -538,9 +538,29 @@
     		var primeLocation = document.getElementById('primeLocation');
 			var aptListings = document.getElementById('aptListings');
 
-    		primeLocation.innerHTML = '<h3>'+blackDoveTitle+'</h3><h4>'+blackDoveAddress+'</h4><h4><strong style="font-size:30px;">'+blackDoveDuration+' </strong><p style="font-size:18px;">hours per year in transit</p></h4><hr>';
+    		primeLocation.innerHTML = '<div id="active-bldg-selection" class="well"><h3>'+blackDoveTitle+'</h3><h4>'+blackDoveAddress+'</h4><hr><h4><strong style="font-size:30px;color:tomato;">'+blackDoveDuration+' </strong><p style="font-size:18px;">hours per year in transit</p></h4><hr><div id="bldg-listings"><h4><strong style="font-size:24px;color:tomato;">3</strong> available units<br><strong style="font-size:24px;color:tomato;">$1500 - $3250</strong> per month</h4><i id="expand-bldg-listings" class="fa fa-caret-down" style="font-size:36px;"></i><i id="collapse-bldg-listings" class="fa fa-caret-up" style="font-size:36px;color:tomato;display:none;"></i></div><div id="listing-details"></div></div><hr>';
 
 	    	primeLocation.style.color = 'tomato';
+
+	    	var expandBldgListings = document.getElementById('expand-bldg-listings');
+	    	var collapseBldgListings = document.getElementById('collapse-bldg-listings');
+			var listingDetails = document.getElementById('listing-details');
+			
+			expandBldgListings.addEventListener('click', function() {
+
+				this.style.display = 'none';
+				collapseBldgListings.style.display = 'block';
+
+				listingDetails.innerHTML = "<hr><h4>Studio</h4><h4><strong>$1500</strong></h4><ul><li>Furnished</li><li>Newly-Renovated</li></ul><hr><h4>One Bedroom</h4><h4><strong>$2000</strong></h4><ul><li>In-Unit Laundry</li><li>Dogs OK</li></ul><hr><h4>Two Bedroom</h4><h4><strong>$3250</strong></h4><ul><li>Balcony</li><li>Dishwasher</li><li>360&deg; Views</li></ul>";
+				listingDetails.style.display = 'block';
+				// this.style.height = '100%';
+			});
+
+			collapseBldgListings.addEventListener('click', function() {
+				this.style.display = 'none';
+				expandBldgListings.style.display = 'block';
+				listingDetails.style.display = 'none';
+			});
 
     		for (var i = 1; i < sortedOriginsArray.length; i++) {
     			var nu = document.createElement('div');
@@ -616,11 +636,11 @@
 								strokeOpacity: 1,
 								strokeWeight: 4
 							});
-							pathWork.setMap(map);
 							idx++;
 
 						} else {
 
+							pathWork.setMap(map);
 
 							window.clearInterval(animateLineDraw);
 
@@ -638,15 +658,13 @@
 								pathTwo.setVisible(true);
 								pathThree.setVisible(true);
 
-								pathWork.setMap(map);
 								directionsDisplay.setDirections(result);
-
 
 							});
 							
 						}
 
-					}, 36);
+					}, 4);
 				}
 			});
 		}
@@ -688,11 +706,11 @@
 								strokeOpacity: 0.8,
 								strokeWeight: 3.8
 							});
-							pathOne.setMap(map);
 							idx++;
 
 						} else {
 							
+							pathOne.setMap(map);
 
 							window.clearInterval(animateLineDraw);
 
@@ -709,13 +727,12 @@
 								pathTwo.setVisible(true);
 								pathThree.setVisible(true);
 
-								pathOne.setMap(map);
 								directionsDisplay.setDirections(result);
 
 							});
 						}
 
-					}, 36);
+					}, 4);
 						
 
 
@@ -757,10 +774,11 @@
 								strokeOpacity: 0.8,
 								strokeWeight: 3.8
 							});
-							pathTwo.setMap(map);
 							idx++;
 
 						} else {
+
+							pathTwo.setMap(map);
 
 						  window.clearInterval(animateLineDraw);
 						  
@@ -776,14 +794,13 @@
 									pathTwo.setVisible(false);
 									pathThree.setVisible(true);
 
-									pathTwo.setMap(map);
 									directionsDisplay.setDirections(result);
 
 								});
 
 						}
 
-					}, 50);
+					}, 4);
 
 				}
 			});
@@ -823,10 +840,11 @@
 								strokeOpacity: 0.8,
 								strokeWeight: 3.8
 							});
-							pathThree.setMap(map);
 							idx++;
+
 						} else {
 
+							pathThree.setMap(map);
 
 							window.clearInterval(animateLineDraw);
 
@@ -842,7 +860,6 @@
 								pathTwo.setVisible(true);
 								pathThree.setVisible(false);
 								
-								pathThree.setMap(map);
 								directionsDisplay.setDirections(result);
 
 							});
@@ -854,7 +871,7 @@
 							});
 						}
 
-					}, 36);
+					}, 4);
 
 				}
 			});
@@ -867,6 +884,15 @@
 	}
 
 	google.maps.event.addDomListener(document, 'load', initialize);
+
+	</script>
+
+	<script>
+		
+	// $(document).loa(function () {
+		
+
+	// });
 
 	</script>
 

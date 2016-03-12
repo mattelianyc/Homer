@@ -63,3 +63,29 @@ html {
 	}
 
 #map { height: 100%; width: 100%; position: absolute; z-index: 10;}
+
+.well {
+	background-color: white;
+	margin-top: 15px;
+	text-align: center;
+}
+
+#active-bldg-selection {
+	color:black;
+}
+#bldg-listings {
+	color:black;
+}
+#listing-details {
+	text-align: left;
+	color: black;
+}
+	#listing-details > h4 {
+		text-align: center;
+		color: black;
+		font-weight: bold;
+	}
+	#listing-details > h4 > strong {
+		text-align: center;
+		color: tomato;
+	}
