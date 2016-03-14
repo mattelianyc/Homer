@@ -19,9 +19,18 @@ html {
 .navbar {
 	margin:0 !important;
 	min-height: 80px !important;
-	border: 1px solid #E74C3C !important;
-	background-color: #E74C3C !important;
+	border: 1px solid #3498DB !important;
+	background-color: #3498DB !important;
 	border-radius: 0 !important;
+}
+
+.navbar-brand {
+	display: inline-flex;
+	padding: 5px 0px 5px 0px;
+}
+.navbar-brand > h1 {
+	color: white;
+	margin-top:13px;
 }
 
 .nav.navbar-nav > li > a {
@@ -94,4 +103,10 @@ html {
 
 .gm-style-iw {
 	max-width: 300px;
+}
+
+@media screen and (max-width: 600px) {
+    #navbar {
+        max-height: 60px;
+    }
 }
