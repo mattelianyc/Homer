@@ -988,7 +988,7 @@
 							});
 						  	
 						  	infowindow = new google.maps.InfoWindow();
-						    infowindow.setContent('<div><p>Hi, my name is Homer.  I\'m a fucking owl.  I\'m currently perched atop of the<strong><i>only</i></strong> building with available apartment(s) which reduces your time in transit the most.  Not what you\'re looking for? I\'ve sorted them out for you in the sidebar in meaningful way.  I\'m a badass owl.</p></div>');
+						    infowindow.setContent('<div><p>Hi, my name is Homer.  I\'m a fucking owl.  I\'m currently perched atop of the <strong><i>only</i></strong> building with available apartment(s) which reduces your time in transit the most.  Not what you\'re looking for? I\'ve sorted all available listings on the market according to your travels.  I\'m a badass owl.</p></div>');
 						    infowindow.open(map, originMarker);
 
 							};

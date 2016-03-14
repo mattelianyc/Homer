@@ -64,7 +64,7 @@ html {
 	}
 
 #map { height: 100%; width: 100%; position: absolute; z-index: 10;}
-#map-mobile { position: inherit !important;height: 400px !important;width: 100% !important;}
+#map-mobile { position: inherit !important;height: 350px !important;width: 100% !important;}
 
 .well {
 	background-color: white;
@@ -91,3 +91,7 @@ html {
 		text-align: center;
 		color: tomato;
 	}
+
+.gm-style-iw {
+	max-width: 300px;
+}
