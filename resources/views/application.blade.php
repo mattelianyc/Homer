@@ -349,6 +349,7 @@ if ($(window).width() > 600 ) {
 		var minimumTripDuration;
 	    var originArray = [];
 
+	    var activeBldg;
 
 	    freq_loc_1 = new google.maps.LatLng(freqLocArray[0].lat(), freqLocArray[0].lng());
 	    freq_loc_2 = new google.maps.LatLng(freqLocArray[1].lat(), freqLocArray[1].lng());
@@ -396,7 +397,7 @@ if ($(window).width() > 600 ) {
 			console.log(callbackResponseArray);
 
 			for (var w = 0; w < callbackResponseArray[0].originAddresses.length; w++) {
-				whiteDoveOrigins.push({title: originArray[w].title, address: originArray[w].address, elements: callbackResponseArray[0].rows[w].elements});
+				whiteDoveOrigins.push({title: originArray[w].title, address: originArray[w].address, lat: originArray[w].lat, lng: originArray[w].lng ,elements: callbackResponseArray[0].rows[w].elements});
 			}
 
 			calculateTotalDurationFromOrigins();
@@ -435,7 +436,7 @@ if ($(window).width() > 600 ) {
 							totalDuration += (intermediateDurationsArray[y]);
 						}	
 
-						sumOfDurationFromOrigins.push({origin: whiteDoveOrigins[counter].address, originTitle: whiteDoveOrigins[counter].title, duration: parseInt(totalDuration)});
+						sumOfDurationFromOrigins.push({origin: whiteDoveOrigins[counter].address, originTitle: whiteDoveOrigins[counter].title, duration: parseInt(totalDuration), lat: whiteDoveOrigins[counter].lat, lng: whiteDoveOrigins[counter].lng});
 						totalDuration=0;
 						intermediateDurationsArray = [];
 						counter++;
@@ -484,76 +485,18 @@ if ($(window).width() > 600 ) {
 			for (var x = 0; x < sumOfDurationFromOrigins.length; x++) {
 				for (var y = 0; y < aggregateDurationArray.length; y++) {
 					if(sumOfDurationFromOrigins[x].duration === aggregateDurationArray[y]) {
-						sortedOriginsArray.push({duration: aggregateDurationArray[y], address: sumOfDurationFromOrigins[x].origin, title: sumOfDurationFromOrigins[x].originTitle});
+						sortedOriginsArray.push({id: x, duration: aggregateDurationArray[y], address: sumOfDurationFromOrigins[x].origin, title: sumOfDurationFromOrigins[x].originTitle, lat: sumOfDurationFromOrigins[x].lat, lng: sumOfDurationFromOrigins[x].lng});
 					}
 				}
 			}
 
 			sortedOriginsArray.sort(function(a,b){return a.duration - b.duration});
-			console.log(sortedOriginsArray);
+			// console.log(sortedOriginsArray);
+
+			theBlackDove = {lat: sortedOriginsArray[0].lat, lng: sortedOriginsArray[0].lng}; 
+			blackDoveAddress = sortedOriginsArray[0].address;
+			blackDoveTitle = sortedOriginsArray[0].title;
 			
-			findMatchingDatabaseRecord();
-
-		}
-
-		function findMatchingDatabaseRecord() {
-
-			var simArray = [];
-
-			 for (var i = 0; i < originArray.length; i++) {
-			 	
-			 	var a = theBlackDove;
-			 	var b = originArray[i].address;
-				var zip_a = theBlackDove.match(/\b\d{5}\b/g);
-				var zip_b = originArray[i].address.match(/\b\d{5}\b/g);
-
-			    var equivalency_fullstr = 0;
-			    var equivalency_zip = 0;
-			    
-			    var minLength = (a.length > b.length) ? b.length : a.length;    
-			    var maxLength = (a.length < b.length) ? b.length : a.length;    
-			    var minLengthZip = (zip_a.length > zip_b.length) ? zip_b.length : zip_a.length;    
-			    var maxLengthZip = (zip_a.length < zip_b.length) ? zip_b.length : zip_a.length;  
-
-			    for(var k = 0; k < minLength; k++) {
-			        if(a[k] == b[k]) {
-			            equivalency_fullstr++;
-			        }
-			    }
-			    for(var kk = 0; kk < minLengthZip; kk++) {
-			        if(zip_a[kk] == zip_b[kk]) {
-			            equivalency_zip++;
-			        }
-			    }
-			    
-			    var weight_address = equivalency_fullstr / maxLength;
-			    var weight_zip = equivalency_zip / maxLengthZip;
-
-			    simArray.push({ whiteDoves: originArray[i], weight: ((weight_address * 100) + (weight_zip * 100)) });
-
-			 }
-
-			 var weightArray = [];
-
-			 Array.max = function(){
-				for (var i = 0; i < simArray.length; i++) {
-					weightArray.push(simArray[i].weight);
-				}
-			    return Math.max.apply(Math, weightArray);
-			};
-
-			maxWeight = Array.max(weightArray);
-			console.log(maxWeight);
-
-			for (var i = 0; i < simArray.length; i++) {
-				if(simArray[i].weight === maxWeight) {
-					console.log(simArray[i]);
-	    			theBlackDove = {lat: simArray[i].whiteDoves.lat, lng: simArray[i].whiteDoves.lng}; 
-	    			blackDoveAddress = simArray[i].whiteDoves.address;
-	    			blackDoveTitle = simArray[i].whiteDoves.title;
-				}
-			}
-
 			dovetailor();
 
 		}
@@ -590,27 +533,49 @@ if ($(window).width() > 600 ) {
     		navbar.width = '27%';
     		sidebar.display = 'block';
 
-    		var primeLocation = document.getElementById('primeLocation');
 			var aptListings = document.getElementById('aptListings');
 
-    		var primeLocationMobile = document.getElementById('primeLocationMobile');
-			var aptListingsMobile = document.getElementById('aptListingsMobile');
+			var nu;
 
-    		primeLocation.innerHTML = '<div id="active-bldg-selection" class="well"><h3><strong>'+blackDoveTitle+'</strong></h3><h5>'+blackDoveAddress+'</h5><hr><img src="{{ asset("/images/bldg-thumb.jpg") }}" width="75%"/><h4><hr><strong style="font-size:30px;color:tomato;">'+blackDoveDuration+' </strong><p style="font-size:18px;display:inline;">hours per year in transit</p></h4><hr><div id="bldg-listings"><h4><strong style="font-size:24px;color:tomato;">3</strong> available units</h4><h4><strong style="font-size:24px;color:tomato;">$1500 - $3250</strong> per month</h4><i id="expand-bldg-listings" class="fa fa-caret-down" style="font-size:36px;"></i><i id="collapse-bldg-listings" class="fa fa-caret-up" style="font-size:36px;color:tomato;display:none;"></i></div><div id="listing-details"></div></div><hr>';
+    		for (var i = 0; i < sortedOriginsArray.length; i++) {
+    			if(i==0){
+					nu = document.createElement('div');
+					nu.className = 'bldg-id-'+sortedOriginsArray[0].id+'';
+					nu.innerHTML = '<h2>'+sortedOriginsArray[0].title+'</h2><h4>'+sortedOriginsArray[0].address+'</h4><h4><strong style="font-size:30px;">'+sortedOriginsArray[0].duration+' </strong><p style="font-size:18px;">hours per year in transit</p></h4><hr>';
+					aptListings.appendChild(nu);
+					aptListings.firstChild.id = 'active-bldg-selection';
 
-	    	primeLocation.style.color = 'tomato';
+					activeBldg = document.getElementById('active-bldg-selection');
 
-    	
+					activeBldg.innerHTML = '<div id="active-selection" class="well"><h3><strong id="bldg-title">'+blackDoveTitle+'</strong></h3><h5 id="bldg-address">'+blackDoveAddress+'</h5><hr><img src="{{ asset("/images/bldg-thumb.jpg") }}" width="75%"/><h4><hr><strong id="bldg-duration" style="font-size:30px;color:tomato;">'+blackDoveDuration+' </strong><p style="font-size:18px;display:inline;">hours per year in transit</p></h4><hr><div id="bldg-listings"><h4><strong style="font-size:24px;color:tomato;">3</strong> available units</h4><h4><strong style="font-size:24px;color:tomato;">$1500 - $3250</strong> per month</h4><i id="expand-bldg-listings" class="fa fa-caret-down" style="font-size:36px;"></i><i id="collapse-bldg-listings" class="fa fa-caret-up" style="font-size:36px;color:tomato;display:none;"></i></div><div id="listing-details"></div></div><hr>';
 
-	    	var expandBldgListings = document.getElementById('expand-bldg-listings');
-	    	var expandBldgListingsMobile = document.getElementById('expand-bldg-listings-mobile');
+    			} else {
 
-	    	var collapseBldgListings = document.getElementById('collapse-bldg-listings');
-	    	var collapseBldgListingsMobile = document.getElementById('collapse-bldg-listings-mobile');
+	    			nu = document.createElement('div');
+	    			nu.className = 'bldg-id-'+sortedOriginsArray[i].id+'';
+					nu.innerHTML = '<h2>'+sortedOriginsArray[i].title+'</h2><h4>'+sortedOriginsArray[i].address+'</h4><h4><strong style="font-size:30px;">'+sortedOriginsArray[i].duration+' </strong><p style="font-size:18px;">hours per year in transit</p></h4><hr>';
+					nu.addEventListener('click', function () {
+						// activeBldg = document.getElementById('active-bldg-selection');
+						activeBldg.innerHTML = '<h2>'+document.getElementById('bldg-title').innerHTML+'</h2><h4>'+document.getElementById('bldg-address').innerHTML+'</h4><h4><strong style="font-size:30px;">'+document.getElementById('bldg-duration').innerHTML+' </strong></h4><hr>';
+						var aptListingsChildren = aptListings.childNodes;
+						for (var ii = 0; ii < aptListingsChildren.length; ii++) {
+							aptListingsChildren[ii].removeAttribute('id');
+						}
+						this.id = 'active-bldg-selection';
+						activeBldg = document.getElementById('active-bldg-selection');
+						activeBldg.innerHTML = '<div id="active-selection" class="well"><h3><strong id="bldg-title">'+activeBldg.childNodes[0].innerHTML+'</strong></h3><h5 id="bldg-address">'+activeBldg.childNodes[1].innerHTML+'</h5><hr><img src="{{ asset("/images/bldg-thumb.jpg") }}" width="75%"/><h4><hr><strong id="bldg-duration" style="font-size:30px;color:tomato;">'+activeBldg.childNodes[2].innerHTML+' </strong></h4><hr><div id="bldg-listings"><h4><strong style="font-size:24px;color:tomato;">3</strong> available units</h4><h4><strong style="font-size:24px;color:tomato;">$1500 - $3250</strong> per month</h4><i id="expand-bldg-listings" class="fa fa-caret-down" style="font-size:36px;"></i><i id="collapse-bldg-listings" class="fa fa-caret-up" style="font-size:36px;color:tomato;display:none;"></i></div><div id="listing-details"></div></div><hr>';
+					});
+					aptListings.appendChild(nu);
+
+				}
+	    	}
+			
+			
 
 			var listingDetails = document.getElementById('listing-details');
-			var listingDetailsMobile = document.getElementById('listing-details-mobile');
-			
+	    	var expandBldgListings = document.getElementById('expand-bldg-listings');
+	    	var collapseBldgListings = document.getElementById('collapse-bldg-listings');
+
 			expandBldgListings.addEventListener('click', function() {
 
 				this.style.display = 'none';
@@ -626,13 +591,6 @@ if ($(window).width() > 600 ) {
 				expandBldgListings.style.display = 'block';
 				listingDetails.style.display = 'none';
 			});
-
-
-    		for (var i = 1; i < sortedOriginsArray.length; i++) {
-    			var nu = document.createElement('div');
-				nu.innerHTML = '<h2>'+sortedOriginsArray[i].title+'</h2><h4>'+sortedOriginsArray[i].address+'</h4><h4><strong style="font-size:30px;">'+sortedOriginsArray[i].duration+' </strong><p style="font-size:18px;">hours per year in transit</p></h4><hr>';
-				aptListings.appendChild(nu);
-	    	}
 
 			service.getDistanceMatrix({
 	    		origins: [theBlackDove],

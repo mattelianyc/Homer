@@ -86,7 +86,7 @@ html {
 	text-align: center;
 }
 
-#active-bldg-selection, #active-bldg-selection-mobile {
+#active-selection, #active-bldg-selection-mobile {
 	color:black;
 }
 #bldg-listings, #bldg-listings-mobile {
