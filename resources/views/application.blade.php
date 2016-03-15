@@ -396,7 +396,7 @@ if ($(window).width() > 600 ) {
 			console.log(callbackResponseArray);
 
 			for (var w = 0; w < callbackResponseArray[0].originAddresses.length; w++) {
-				whiteDoveOrigins.push({address: callbackResponseArray[0].originAddresses[w], elements: callbackResponseArray[0].rows[w].elements});
+				whiteDoveOrigins.push({title: originArray[w].title, address: originArray[w].address, elements: callbackResponseArray[0].rows[w].elements});
 			}
 
 			calculateTotalDurationFromOrigins();
@@ -435,7 +435,7 @@ if ($(window).width() > 600 ) {
 							totalDuration += (intermediateDurationsArray[y]);
 						}	
 
-						sumOfDurationFromOrigins.push({origin: whiteDoveOrigins[counter].address, duration: parseInt(totalDuration)});
+						sumOfDurationFromOrigins.push({origin: whiteDoveOrigins[counter].address, originTitle: whiteDoveOrigins[counter].title, duration: parseInt(totalDuration)});
 						totalDuration=0;
 						intermediateDurationsArray = [];
 						counter++;
@@ -484,12 +484,13 @@ if ($(window).width() > 600 ) {
 			for (var x = 0; x < sumOfDurationFromOrigins.length; x++) {
 				for (var y = 0; y < aggregateDurationArray.length; y++) {
 					if(sumOfDurationFromOrigins[x].duration === aggregateDurationArray[y]) {
-						sortedOriginsArray.push({duration: aggregateDurationArray[y], address: sumOfDurationFromOrigins[x].origin});
+						sortedOriginsArray.push({duration: aggregateDurationArray[y], address: sumOfDurationFromOrigins[x].origin, title: sumOfDurationFromOrigins[x].originTitle});
 					}
 				}
 			}
 
 			sortedOriginsArray.sort(function(a,b){return a.duration - b.duration});
+			console.log(sortedOriginsArray);
 			
 			findMatchingDatabaseRecord();
 
@@ -629,7 +630,7 @@ if ($(window).width() > 600 ) {
 
     		for (var i = 1; i < sortedOriginsArray.length; i++) {
     			var nu = document.createElement('div');
-				nu.innerHTML = '<h3>'+sortedOriginsArray[i].address+'</h3><h4><strong style="font-size:30px;">'+sortedOriginsArray[i].duration+' </strong><p style="font-size:18px;">hours per year in transit</p></h4><hr>';
+				nu.innerHTML = '<h2>'+sortedOriginsArray[i].title+'</h2><h4>'+sortedOriginsArray[i].address+'</h4><h4><strong style="font-size:30px;">'+sortedOriginsArray[i].duration+' </strong><p style="font-size:18px;">hours per year in transit</p></h4><hr>';
 				aptListings.appendChild(nu);
 	    	}
 
@@ -1206,7 +1207,7 @@ if ($(window).width() < 600 ) {
 			console.log(callbackResponseArray);
 
 			for (var w = 0; w < callbackResponseArray[0].originAddresses.length; w++) {
-				whiteDoveOrigins.push({address: callbackResponseArray[0].originAddresses[w], elements: callbackResponseArray[0].rows[w].elements});
+				whiteDoveOrigins.push({title: originArray[w].title, address: originArray[w].address, elements: callbackResponseArray[0].rows[w].elements});
 			}
 
 			calculateTotalDurationFromOrigins();
@@ -1245,7 +1246,7 @@ if ($(window).width() < 600 ) {
 							totalDuration += (intermediateDurationsArray[y]);
 						}	
 
-						sumOfDurationFromOrigins.push({origin: whiteDoveOrigins[counter].address, duration: parseInt(totalDuration)});
+						sumOfDurationFromOrigins.push({origin: whiteDoveOrigins[counter].address, originTitle: whiteDoveOrigins[counter].title, duration: parseInt(totalDuration)});
 						totalDuration=0;
 						intermediateDurationsArray = [];
 						counter++;
@@ -1294,12 +1295,13 @@ if ($(window).width() < 600 ) {
 			for (var x = 0; x < sumOfDurationFromOrigins.length; x++) {
 				for (var y = 0; y < aggregateDurationArray.length; y++) {
 					if(sumOfDurationFromOrigins[x].duration === aggregateDurationArray[y]) {
-						sortedOriginsArray.push({duration: aggregateDurationArray[y], address: sumOfDurationFromOrigins[x].origin});
+						sortedOriginsArray.push({duration: aggregateDurationArray[y], address: sumOfDurationFromOrigins[x].origin, title: sumOfDurationFromOrigins[x].originTitle});
 					}
 				}
 			}
 
 			sortedOriginsArray.sort(function(a,b){return a.duration - b.duration});
+			console.log(sortedOriginsArray);
 			
 			findMatchingDatabaseRecord();
 
@@ -1418,9 +1420,9 @@ if ($(window).width() < 600 ) {
 				listingDetailsMobile.style.display = 'none';
 			});
 
-    		for (var ii = 1; ii < sortedOriginsArray.length; ii++) {
+    		for (var idx = 1; idx < sortedOriginsArray.length; idx++) {
     			var nutwo = document.createElement('div');
-				nutwo.innerHTML = '<h3>'+sortedOriginsArray[ii].address+'</h3><h4><strong style="font-size:30px;">'+sortedOriginsArray[ii].duration+' </strong><p style="font-size:18px;">hours per year in transit</p></h4><hr>';
+				nutwo.innerHTML = '<h2>'+sortedOriginsArray[idx].title+'</h2><h4>'+sortedOriginsArray[idx].address+'</h4><h4><strong style="font-size:30px;">'+sortedOriginsArray[idx].duration+' </strong><p style="font-size:18px;">hours per year in transit</p></h4><hr>';
 				aptListingsMobile.appendChild(nutwo);
 	    	}
 
