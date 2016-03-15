@@ -51,6 +51,7 @@
 	      <ul class="nav navbar-nav navbar-right">
 	        <!-- <li><a href="#"><span class=""></span> Sign Up</a></li>
 	        <li><a href="#"><span class=""></span> Login</a></li> -->
+	        <!-- <i id="resetPolylines" class="fa fa-remove" style="color:red;font-size: 35px"></i> -->
 	      </ul>
 	    </div>
 	  </div>
@@ -95,6 +96,11 @@
 				$('#add-freq-loc-input').removeAttr('disabled', 'disabled');
 		});
 
+		$('#resetPolylines').click(function() {
+			$(document).unbind();
+			init();
+		});
+
 	});
 
 	// initialize GMAP function
@@ -124,12 +130,13 @@
 
 
 if ($(window).width() > 600 ) {
-	function initialize() {
+
+	var init = function initialize() {
 
     	var directionsService = new google.maps.DirectionsService;
 		var directionsDisplay = new google.maps.DirectionsRenderer(
 		{
-			suppressMarkers: true
+			suppressMarkers: false
 		});
 		var geocoder = new google.maps.Geocoder();
 	    
@@ -577,6 +584,7 @@ if ($(window).width() > 600 ) {
     		var sidebar = document.getElementById('sidebar').style;
     		var navbar = document.getElementById('navbar').style;
     		navbar.left = 0;
+    		navbar.width = '27%';
     		sidebar.display = 'block';
 
     		var primeLocation = document.getElementById('primeLocation');
@@ -701,7 +709,7 @@ if ($(window).width() > 600 ) {
 							window.clearInterval(animateLineDraw);
 
 
-							google.maps.event.addListener(workplaceMarker, 'click', function() {
+							workplaceMarker.addListener('click', function() {
 
 								
 								// workplaceMarker.setVisible(false);
@@ -771,12 +779,12 @@ if ($(window).width() > 600 ) {
 							window.clearInterval(animateLineDraw);
 
 
-							google.maps.event.addListener(markersArray[1], 'click', function() {
+							markersArray[1].addListener('click', function() {
 
-								// workplaceMarker.setVisible(true);
-								// markersArray[1].setVisible(false);
-								// markersArray[2].setVisible(true);
-								// markersArray[3].setVisible(true);
+								// workplaceMarker.setVisible(false);
+								// markersArray[1].setVisible(true);
+								// markersArray[2].setVisible(false);
+								// markersArray[3].setVisible(false);
 
 							    pathWork.setVisible(true);
 							    pathOne.setVisible(false);
@@ -838,12 +846,12 @@ if ($(window).width() > 600 ) {
 
 						  window.clearInterval(animateLineDraw);
 						  
-									google.maps.event.addListener(markersArray[2], 'click', function() {
+									markersArray[2].addListener('click', function() {
 									
-									// workplaceMarker.setVisible(true);
-									// markersArray[1].setVisible(true);
+									// workplaceMarker.setVisible(false);
+									// markersArray[1].setVisible(false);
 									// markersArray[2].setVisible(false);
-									// markersArray[3].setVisible(true);
+									// markersArray[3].setVisible(false);
 
 									pathWork.setVisible(true);
 									pathOne.setVisible(true);
@@ -904,25 +912,38 @@ if ($(window).width() > 600 ) {
 
 							window.clearInterval(animateLineDraw);
 
-							google.maps.event.addListener(markersArray[3], 'click', function() {
+							markersArray[3].addListener('click', function() {
 								
-								// workplaceMarker.setVisible(true);
-								// markersArray[1].setVisible(true);
-								// markersArray[2].setVisible(true);
-								// markersArray[3].setVisible(false);
 
 								pathWork.setVisible(true);
 								pathOne.setVisible(true);
 								pathTwo.setVisible(true);
 								pathThree.setVisible(false);
+
+								// workplaceMarker.setVisible(true);
+								// markersArray[1].setVisible(true);
+								// markersArray[2].setVisible(true);
+								// markersArray[3].setVisible(false);
+
+								// originMarker.setVisible(false);
 								
 								directionsDisplay.setDirections(result);
-
 							});
 						  	
-						  	infowindow = new google.maps.InfoWindow();
-						    infowindow.setContent('<div><p>Hi, my name is Homer.  I\'m a fucking owl.  I\'m currently perched atop of the <strong><i>only</i></strong> building with available apartment(s) which reduces your time in transit the most.  Not what you\'re looking for? I\'ve sorted all available listings on the market according to your travels.  I\'m a badass owl.</p></div>');
-						    infowindow.open(map, originMarker);
+						  	iwHello = new google.maps.InfoWindow();
+						  	iwHello.setContent('<div><p>Hi, my name is Homer. Click me for more info</p></div>');
+						    iwHello.open(map, originMarker);
+						    setTimeout(function() {
+						    	iwHello.close(map, originMarker);
+							    google.maps.event.addListener(originMarker, 'click', function () {
+
+								  	infowindow = new google.maps.InfoWindow();
+								    infowindow.setContent('<div><p>I\'m a fucking owl.  I\'m currently perched atop of <strong><i>the</i></strong> building with available apartment(s) which <strong>reduces your time in transit the most</strong>.  Not what you\'re looking for? I\'ve sorted all available listings on the market according to your travels.  I\'m a badass owl.</p></div>');
+								    infowindow.open(map, originMarker);
+
+							    });
+						    }, 3000);
+
 
 							};
 						
@@ -935,13 +956,13 @@ if ($(window).width() > 600 ) {
 
 	@endif
 }
-$(document).on('load', function (initialize) {
-		initialize;
-});
+// $(document).on('load', function (initialize) {
+// 		initialize;
+// });
 }
 if ($(window).width() < 600 ) {
 
- function minitialize() {
+ var init = function minitialize() {
 
     	var directionsService = new google.maps.DirectionsService;
 		var directionsDisplay = new google.maps.DirectionsRenderer(
@@ -1061,11 +1082,11 @@ if ($(window).width() < 600 ) {
 
 		var service = new google.maps.DistanceMatrixService();
 
-		var workplaceMarker = new google.maps.MarkerImage("http://walkersstuff.com/wp-content/uploads/2015/06/stepThree.png", null, null, null, new google.maps.Size(40,40));
+		var workplaceMarker = new google.maps.MarkerImage("http://walkersstuff.com/wp-content/uploads/2015/06/stepThree.png", null, null, null, new google.maps.Size(20,20));
 
-		var destinationMarker = new google.maps.MarkerImage("http://www.envirovent.com/img/location-trade.png", null, null, null, new google.maps.Size(40,50));
+		var destinationMarker = new google.maps.MarkerImage("http://www.envirovent.com/img/location-trade.png", null, null, null, new google.maps.Size(24,30));
 
-		var mascot = new google.maps.MarkerImage("/images/cardinal-icon.png", null, null, null, new google.maps.Size(100,100));
+		var mascot = new google.maps.MarkerImage("/images/cardinal-icon.png", null, null, null, new google.maps.Size(60,60));
 
 	    for (i = 0; i < workplaces.length; i++) {
 
@@ -1408,7 +1429,15 @@ if ($(window).width() < 600 ) {
 	    		travelMode: google.maps.TravelMode.TRANSIT,
 	    	}, function (result, status) {
 
-	    		
+	    		var bounds = new google.maps.LatLngBounds();
+
+				for (var i = 0; i < markersArrayMobile.length; i++) {
+					bounds.extend(markersArrayMobile[i].getPosition());
+				}
+
+				
+				mapMobile.fitBounds(bounds);
+
 				calcRouteWork();
 
 
@@ -1689,9 +1718,9 @@ if ($(window).width() < 600 ) {
 
 							});
 						  	
-						  	infowindow = new google.maps.InfoWindow();
-						    infowindow.setContent('<div><p>Hi, my name is Homer.  I\'m a fucking owl.  I\'m currently perched atop of the <strong><i>only</i></strong> building with available apartment(s) which reduces your time in transit the most.  Not what you\'re looking for? I\'ve sorted all available listings on the market according to your travels.  I\'m a badass owl.</p></div>');
-						    infowindow.open(mapMobile, originMarkerMobile);
+						  	// infowindow = new google.maps.InfoWindow();
+						   //  infowindow.setContent('<div><p>Hi, my name is Homer.  I\'m a fucking owl.  I\'m currently perched atop of the <strong><i>only</i></strong> building with available apartment(s) which reduces your time in transit the most.  Not what you\'re looking for? I\'ve sorted all available listings on the market according to your travels.  I\'m a badass owl.</p></div>');
+						   //  infowindow.open(mapMobile, originMarkerMobile);
 
 							};
 						
@@ -1705,14 +1734,14 @@ if ($(window).width() < 600 ) {
 	@endif
 
 }
-$(document).on('load', function (minitialize) {
-		minitialize;
-});
+// $(document).on('load', function (minitialize) {
+// 		minitialize;
+// });
 }
 </script>
 
     <script async defer
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDBqOQUEpaayq3Z0N4u2wtCu-i1npOoJzM&callback=initialize&libraries=places">
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDBqOQUEpaayq3Z0N4u2wtCu-i1npOoJzM&callback=init&libraries=places">
     </script>
 
 </body>

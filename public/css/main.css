@@ -81,22 +81,24 @@ html {
 	text-align: center;
 }
 
-#active-bldg-selection {
+#active-bldg-selection, #active-bldg-selection-mobile {
 	color:black;
 }
-#bldg-listings {
+#bldg-listings, #bldg-listings-mobile {
 	color:black;
 }
-#listing-details {
+#listing-details, #listing-details-mobile {
 	text-align: left;
 	color: black;
 }
-	#listing-details > h4 {
+	#listing-details > h4,
+	#listing-details-mobile > h4 {
 		text-align: center;
 		color: black;
 		font-weight: bold;
 	}
-	#listing-details > h4 > strong {
+	#listing-details > h4 > strong,
+	#listing-details-mobile > h4 > strong {
 		text-align: center;
 		color: tomato;
 	}
