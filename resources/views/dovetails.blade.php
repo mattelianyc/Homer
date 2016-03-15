@@ -12,8 +12,6 @@
 	</div>
 </div>
 
-<div id="map-mobile" class="visible-xs"></div>
-
 <div id="sidebarMobile" class="container-fluid visible-xs" style="margin:0;padding:0;padding-bottom:100px;height:100%;width:100%;background-color:#2C3E50;color:white;position:inherit;z-index: 100000;display:none;">
 	<div class="col-xs-12">
 		<div id="primeLocationMobile"></div>

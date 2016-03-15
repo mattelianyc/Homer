@@ -37,7 +37,7 @@
 	        <span class="icon-bar"></span> 
 	      </button> -->
 	      <a class="navbar-brand" href="/home">
-	      	<img class="img-responsive" src="{{ asset('/images/cardinal-icon.png') }}" style="height: 70px;">
+	      	<img id="homer-logo" class="img-responsive" src="{{ asset('/images/cardinal-icon.png') }}">
 	      	<h1>Homer</h1>
 	      </a>
 	    </div>
@@ -56,6 +56,8 @@
 	    </div>
 	  </div>
 	</nav>
+
+	<div id="map-mobile" class="visible-xs"></div>
 
 	@yield('content')
 
@@ -1379,7 +1381,7 @@ if ($(window).width() < 600 ) {
 	        markersArrayMobile.push(originMarkerMobile);
 
 	        var mapMobileCSS = document.getElementById('map-mobile').style;
-	        mapMobileCSS.height = '500px';
+	        mapMobileCSS.height = '400px';
     		mapMobileCSS.width = '100%';
 
     		var sidebar = document.getElementById('sidebar').style;
@@ -1435,8 +1437,8 @@ if ($(window).width() < 600 ) {
 					bounds.extend(markersArrayMobile[i].getPosition());
 				}
 
-				
 				mapMobile.fitBounds(bounds);
+				mapMobile.panBy(0, 80);
 
 				calcRouteWork();
 

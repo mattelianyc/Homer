@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="container-fluid" style="margin:0;padding:0;height:100%;">
+<div class="container-fluid" style="margin:0;padding:0;height:100%;position: inherit;top: 80px;">
 
 
 	<div id="user-info-modal">

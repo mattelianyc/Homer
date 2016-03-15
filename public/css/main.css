@@ -18,16 +18,21 @@ html {
 
 .navbar {
 	margin:0 !important;
-	min-height: 80px !important;
+	height: 80px !important;
 	border: 1px solid #3498DB !important;
 	background-color: #3498DB !important;
 	border-radius: 0 !important;
+}
+
+#homer-logo{
+	height: 70px;
 }
 
 .navbar-brand {
 	display: inline-flex;
 	padding: 5px 0px 5px 0px;
 }
+
 .navbar-brand > h1 {
 	color: white;
 	margin-top:13px;
@@ -73,7 +78,7 @@ html {
 	}
 
 #map { height: 100%; width: 100%; position: absolute; z-index: 10;}
-#map-mobile { position: inherit !important;height: 350px !important;width: 100% !important;}
+#map-mobile { position: inherit !important; height: 600px;width: 100% !important;}
 
 .well {
 	background-color: white;
@@ -109,6 +114,34 @@ html {
 
 @media screen and (max-width: 600px) {
     #navbar {
-        max-height: 60px;
+        height: 60px !important;
+        z-index: 99999;
+    }
+
+    #homer-logo{
+		height: 50px;
+	}
+
+    .navbar-brand > h1 {
+		margin-top:8px;
+		font-size: 30px;
+	}
+
+    #user-info-modal {
+    	top: inherit;
+    	left: 0;
+    	right: 0;
+    	width: 100%;
+    }
+
+    .modal-dialog {
+    	margin: 10px;
+    }
+
+    .mmodal-content {
+    	border: 1px solid #999999;
+	    border-radius: 6px;
+	    box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+	    background-clip: padding-box;
     }
 }
