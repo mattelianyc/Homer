@@ -120,7 +120,7 @@
 	var workplaceMarker;
 	var workplaceMarkerMobile;
 
-	var originMarkerArray = [];
+	var markersArray = [];
 	var markersArray = [];
 	var markersArrayMobile = [];
 
@@ -488,7 +488,7 @@ if ($(window).width() > 600 ) {
 	            icon: mascot
 	        });				
 
-	        originMarkerArray.push(originMarker);
+	        markersArray.push(originMarker);
 
 	        var service = new google.maps.DistanceMatrixService();
 			
@@ -600,15 +600,21 @@ if ($(window).width() > 600 ) {
 				passage[i].setVisible(false);
 			}			
 
-			for (var i = 0; i < originMarkerArray.length; i++) {
-				originMarkerArray[i].setVisible(false);
+			for (var i = 0; i < markersArray.length; i++) {
+				if (markersArray[i].icon.url == "/images/cardinal-icon.png") {
+					markersArray[i].setVisible(false);
+				}
 			}
+
+			// directionsDisplay.setMap(null);
+
 
 			var dataId;
 			var aptListingsChildren = aptListings.childNodes;
 			for (var i = 0; i < aptListingsChildren.length; i++) {
 
 				aptListingsChildren[i].addEventListener('click', function () {
+
 
 					dataId = this.getAttribute('data-id');
 
@@ -630,7 +636,7 @@ if ($(window).width() > 600 ) {
 
 			        // originMarker.setMap(map);
 			        originMarker.setVisible(true);
-			        originMarkerArray.push(originMarker);
+			        markersArray.push(originMarker);
 
 				});
 			}
@@ -655,10 +661,21 @@ if ($(window).width() > 600 ) {
 
 				map.panBy(222, 0);
 
-				calcRouteWork();
-				calcRouteOne();
-				calcRouteTwo();
-				calcRouteThree();
+				setTimeout(function () {
+					calcRouteOne();
+				},1000);
+				setTimeout(function () {
+					calcRouteTwo();
+				},2000);
+				setTimeout(function () {
+					calcRouteThree();
+				},3000);
+				setTimeout(function () {
+					calcRouteWork();
+				},4000);
+				
+				
+				
 
 
 	    	});
@@ -693,53 +710,44 @@ if ($(window).width() > 600 ) {
 				
 					// pathCoords.push(theBlackDove);
 
-					var animateLineDraw = window.setInterval(function() {	
+					// var animateLineDraw = window.setInterval(function() {	
 
-						if (idx < routeWorkOverviewPath.length) {
+						for (var idx = 0; idx < routeWorkOverviewPath.length; idx++) {
+
 							var routeLatLng = {lat: routeWorkOverviewPath[idx].lat(), lng: routeWorkOverviewPath[idx].lng()};
 							pathCoords.push(routeLatLng);
 							pathWork = new google.maps.Polyline({
 								path: pathCoords,
 								geodesic: true,
-								strokeColor: 'red',
-								strokeOpacity: 0.6,
-								strokeWeight: 4
+								strokeColor: '#E64A45',
+								strokeOpacity: 1,
+								strokeWeight: 6
 							});
-							idx++;
-
-						} else {
-
-							pathWork.setMap(map);
 							passage.push(pathWork);
+							pathWork.setMap(map);
+						}
 
+						workplaceMarker.addListener('click', function() {
 
-							// pathWork.setVisible(true);
+							
+							workplaceMarker.setVisible(false);
+							markersArray[1].setVisible(true);
+							markersArray[2].setVisible(true);
+							markersArray[3].setVisible(true);
 
-							window.clearInterval(animateLineDraw);
+							pathWork.setVisible(false);
+							pathOne.setVisible(true);
+							pathTwo.setVisible(true);
+							pathThree.setVisible(true);
 
+							directionsDisplay.setDirections(result);
 
-							workplaceMarker.addListener('click', function() {
-
-								
-								workplaceMarker.setVisible(false);
-								markersArray[1].setVisible(true);
-								markersArray[2].setVisible(true);
-								markersArray[3].setVisible(true);
-
-								pathWork.setVisible(false);
-								pathOne.setVisible(true);
-								pathTwo.setVisible(true);
-								pathThree.setVisible(true);
-
-								directionsDisplay.setDirections(result);
-
-							});
+						});
 							
 						}
 
-					}, 4);
-				}
-			});
+				});
+
 		}
 
 		function calcRouteOne() {
@@ -756,7 +764,7 @@ if ($(window).width() > 600 ) {
 				directionsService.route(request, function(result, status) {
 				if (status == google.maps.DirectionsStatus.OK) {
 
-					var routeOneOverviewPath = result.routes[0];
+					var routeOneOverviewPath = result.routes[0].overview_path;
 					var routeOneSteps = result.routes[0].legs[0].steps;
 
 					console.log(routeOneSteps);
@@ -765,76 +773,39 @@ if ($(window).width() > 600 ) {
 
 					var idx = 0;
 
-					// var clr = routeOneSteps[1].transit.line.color;
-						var lineColor;
-
-
-
-					var animateLineDraw = window.setInterval(function() {
 						
-						if (idx < routeOneOverviewPath.overview_path.length) {
-							var routeLatLng = {lat: routeOneOverviewPath.overview_path[idx].lat(), lng: routeOneOverviewPath.overview_path[idx].lng()};
+						for (var idx = 0; idx < routeOneOverviewPath.length; idx++) {
+							var routeLatLng = {lat: routeOneOverviewPath[idx].lat(), lng: routeOneOverviewPath[idx].lng()};
 							pathCoords.push(routeLatLng);
 							pathOne = new google.maps.Polyline({
 								path: pathCoords,
 								geodesic: true,
-								strokeColor: 'red',
-								strokeOpacity: 0.6,
-								strokeWeight: 4
+								strokeColor: '#003399',
+								strokeOpacity: 0.5,
+								strokeWeight: 5
 							});
-
-							// for (var clr = 0; clr < routeOneOverviewPath.legs[0].steps.length; clr++) {
-
-
-							// 	if(routeOneOverviewPath.legs[0].steps[clr].transit){
-
-							// 		if (routeOneOverviewPath.legs[0].steps[clr].transit.line.color) {
-
-							// 		pathOne.strokeColor = ''+routeOneOverviewPath.legs[0].steps[clr].transit.line.color+'';
-							// 		console.log(pathOne.strokeColor);
-
-							// 		}
-							// 	}
-							// 	else
-							// 	{
-							// 		pathOne.strokeColor = 'blueviolet';
-							// 	}
-							// }
-
-							idx++;
-
-						} else {
-							
-							pathOne.setMap(map);
-
-							// pathOne.setVisible(true);
 							passage.push(pathOne);
-							
-							window.clearInterval(animateLineDraw);
-
-
-							markersArray[1].addListener('click', function() {
-
-								workplaceMarker.setVisible(true);
-								markersArray[1].setVisible(false);
-								markersArray[2].setVisible(true);
-								markersArray[3].setVisible(true);
-
-							    pathWork.setVisible(true);
-							    pathOne.setVisible(false);
-								pathTwo.setVisible(true);
-								pathThree.setVisible(true);
-
-								directionsDisplay.setDirections(result);
-
-							});
+							pathOne.setMap(map);
 						}
 
-					}, 4);
+						markersArray[1].addListener('click', function() {
+
+							workplaceMarker.setVisible(true);
+							markersArray[1].setVisible(false);
+							markersArray[2].setVisible(true);
+							markersArray[3].setVisible(true);
+
+						    pathWork.setVisible(true);
+						    pathOne.setVisible(false);
+							pathTwo.setVisible(true);
+							pathThree.setVisible(true);
+
+							directionsDisplay.setDirections(result);
+
+						});
 						
+		   		 }
 
-
-				}
 			});
 		}
 
@@ -860,51 +831,41 @@ if ($(window).width() > 600 ) {
 
 					// pathCoords.push(theBlackDove);
 
-					var animateLineDraw = window.setInterval(function() {
-						
-						if (idx < routeTwoOverviewPath.length) {
+						for (var idx = 0; idx < routeTwoOverviewPath.length; idx++) {
 							var routeLatLng = {lat: routeTwoOverviewPath[idx].lat(), lng: routeTwoOverviewPath[idx].lng()};
 							pathCoords.push(routeLatLng);
 							pathTwo = new google.maps.Polyline({
 								path: pathCoords,
 								geodesic: true,
-								strokeColor: 'purple',
-								strokeOpacity: 0.6,
-								strokeWeight: 4
+								strokeColor: '#009933',
+								strokeOpacity: 0.5,
+								strokeWeight: 5
 							});
-							idx++;
-
-						} else {
-
-						  pathTwo.setMap(map);
-
-						  passage.push(pathTwo);
-						  // pathTwo.setVisible(true);
-
-						  window.clearInterval(animateLineDraw);
-						  
-									markersArray[2].addListener('click', function() {
-									
-									workplaceMarker.setVisible(true);
-									markersArray[1].setVisible(true);
-									markersArray[2].setVisible(false);
-									markersArray[3].setVisible(true);
-
-									pathWork.setVisible(true);
-									pathOne.setVisible(true);
-									pathTwo.setVisible(false);
-									pathThree.setVisible(true);
-
-									directionsDisplay.setDirections(result);
-
-								});
-
+						  	passage.push(pathTwo);
+						  	pathTwo.setMap(map);
 						}
+						 
 
-					}, 4);
+						 
+						markersArray[2].addListener('click', function() {
+							
+							workplaceMarker.setVisible(true);
+							markersArray[1].setVisible(true);
+							markersArray[2].setVisible(false);
+							markersArray[3].setVisible(true);
 
-				}
-			});
+							pathWork.setVisible(true);
+							pathOne.setVisible(true);
+							pathTwo.setVisible(false);
+							pathThree.setVisible(true);
+
+							directionsDisplay.setDirections(result);
+
+						});
+
+					}
+
+				});
 		}
 
 		function calcRouteThree() {
@@ -927,48 +888,39 @@ if ($(window).width() > 600 ) {
 				   
 					var idx = 0;
 
-					// pathCoords.push(theBlackDove);
+					// pathCoords.push(theBlackDove);						
+					for (var idx = 0; idx < routeThreeOverviewPath.length; idx++) {
+						var routeLatLng = {lat: routeThreeOverviewPath[idx].lat(), lng: routeThreeOverviewPath[idx].lng()};
+						pathCoords.push(routeLatLng);
+						pathThree = new google.maps.Polyline({
+							path: pathCoords,
+							geodesic: true,
+							strokeColor: '#4DB3B3',
+							strokeOpacity: 0.5,
+							strokeWeight: 5
+						});
+						passage.push(pathThree);
+						pathThree.setMap(map);
 
-					var animateLineDraw = window.setInterval(function() {
+					}
+
+					markersArray[3].addListener('click', function() {
 						
-						if (idx < routeThreeOverviewPath.length) {
-							var routeLatLng = {lat: routeThreeOverviewPath[idx].lat(), lng: routeThreeOverviewPath[idx].lng()};
-							pathCoords.push(routeLatLng);
-							pathThree = new google.maps.Polyline({
-								path: pathCoords,
-								geodesic: true,
-								strokeColor: 'violet',
-								strokeOpacity: 0.6,
-								strokeWeight: 4
-							});
-							idx++;
 
-						} else {
+						pathWork.setVisible(true);
+						pathOne.setVisible(true);
+						pathTwo.setVisible(true);
+						pathThree.setVisible(false);
 
-							pathThree.setMap(map);
+						workplaceMarker.setVisible(true);
+						markersArray[1].setVisible(true);
+						markersArray[2].setVisible(true);
+						markersArray[3].setVisible(false);
 
-							passage.push(pathThree);
-							// pathThree.setVisible(true);
-
-							window.clearInterval(animateLineDraw);
-
-							markersArray[3].addListener('click', function() {
-								
-
-								pathWork.setVisible(true);
-								pathOne.setVisible(true);
-								pathTwo.setVisible(true);
-								pathThree.setVisible(false);
-
-								workplaceMarker.setVisible(true);
-								markersArray[1].setVisible(true);
-								markersArray[2].setVisible(true);
-								markersArray[3].setVisible(false);
-
-								// originMarker.setVisible(false);
-								
-								directionsDisplay.setDirections(result);
-							});
+						// originMarker.setVisible(false);
+						
+						directionsDisplay.setDirections(result);
+					});
 						  	
 						  	// iwHello = new google.maps.InfoWindow();
 						  	// iwHello.setContent('<div><p>Hi, my name is Homer. Click me for more info</p></div>');
@@ -987,10 +939,9 @@ if ($(window).width() > 600 ) {
 							};
 						
 
-					}, 4);
 
-				}
-			});
+
+				});
 		}
 
 	@endif
@@ -1558,7 +1509,7 @@ if ($(window).width() < 600 ) {
 							
 						}
 
-					}, 4);
+					}, 1);
 				}
 			});
 		}
@@ -1626,7 +1577,7 @@ if ($(window).width() < 600 ) {
 							});
 						}
 
-					}, 4);
+					}, 1);
 						
 
 
@@ -1694,7 +1645,7 @@ if ($(window).width() < 600 ) {
 
 						}
 
-					}, 4);
+					}, 1);
 
 				}
 			});
@@ -1765,7 +1716,7 @@ if ($(window).width() < 600 ) {
 							};
 						
 
-					}, 4);
+					}, 1);
 
 				}
 			});
