@@ -75,6 +75,8 @@
 	var greyDoves;
 	var pigeons;
 
+	var passage = [];
+
 	var blackDoveAddress;
 	var blackDoveTitle;
 
@@ -118,6 +120,7 @@
 	var workplaceMarker;
 	var workplaceMarkerMobile;
 
+	var originMarkerArray = [];
 	var markersArray = [];
 	var markersArrayMobile = [];
 
@@ -436,32 +439,15 @@ if ($(window).width() > 600 ) {
 
 			console.log(sumOfDurationFromOrigins);
 
-			findMinDurationOrigin();
-
-		};
-
-		function findMinDurationOrigin() {
-
 			aggregateDurationArray = [];
 
-			Array.min = function(){
-				for (var i = 0; i < sumOfDurationFromOrigins.length; i++) {
-					aggregateDurationArray.push(sumOfDurationFromOrigins[i].duration);
-				}
-			    return Math.min.apply(Math, aggregateDurationArray);
-			};
-			minimumTripDuration = Array.min(aggregateDurationArray);
-
 			for (var i = 0; i < sumOfDurationFromOrigins.length; i++) {
-				if(sumOfDurationFromOrigins[i].duration === minimumTripDuration) {
-					theBlackDove = sumOfDurationFromOrigins[i].origin;
-					blackDoveDuration = sumOfDurationFromOrigins[i].duration;
-				};
-			 }
+				aggregateDurationArray.push(sumOfDurationFromOrigins[i].duration);
+			}
 
-			 orderListingsByDuration();
+			orderListingsByDuration();
 
-		}
+		};
 
 		function orderListingsByDuration () {
 			
@@ -472,42 +458,60 @@ if ($(window).width() > 600 ) {
 			for (var x = 0; x < sumOfDurationFromOrigins.length; x++) {
 				for (var y = 0; y < aggregateDurationArray.length; y++) {
 					if(sumOfDurationFromOrigins[x].duration === aggregateDurationArray[y]) {
-						sortedOriginsArray.push({id: x, duration: aggregateDurationArray[y], address: sumOfDurationFromOrigins[x].origin, title: sumOfDurationFromOrigins[x].originTitle, lat: sumOfDurationFromOrigins[x].lat, lng: sumOfDurationFromOrigins[x].lng});
+						sortedOriginsArray.push({id: null, duration: aggregateDurationArray[y], address: sumOfDurationFromOrigins[x].origin, title: sumOfDurationFromOrigins[x].originTitle, lat: sumOfDurationFromOrigins[x].lat, lng: sumOfDurationFromOrigins[x].lng});
 					}
 				}
 			}
 
 			sortedOriginsArray.sort(function(a,b){return a.duration - b.duration});
-			// console.log(sortedOriginsArray);
+			
+			for (var x = 0; x < sortedOriginsArray.length; x++) {
+				sortedOriginsArray[x].id = x;
+			}
 
 			theBlackDove = {lat: sortedOriginsArray[0].lat, lng: sortedOriginsArray[0].lng}; 
 			blackDoveAddress = sortedOriginsArray[0].address;
 			blackDoveTitle = sortedOriginsArray[0].title;
+			blackDoveDuration = sortedOriginsArray[0].duration;
 			
-			dovetailor();
+			dovetail();
 
 		}
 
-		function dovetailor () {
 
-			var service = new google.maps.DistanceMatrixService();
+		var dovetail = function dovetailor () {
 
 	        originMarker = new google.maps.Marker({
 	            position: theBlackDove,
 	            map: map,
 	            flat: false,
 	            icon: mascot
-	        });
+	        });				
 
-	        // originMarkerMobile = new google.maps.Marker({
-	        //     position: theBlackDove,
-	        //     map: mapMobile,
-	        //     flat: false,
-	        //     icon: mascot
-	        // });
+	        originMarkerArray.push(originMarker);
 
-	        markersArray.push(originMarker);
-	        // markersArrayMobile.push(originMarkerMobile);
+	        var service = new google.maps.DistanceMatrixService();
+			
+			service.getDistanceMatrix({
+	    		origins: [theBlackDove],
+	    		destinations: [workplace, freq_loc_1, freq_loc_2, freq_loc_3],
+	    		travelMode: google.maps.TravelMode.TRANSIT,
+	    	}, function (result, status) {
+
+	    		var bounds = new google.maps.LatLngBounds();
+				for (var i = 0; i < markersArray.length; i++) {
+					bounds.extend(markersArray[i].getPosition());
+				}				
+				map.fitBounds(bounds);
+				map.panBy(222, 0);
+
+				calcRouteWork();
+				calcRouteOne();
+				calcRouteTwo();
+				calcRouteThree();
+
+
+	    	});
 
 	        var mapCSS = document.getElementById('map').style;
     		mapCSS.right = 0;
@@ -522,42 +526,51 @@ if ($(window).width() > 600 ) {
 
 			var aptListings = document.getElementById('aptListings');
 
-			var nu;
+			var nu = document.createElement('div');
+			var att = document.createAttribute("data-id");       // Create a "class" attribute
+			nu.className = 'bldg-id-'+sortedOriginsArray[0].id+'';
+			att.value = ''+sortedOriginsArray[0].id+''; // Set the value of the class attribute
+			nu.setAttributeNode(att);    
+			nu.innerHTML = '<h2>'+sortedOriginsArray[0].title+'</h2><h4>'+sortedOriginsArray[0].address+'</h4><h4><strong style="font-size:30px;">'+sortedOriginsArray[0].duration+' </strong><p style="font-size:18px;">minutes per year in transit</p></h4><hr>';
+			aptListings.appendChild(nu);
+			aptListings.firstChild.id = 'active-bldg-selection';
 
-    		for (var i = 0; i < sortedOriginsArray.length; i++) {
-    			if(i==0){
-					nu = document.createElement('div');
-					nu.className = 'bldg-id-'+sortedOriginsArray[0].id+'';
-					nu.innerHTML = '<h2>'+sortedOriginsArray[0].title+'</h2><h4>'+sortedOriginsArray[0].address+'</h4><h4><strong style="font-size:30px;">'+sortedOriginsArray[0].duration+' </strong><p style="font-size:18px;">minutes per year in transit</p></h4><hr>';
-					aptListings.appendChild(nu);
-					aptListings.firstChild.id = 'active-bldg-selection';
+			activeBldg = document.getElementById('active-bldg-selection');
 
-					activeBldg = document.getElementById('active-bldg-selection');
+			activeBldg.innerHTML = '<div id="active-selection" class="well"><h3><strong id="bldg-title">'+blackDoveTitle+'</strong></h3><h5 id="bldg-address">'+blackDoveAddress+'</h5><hr><img src="{{ asset("/images/bldg-thumb.jpg") }}" width="75%"/><h4><hr><strong id="bldg-duration" style="font-size:30px;color:tomato;">'+blackDoveDuration+' </strong><p style="font-size:18px;display:inline;">minutes per year in transit</p></h4><hr><div id="bldg-listings"><h4><strong style="font-size:24px;color:tomato;">3</strong> available units</h4><h4><strong style="font-size:24px;color:tomato;">$1500 - $3250</strong> per month</h4><i id="expand-bldg-listings" class="fa fa-caret-down" style="font-size:36px;"></i><i id="collapse-bldg-listings" class="fa fa-caret-up" style="font-size:36px;color:tomato;display:none;"></i></div><div id="listing-details"></div></div><hr>';
 
-					activeBldg.innerHTML = '<div id="active-selection" class="well"><h3><strong id="bldg-title">'+blackDoveTitle+'</strong></h3><h5 id="bldg-address">'+blackDoveAddress+'</h5><hr><img src="{{ asset("/images/bldg-thumb.jpg") }}" width="75%"/><h4><hr><strong id="bldg-duration" style="font-size:30px;color:tomato;">'+blackDoveDuration+' </strong><p style="font-size:18px;display:inline;">minutes per year in transit</p></h4><hr><div id="bldg-listings"><h4><strong style="font-size:24px;color:tomato;">3</strong> available units</h4><h4><strong style="font-size:24px;color:tomato;">$1500 - $3250</strong> per month</h4><i id="expand-bldg-listings" class="fa fa-caret-down" style="font-size:36px;"></i><i id="collapse-bldg-listings" class="fa fa-caret-up" style="font-size:36px;color:tomato;display:none;"></i></div><div id="listing-details"></div></div><hr>';
-
-    			} else {
+    		for (var i = 1; i < sortedOriginsArray.length; i++) {
 
 	    			nu = document.createElement('div');
+					var att = document.createAttribute("data-id");       // Create a "class" attribute
 	    			nu.className = 'bldg-id-'+sortedOriginsArray[i].id+'';
+					att.value = ''+sortedOriginsArray[i].id+''; // Set the value of the class attribute
+					nu.setAttributeNode(att);    
 					nu.innerHTML = '<h2>'+sortedOriginsArray[i].title+'</h2><h4>'+sortedOriginsArray[i].address+'</h4><h4><strong style="font-size:30px;">'+sortedOriginsArray[i].duration+' </strong><p style="font-size:18px;">minutes per year in transit</p></h4><hr>';
 					nu.addEventListener('click', function () {
-						// activeBldg = document.getElementById('active-bldg-selection');
+						activeBldg = document.getElementById('active-bldg-selection');
 						activeBldg.innerHTML = '<h2>'+document.getElementById('bldg-title').innerHTML+'</h2><h4>'+document.getElementById('bldg-address').innerHTML+'</h4><h4><strong style="font-size:30px;">'+document.getElementById('bldg-duration').innerHTML+' </strong></h4><hr>';
 						var aptListingsChildren = aptListings.childNodes;
 						for (var ii = 0; ii < aptListingsChildren.length; ii++) {
 							aptListingsChildren[ii].removeAttribute('id');
+							var dataId = this.getAttribute('data-id');
+							theBlackDove = {lat: sortedOriginsArray[ii].lat, lng: sortedOriginsArray[ii].lng}; 
+							blackDoveAddress = sortedOriginsArray[ii].address;
+							blackDoveTitle = sortedOriginsArray[ii].title;
 						}
 						this.id = 'active-bldg-selection';
 						activeBldg = document.getElementById('active-bldg-selection');
 						activeBldg.innerHTML = '<div id="active-selection" class="well"><h3><strong id="bldg-title">'+activeBldg.childNodes[0].innerHTML+'</strong></h3><h5 id="bldg-address">'+activeBldg.childNodes[1].innerHTML+'</h5><hr><img src="{{ asset("/images/bldg-thumb.jpg") }}" width="75%"/><h4><hr><strong id="bldg-duration" style="font-size:30px;color:tomato;">'+activeBldg.childNodes[2].innerHTML+' </strong></h4><hr><div id="bldg-listings"><h4><strong style="font-size:24px;color:tomato;">3</strong> available units</h4><h4><strong style="font-size:24px;color:tomato;">$1500 - $3250</strong> per month</h4><i id="expand-bldg-listings" class="fa fa-caret-down" style="font-size:36px;"></i><i id="collapse-bldg-listings" class="fa fa-caret-up" style="font-size:36px;color:tomato;display:none;"></i></div><div id="listing-details"></div></div><hr>';
+
+						pigeons();
+
 					});
 					aptListings.appendChild(nu);
 
-				}
+
 	    	}
 			
-			
+			aptListings.firstChild.id = 'active-bldg-selection';			
 
 			var listingDetails = document.getElementById('listing-details');
 	    	var expandBldgListings = document.getElementById('expand-bldg-listings');
@@ -579,6 +592,53 @@ if ($(window).width() > 600 ) {
 				listingDetails.style.display = 'none';
 			});
 
+		};
+
+		var pigeons = function pigeons () {
+
+			for (var i = 0; i < passage.length; i++) {
+				passage[i].setVisible(false);
+			}			
+
+			for (var i = 0; i < originMarkerArray.length; i++) {
+				originMarkerArray[i].setVisible(false);
+			}
+
+			var dataId;
+			var aptListingsChildren = aptListings.childNodes;
+			for (var i = 0; i < aptListingsChildren.length; i++) {
+
+				aptListingsChildren[i].addEventListener('click', function () {
+
+					dataId = this.getAttribute('data-id');
+
+					console.log(dataId);
+
+					console.log(sortedOriginsArray[dataId]);
+
+					theBlackDove = {lat: sortedOriginsArray[dataId].lat, lng: sortedOriginsArray[dataId].lng}; 
+					blackDoveAddress = sortedOriginsArray[dataId].address;
+					blackDoveTitle = sortedOriginsArray[dataId].title;
+
+
+			        originMarker = new google.maps.Marker({
+			            position: theBlackDove,
+			            map: map,
+			            flat: false,
+			            icon: mascot
+			        });				
+
+			        // originMarker.setMap(map);
+			        originMarker.setVisible(true);
+			        originMarkerArray.push(originMarker);
+
+				});
+			}
+
+
+
+			var service = new google.maps.DistanceMatrixService();
+			
 			service.getDistanceMatrix({
 	    		origins: [theBlackDove],
 	    		destinations: [workplace, freq_loc_1, freq_loc_2, freq_loc_3],
@@ -591,26 +651,20 @@ if ($(window).width() > 600 ) {
 					bounds.extend(markersArray[i].getPosition());
 				}
 
-				
 				map.fitBounds(bounds);
 
 				map.panBy(222, 0);
 
 				calcRouteWork();
-
-
-					calcRouteOne();
-
-
-					calcRouteTwo();
-
-
-					calcRouteThree();
+				calcRouteOne();
+				calcRouteTwo();
+				calcRouteThree();
 
 
 	    	});
-
 		}
+			
+
 
 		function calcRouteWork() {
 				var start = theBlackDove;
@@ -656,6 +710,10 @@ if ($(window).width() > 600 ) {
 						} else {
 
 							pathWork.setMap(map);
+							passage.push(pathWork);
+
+
+							// pathWork.setVisible(true);
 
 							window.clearInterval(animateLineDraw);
 
@@ -724,29 +782,34 @@ if ($(window).width() > 600 ) {
 								strokeOpacity: 0.6,
 								strokeWeight: 4
 							});
-							for (var clr = 0; clr < routeOneOverviewPath.legs[0].steps.length; clr++) {
+
+							// for (var clr = 0; clr < routeOneOverviewPath.legs[0].steps.length; clr++) {
 
 
-								if(routeOneOverviewPath.legs[0].steps[clr].transit){
+							// 	if(routeOneOverviewPath.legs[0].steps[clr].transit){
 
-									if (routeOneOverviewPath.legs[0].steps[clr].transit.line.color) {
+							// 		if (routeOneOverviewPath.legs[0].steps[clr].transit.line.color) {
 
-									pathOne.strokeColor = ''+routeOneOverviewPath.legs[0].steps[clr].transit.line.color+'';
-									console.log(pathOne.strokeColor);
+							// 		pathOne.strokeColor = ''+routeOneOverviewPath.legs[0].steps[clr].transit.line.color+'';
+							// 		console.log(pathOne.strokeColor);
 
-									}
-								}
-								else
-								{
-									pathOne.strokeColor = 'blueviolet';
-								}
-							}
+							// 		}
+							// 	}
+							// 	else
+							// 	{
+							// 		pathOne.strokeColor = 'blueviolet';
+							// 	}
+							// }
+
 							idx++;
 
 						} else {
 							
 							pathOne.setMap(map);
 
+							// pathOne.setVisible(true);
+							passage.push(pathOne);
+							
 							window.clearInterval(animateLineDraw);
 
 
@@ -815,6 +878,9 @@ if ($(window).width() > 600 ) {
 
 						  pathTwo.setMap(map);
 
+						  passage.push(pathTwo);
+						  // pathTwo.setVisible(true);
+
 						  window.clearInterval(animateLineDraw);
 						  
 									markersArray[2].addListener('click', function() {
@@ -881,6 +947,9 @@ if ($(window).width() > 600 ) {
 
 							pathThree.setMap(map);
 
+							passage.push(pathThree);
+							// pathThree.setVisible(true);
+
 							window.clearInterval(animateLineDraw);
 
 							markersArray[3].addListener('click', function() {
@@ -901,20 +970,19 @@ if ($(window).width() > 600 ) {
 								directionsDisplay.setDirections(result);
 							});
 						  	
-						  	iwHello = new google.maps.InfoWindow();
-						  	iwHello.setContent('<div><p>Hi, my name is Homer. Click me for more info</p></div>');
-						    iwHello.open(map, originMarker);
-						    setTimeout(function() {
-						    	iwHello.close(map, originMarker);
-							    google.maps.event.addListener(originMarker, 'click', function () {
+						  	// iwHello = new google.maps.InfoWindow();
+						  	// iwHello.setContent('<div><p>Hi, my name is Homer. Click me for more info</p></div>');
+						   //  iwHello.open(map, originMarker);
+						   //  setTimeout(function() {
+						   //  	iwHello.close(map, originMarker);
+							  //   google.maps.event.addListener(originMarker, 'click', function () {
 
-								  	infowindow = new google.maps.InfoWindow();
-								    infowindow.setContent('<div><p>I\'m a fucking owl.  I\'m currently perched atop of <strong><i>the</i></strong> building with available apartment(s) which <strong>reduces your time in transit the most</strong>.  Not what you\'re looking for? I\'ve sorted all available listings on the market according to your travels.  I\'m a badass owl.</p></div>');
-								    infowindow.open(map, originMarker);
+								 //  	infowindow = new google.maps.InfoWindow();
+								 //    infowindow.setContent('<div><p>I\'m a fucking owl.  I\'m currently perched atop of <strong><i>the</i></strong> building with available apartment(s) which <strong>reduces your time in transit the most</strong>.  Not what you\'re looking for? I\'ve sorted all available listings on the market according to your travels.  I\'m a badass owl.</p></div>');
+								 //    infowindow.open(map, originMarker);
 
-							    });
-						    }, 3000);
-
+							  //   });
+						   //  }, 3000);
 
 							};
 						
