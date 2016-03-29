@@ -312,14 +312,13 @@ if ($(window).width() > 600 ) {
 
 	        markersArray.push(marker);
 
+
 			// infowindow = new google.maps.InfoWindow();
 	  		// infowindow.setContent('<div>'+frequentedLocations[i][2]+'<br>'+frequentedLocations[i][3]+', '+frequentedLocations[i][4]+', '+frequentedLocations[i][5]+'</div>');
 	        // infowindow.open(map, marker);
 
 	    }
-
-	    console.log(freqLocWeights);
-
+        
 	    var callbackResponse = [];
 		var tripDuration = [];
 
@@ -420,19 +419,19 @@ if ($(window).width() > 600 ) {
 					
 					if(v == 0){
 
-						intermediateDurationsArray.push(((k.duration.value * 5 * 52)/60));
+						intermediateDurationsArray.push((((k.duration.value * 5 * 52)/60)/60));
 
 					} else if(v == 1){
 
-						intermediateDurationsArray.push(((k.duration.value * freqLocWeights[0] * 52)/60));
+						intermediateDurationsArray.push((((k.duration.value * freqLocWeights[0] * 52)/60)/60));
 
 					} else if(v == 2){
 
-						intermediateDurationsArray.push(((k.duration.value * freqLocWeights[1] * 52)/60));
+						intermediateDurationsArray.push((((k.duration.value * freqLocWeights[1] * 52)/60)/60));
 
 					} else if(v == 3){
 						
-						intermediateDurationsArray.push(((k.duration.value * freqLocWeights[2] * 52)/60));
+						intermediateDurationsArray.push((((k.duration.value * freqLocWeights[2] * 52)/60)/60));
 
 						for (var y = 0; y < intermediateDurationsArray.length; y++) {
 							totalDuration += (intermediateDurationsArray[y]);
@@ -545,10 +544,10 @@ if ($(window).width() > 600 ) {
 	    			nu.className = 'bldg-id-'+sortedOriginsArray[i].id+'';
 					att.value = ''+sortedOriginsArray[i].id+''; 
 					nu.setAttributeNode(att);    
-					nu.innerHTML = '<h2>'+sortedOriginsArray[i].title+'</h2><h4>'+sortedOriginsArray[i].address+'</h4><h4><strong style="font-size:30px;">'+sortedOriginsArray[i].duration+' </strong></h4><p style="font-size:18px;">minutes per year in transit</p></h4><hr>';
+					nu.innerHTML = '<h2>'+sortedOriginsArray[i].title+'</h2><h4>'+sortedOriginsArray[i].address+'</h4><h4><strong style="font-size:30px;">'+sortedOriginsArray[i].duration+' </strong></h4><p style="font-size:18px;">hours per year in transit</p></h4><hr>';
 					nu.addEventListener('click', function () {
 						activeBldg = document.getElementById('active-bldg-selection');
-						activeBldg.innerHTML = '<h2>'+document.getElementById('bldg-title').innerHTML+'</h2><h4>'+document.getElementById('bldg-address').innerHTML+'</h4><h4><strong style="font-size:30px;">'+document.getElementById('bldg-duration').innerHTML+' </strong></h4><p style="font-size:18px;">minutes per year in transit</p></h4><hr>';
+						activeBldg.innerHTML = '<h2>'+document.getElementById('bldg-title').innerHTML+'</h2><h4>'+document.getElementById('bldg-address').innerHTML+'</h4><h4><strong style="font-size:30px;">'+document.getElementById('bldg-duration').innerHTML+' </strong></h4><p style="font-size:18px;">hours per year in transit</p></h4><hr>';
 						var aptListingsChildren = aptListings.childNodes;
 						for (var ii = 0; ii < aptListingsChildren.length; ii++) {
 							aptListingsChildren[ii].removeAttribute('id');
@@ -559,7 +558,7 @@ if ($(window).width() > 600 ) {
 						}
 						this.id = 'active-bldg-selection';
 						activeBldg = document.getElementById('active-bldg-selection');
-						activeBldg.innerHTML = '<div id="active-selection" class="well"><h3><strong id="bldg-title">'+activeBldg.childNodes[0].innerHTML+'</strong></h3><h5 id="bldg-address">'+activeBldg.childNodes[1].innerHTML+'</h5><hr><img src="{{ asset("/images/bldg-thumb.jpg") }}" width="75%"/><h4><hr><strong id="bldg-duration" style="font-size:30px;color:tomato;">'+activeBldg.childNodes[2].innerHTML+' </strong></h4><p style="font-size:18px;">minutes per year in transit</p></h4><hr><div id="bldg-listings"><h4><strong style="font-size:24px;color:tomato;">3</strong> available units</h4><h4><strong style="font-size:24px;color:tomato;">$1500 - $3250</strong> per month</h4><i id="expand-bldg-listings" class="fa fa-caret-down" style="font-size:36px;"></i><i id="collapse-bldg-listings" class="fa fa-caret-up" style="font-size:36px;color:tomato;display:none;"></i></div><div id="listing-details"></div></div><hr>';
+						activeBldg.innerHTML = '<div id="active-selection" class="well"><h3><strong id="bldg-title">'+activeBldg.childNodes[0].innerHTML+'</strong></h3><h5 id="bldg-address">'+activeBldg.childNodes[1].innerHTML+'</h5><hr><img src="{{ asset("/images/bldg-thumb.jpg") }}" width="75%"/><h4><hr><strong id="bldg-duration" style="font-size:30px;color:tomato;">'+activeBldg.childNodes[2].innerHTML+' </strong></h4><p style="font-size:18px;">hours per year in transit</p></h4><hr><div id="bldg-listings"><h4><strong style="font-size:24px;color:tomato;">3</strong> available units</h4><h4><strong style="font-size:24px;color:tomato;">$1500 - $3250</strong> per month</h4><i id="expand-bldg-listings" class="fa fa-caret-down show-apt-listings" style="font-size:36px;"></i><i id="collapse-bldg-listings" class="fa fa-caret-up" style="font-size:36px;color:tomato;display:none;"></i></div><div id="listing-details"></div></div><hr>';
 
 						pigeons();
 
@@ -573,21 +572,26 @@ if ($(window).width() > 600 ) {
 
 			activeBldg = document.getElementById('active-bldg-selection');
 
-			activeBldg.innerHTML = '<div id="active-selection" class="well"><h3><strong id="bldg-title">'+blackDoveTitle+'</strong></h3><h5 id="bldg-address">'+blackDoveAddress+'</h5><hr><img src="{{ asset("/images/bldg-thumb.jpg") }}" width="75%"/><h4><hr><strong id="bldg-duration" style="font-size:30px;color:tomato;">'+blackDoveDuration+' </strong><p style="font-size:18px;display:inline;">minutes per year in transit</p></h4><hr><div id="bldg-listings"><h4><strong style="font-size:24px;color:tomato;">3</strong> available units</h4><h4><strong style="font-size:24px;color:tomato;">$1500 - $3250</strong> per month</h4><i id="expand-bldg-listings" class="fa fa-caret-down" style="font-size:36px;"></i><i id="collapse-bldg-listings" class="fa fa-caret-up" style="font-size:36px;color:tomato;display:none;"></i></div><div id="listing-details"></div></div><hr>';			
+			activeBldg.innerHTML = '<div id="active-selection" class="well"><h3><strong id="bldg-title">'+blackDoveTitle+'</strong></h3><h5 id="bldg-address">'+blackDoveAddress+'</h5><hr><img src="{{ asset("/images/bldg-thumb.jpg") }}" width="75%"/><h4><hr><strong id="bldg-duration" style="font-size:30px;color:tomato;">'+blackDoveDuration+' </strong><p style="font-size:18px;display:inline;">hours per year in transit</p></h4><hr><div id="bldg-listings"><h4><strong style="font-size:24px;color:tomato;">3</strong> available units</h4><h4><strong style="font-size:24px;color:tomato;">$1500 - $3250</strong> per month</h4><a onclick=""><i id="expand-bldg-listings" class="fa fa-caret-down show-apt-listings" style="font-size:36px;"></i></a><a onclick=""><i id="collapse-bldg-listings" class="fa fa-caret-up" style="font-size:36px;color:tomato;display:none;"></i></div><div id="listing-details"></div></div><hr>';			
 
 			var listingDetails = document.getElementById('listing-details');
 	    	var expandBldgListings = document.getElementById('expand-bldg-listings');
 	    	var collapseBldgListings = document.getElementById('collapse-bldg-listings');
 
-			expandBldgListings.addEventListener('click', function() {
+	    	var showAptListings = document.getElementsByClassName('show-apt-listings');
 
-				this.style.display = 'none';
-				collapseBldgListings.style.display = 'block';
 
-				listingDetails.innerHTML = "<hr><h4>Studio</h4><h4><strong>$1500</strong></h4><br><div class='row'><div class='col-xs-6'><ul><li>Furnished</li><li>Newly-Renovated</li></ul></div><div class='col-xs-6'><img class='img-responsive' src='{{ asset('/images/studio-thumb.jpg') }}'></div></div><hr><h4>One Bedroom</h4><h4><strong>$2000</strong></h4><br><div class='row'><div class='col-xs-6'><ul><li>In-Unit Laundry</li><li>Dogs OK</li></ul></div><div class='col-xs-6'><img class='img-responsive' src='{{ asset('/images/1br-thumb.jpg') }}'></div></div><hr><h4>Two Bedroom</h4><h4><strong>$3250</strong></h4><br><div class='row'><div class='col-xs-6'><ul><li>Balcony</li><li>Dishwasher</li><li>360&deg; Views</li></ul></div><div class='col-xs-6'><img class='img-responsive' src='{{ asset('/images/2br-thumb.jpg') }}'></div></div>";
-				listingDetails.style.display = 'block';
-				// this.style.height = '100%';
-			});
+				expandBldgListings.addEventListener('click', function() {
+
+					this.style.display = 'none';
+					collapseBldgListings.style.display = 'block';
+
+					listingDetails.innerHTML = "<hr><h4>Studio</h4><h4><strong>$1500</strong></h4><br><div class='row'><div class='col-xs-6'><ul><li>Furnished</li><li>Newly-Renovated</li></ul></div><div class='col-xs-6'><img class='img-responsive' src='{{ asset('/images/studio-thumb.jpg') }}'></div></div><hr><h4>One Bedroom</h4><h4><strong>$2000</strong></h4><br><div class='row'><div class='col-xs-6'><ul><li>In-Unit Laundry</li><li>Dogs OK</li></ul></div><div class='col-xs-6'><img class='img-responsive' src='{{ asset('/images/1br-thumb.jpg') }}'></div></div><hr><h4>Two Bedroom</h4><h4><strong>$3250</strong></h4><br><div class='row'><div class='col-xs-6'><ul><li>Balcony</li><li>Dishwasher</li><li>360&deg; Views</li></ul></div><div class='col-xs-6'><img class='img-responsive' src='{{ asset('/images/2br-thumb.jpg') }}'></div></div>";
+					listingDetails.style.display = 'block';
+					listingDetails.style.height = '100%';
+				});
+
+
 
 			collapseBldgListings.addEventListener('click', function() {
 				this.style.display = 'none';
@@ -600,7 +604,7 @@ if ($(window).width() > 600 ) {
 		var pigeons = function pigeons () {
 
 			for (var i = 0; i < passage.length; i++) {
-				passage[i].setVisible(false);
+				passage[i].setMap(null);
 			}			
 
 			for (var i = 0; i < markersArray.length; i++) {
@@ -654,33 +658,31 @@ if ($(window).width() > 600 ) {
 	    		travelMode: google.maps.TravelMode.TRANSIT,
 	    	}, function (result, status) {
 
-	    		var bounds = new google.maps.LatLngBounds();
+		        
+		        	var bounds = new google.maps.LatLngBounds();
 
-				for (var i = 0; i < markersArray.length; i++) {
-					bounds.extend(markersArray[i].getPosition());
-				}
+					for (var i = 0; i < markersArray.length; i++) {
+						bounds.extend(markersArray[i].getPosition());
+					}
 
-				map.fitBounds(bounds);
+					map.fitBounds(bounds);
 
-				map.panBy(222, 0);
+					map.panBy(222, 0);
 
-				setTimeout(function () {
-					calcRouteOne();
-				},500);
-				setTimeout(function () {
-					calcRouteTwo();
-				},1000);
-				setTimeout(function () {
-					calcRouteThree();
-				},1500);
-				setTimeout(function () {
-					calcRouteWork();
-				},2000);
+
+					calcRouteWork();	
+
+					setTimeout(function () {
+						calcRouteOne();
+					},2000);
+					setTimeout(function () {
+						calcRouteTwo();	
+					},4000);
+					setTimeout(function () {
+						calcRouteThree();	
+					},6000);
+
 				
-				
-				
-
-
 	    	});
 		}
 			
@@ -698,7 +700,6 @@ if ($(window).width() > 600 ) {
 					}
 				};
 				directionsService.route(request, function(result, status) {
-					console.log(result);
 				if (status == google.maps.DirectionsStatus.OK) {
 
 					console.log(result);
@@ -713,43 +714,55 @@ if ($(window).width() > 600 ) {
 				
 					// pathCoords.push(theBlackDove);
 
-					// var animateLineDraw = window.setInterval(function() {	
+					var animateLineDraw = window.setInterval(function() {	
 
-						for (var idx = 0; idx < routeWorkOverviewPath.length; idx++) {
+						if (idx < routeWorkOverviewPath.length) {
 
 							var routeLatLng = {lat: routeWorkOverviewPath[idx].lat(), lng: routeWorkOverviewPath[idx].lng()};
 							pathCoords.push(routeLatLng);
 							pathWork = new google.maps.Polyline({
 								path: pathCoords,
+								geodesic: true,
+								strokeWeight: 4,
 								strokeColor: '#763A7A',
 								strokeOpacity: 1,
+								zIndex: 100,
 							    map: map
 
 							});
-							passage.push(pathWork);
 							pathWork.setMap(map);
+							passage.push(pathWork);
+							idx++
+
+						} else {
+
+							pathWork.setMap(map);
+							window.clearInterval(animateLineDraw);
+
+							workplaceMarker.addListener('click', function() {
+
+								
+								workplaceMarker.setVisible(false);
+								markersArray[1].setVisible(true);
+								markersArray[2].setVisible(true);
+								markersArray[3].setVisible(true);
+
+								pathWork.setVisible(false);
+								pathOne.setVisible(true);
+								pathTwo.setVisible(true);
+								pathThree.setVisible(true);
+
+								directionsDisplay.setDirections(result);
+
+							});
+							
 						}
 
-						workplaceMarker.addListener('click', function() {
-
 							
-							workplaceMarker.setVisible(false);
-							markersArray[1].setVisible(true);
-							markersArray[2].setVisible(true);
-							markersArray[3].setVisible(true);
+				},21);
 
-							pathWork.setVisible(false);
-							pathOne.setVisible(true);
-							pathTwo.setVisible(true);
-							pathThree.setVisible(true);
-
-							directionsDisplay.setDirections(result);
-
-						});
-							
-						}
-
-				});
+			}
+		});
 
 		}
 
@@ -776,41 +789,53 @@ if ($(window).width() > 600 ) {
 
 					var idx = 0;
 
-						
-						for (var idx = 0; idx < routeOneOverviewPath.length; idx++) {
+					var animateLineDraw = window.setInterval(function() {		
+
+						if (idx < routeOneOverviewPath.length) {
+
 							var routeLatLng = {lat: routeOneOverviewPath[idx].lat(), lng: routeOneOverviewPath[idx].lng()};
 							pathCoords.push(routeLatLng);
 							pathOne = new google.maps.Polyline({
 								path: pathCoords,
+								geodesic: true,
+								strokeWeight: 4,
 								strokeColor: '#FE6F69',
 								strokeOpacity: 1,
+								zIndex: 200,
 								map: map
 
 							});
-							passage.push(pathOne);
 							pathOne.setMap(map);
+							passage.push(pathOne);
+							idx++;
+
+						} else {
+
+							pathOne.setMap(map);
+							window.clearInterval(animateLineDraw);
+
+							markersArray[1].addListener('click', function() {
+
+								workplaceMarker.setVisible(true);
+								markersArray[1].setVisible(false);
+								markersArray[2].setVisible(true);
+								markersArray[3].setVisible(true);
+
+							    pathWork.setVisible(true);
+							    pathOne.setVisible(false);
+								pathTwo.setVisible(true);
+								pathThree.setVisible(true);
+
+								directionsDisplay.setDirections(result);
+
+							});
 						}
 
-						markersArray[1].addListener('click', function() {
+		   		 },21);
 
-							workplaceMarker.setVisible(true);
-							markersArray[1].setVisible(false);
-							markersArray[2].setVisible(true);
-							markersArray[3].setVisible(true);
-
-						    pathWork.setVisible(true);
-						    pathOne.setVisible(false);
-							pathTwo.setVisible(true);
-							pathThree.setVisible(true);
-
-							directionsDisplay.setDirections(result);
-
-						});
-						
-		   		 }
-
-			});
-		}
+			};
+		});
+	};
 
 		function calcRouteTwo() {
 				var start = theBlackDove;
@@ -832,43 +857,54 @@ if ($(window).width() > 600 ) {
 
 					var idx = 0;
 
-					// pathCoords.push(theBlackDove);
+					var animateLineDraw = window.setInterval(function() {		
 
-						for (var idx = 0; idx < routeTwoOverviewPath.length; idx++) {
+						if (idx < routeTwoOverviewPath.length) {
+
 							var routeLatLng = {lat: routeTwoOverviewPath[idx].lat(), lng: routeTwoOverviewPath[idx].lng()};
 							pathCoords.push(routeLatLng);
 							pathTwo = new google.maps.Polyline({
 								path: pathCoords,
+								geodesic: true,
+								strokeWeight: 4,
 								strokeColor: '#00b300',
 								strokeOpacity: 1,
+								zIndex: 300,
 								map: map
 							});
-						  	passage.push(pathTwo);
 						  	pathTwo.setMap(map);
+					  		passage.push(pathTwo);
+							idx++;
+
+						} else {
+
+						  	pathTwo.setMap(map);
+						  	window.clearInterval(animateLineDraw);
+							 
+							markersArray[2].addListener('click', function() {
+								
+								workplaceMarker.setVisible(true);
+								markersArray[1].setVisible(true);
+								markersArray[2].setVisible(false);
+								markersArray[3].setVisible(true);
+
+								pathWork.setVisible(true);
+								pathOne.setVisible(true);
+								pathTwo.setVisible(false);
+								pathThree.setVisible(true);
+
+								directionsDisplay.setDirections(result);
+
+							});
+
 						}
-						 
+ 
 
-						 
-						markersArray[2].addListener('click', function() {
-							
-							workplaceMarker.setVisible(true);
-							markersArray[1].setVisible(true);
-							markersArray[2].setVisible(false);
-							markersArray[3].setVisible(true);
+					},21);
 
-							pathWork.setVisible(true);
-							pathOne.setVisible(true);
-							pathTwo.setVisible(false);
-							pathThree.setVisible(true);
-
-							directionsDisplay.setDirections(result);
-
-						});
-
-					}
-
-				});
-		}
+				};
+			});
+		};
 
 		function calcRouteThree() {
 				var start = theBlackDove;
@@ -890,38 +926,52 @@ if ($(window).width() > 600 ) {
 				   
 					var idx = 0;
 
-					// pathCoords.push(theBlackDove);						
-					for (var idx = 0; idx < routeThreeOverviewPath.length; idx++) {
-						var routeLatLng = {lat: routeThreeOverviewPath[idx].lat(), lng: routeThreeOverviewPath[idx].lng()};
-						pathCoords.push(routeLatLng);
-						pathThree = new google.maps.Polyline({
-							path: pathCoords,
-							strokeColor: '#247BA0',
-							strokeOpacity: 1,
-							map: map
-						});
-						passage.push(pathThree);
-						pathThree.setMap(map);
+					var animateLineDraw = window.setInterval(function() {		
+					
+						if (idx < routeThreeOverviewPath.length) {
 
-					}
+							var routeLatLng = {lat: routeThreeOverviewPath[idx].lat(), lng: routeThreeOverviewPath[idx].lng()};
+							pathCoords.push(routeLatLng);
+							pathThree = new google.maps.Polyline({
+								path: pathCoords,
+								geodesic: true,
+								strokeWeight: 4,
+								strokeColor: '#247BA0',
+								strokeOpacity: 1,
+								zIndex: 400,
+								map: map
+							});
+							pathThree.setMap(map);
+							passage.push(pathThree);
+							idx++;
 
-					markersArray[3].addListener('click', function() {
-						
+						} else {
 
-						pathWork.setVisible(true);
-						pathOne.setVisible(true);
-						pathTwo.setVisible(true);
-						pathThree.setVisible(false);
+							pathThree.setMap(map);
+							window.clearInterval(animateLineDraw);
 
-						workplaceMarker.setVisible(true);
-						markersArray[1].setVisible(true);
-						markersArray[2].setVisible(true);
-						markersArray[3].setVisible(false);
+							markersArray[3].addListener('click', function() {
+								
 
-						// originMarker.setVisible(false);
-						
-						directionsDisplay.setDirections(result);
-					});
+								pathWork.setVisible(true);
+								pathOne.setVisible(true);
+								pathTwo.setVisible(true);
+								pathThree.setVisible(false);
+
+								workplaceMarker.setVisible(true);
+								markersArray[1].setVisible(true);
+								markersArray[2].setVisible(true);
+								markersArray[3].setVisible(false);
+
+								// originMarker.setVisible(false);
+								
+								directionsDisplay.setDirections(result);
+							});
+
+						}
+
+					},21);
+
 						  	
 						  	// iwHello = new google.maps.InfoWindow();
 						  	// iwHello.setContent('<div><p>Hi, my name is Homer. Click me for more info</p></div>');
@@ -1382,7 +1432,7 @@ if ($(window).width() < 600 ) {
     		var primeLocationMobile = document.getElementById('primeLocationMobile');
 			var aptListingsMobile = document.getElementById('aptListingsMobile');
 
-    		primeLocationMobile.innerHTML = '<div id="active-bldg-selection-mobile" class="well"><h3><strong>'+blackDoveTitle+'</strong></h3><h5>'+blackDoveAddress+'</h5><hr><img src="{{ asset("/images/bldg-thumb.jpg") }}" width="75%"/><h4><hr><strong style="font-size:30px;color:tomato;">'+blackDoveDuration+' </strong><p style="font-size:18px;display:inline;">minutes per year in transit</p></h4><hr><div id="bldg-listings-mobile"><h4><strong style="font-size:24px;color:tomato;">3</strong> available units</h4><h4><strong style="font-size:24px;color:tomato;">$1500 - $3250</strong> per month</h4><i id="expand-bldg-listings-mobile" class="fa fa-caret-down" style="font-size:36px;"></i><i id="collapse-bldg-listings-mobile" class="fa fa-caret-up" style="font-size:36px;color:tomato;display:none;"></i></div><div id="listing-details-mobile"></div></div><hr>';
+    		primeLocationMobile.innerHTML = '<div id="active-bldg-selection-mobile" class="well"><h3><strong>'+blackDoveTitle+'</strong></h3><h5>'+blackDoveAddress+'</h5><hr><img src="{{ asset("/images/bldg-thumb.jpg") }}" width="75%"/><h4><hr><strong style="font-size:30px;color:tomato;">'+blackDoveDuration+' </strong><p style="font-size:18px;display:inline;">hours per year in transit</p></h4><hr><div id="bldg-listings-mobile"><h4><strong style="font-size:24px;color:tomato;">3</strong> available units</h4><h4><strong style="font-size:24px;color:tomato;">$1500 - $3250</strong> per month</h4><i id="expand-bldg-listings-mobile" class="fa fa-caret-down" style="font-size:36px;"></i><i id="collapse-bldg-listings-mobile" class="fa fa-caret-up" style="font-size:36px;color:tomato;display:none;"></i></div><div id="listing-details-mobile"></div></div><hr>';
 
 	    	primeLocationMobile.style.color = 'tomato';
 
@@ -1410,7 +1460,7 @@ if ($(window).width() < 600 ) {
 
     		for (var idx = 1; idx < sortedOriginsArray.length; idx++) {
     			var nutwo = document.createElement('div');
-				nutwo.innerHTML = '<h2>'+sortedOriginsArray[idx].title+'</h2><h4>'+sortedOriginsArray[idx].address+'</h4><h4><strong style="font-size:30px;">'+sortedOriginsArray[idx].duration+' </strong><p style="font-size:18px;">minutes per year in transit</p></h4><hr>';
+				nutwo.innerHTML = '<h2>'+sortedOriginsArray[idx].title+'</h2><h4>'+sortedOriginsArray[idx].address+'</h4><h4><strong style="font-size:30px;">'+sortedOriginsArray[idx].duration+' </strong><p style="font-size:18px;">hours per year in transit</p></h4><hr>';
 				aptListingsMobile.appendChild(nutwo);
 	    	}
 
