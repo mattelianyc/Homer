@@ -133,6 +133,12 @@
 	var frequentedLocations;
 	var apartmentBuildings;
 
+	// var lineSymbol = {
+	//     path: 'M 0,-1 0,1',
+	//     strokeOpacity: 1,
+	//     scale: 3.69
+	//   };
+
 
 if ($(window).width() > 600 ) {
 
@@ -524,32 +530,19 @@ if ($(window).width() > 600 ) {
     		navbar.width = '27%';
     		sidebar.display = 'block';
 
-			var aptListings = document.getElementById('aptListings');
+			var aptListings = document.getElementById('aptListings');			
 
-			var nu = document.createElement('div');
-			var att = document.createAttribute("data-id");       // Create a "class" attribute
-			nu.className = 'bldg-id-'+sortedOriginsArray[0].id+'';
-			att.value = ''+sortedOriginsArray[0].id+''; // Set the value of the class attribute
-			nu.setAttributeNode(att);    
-			nu.innerHTML = '<h2>'+sortedOriginsArray[0].title+'</h2><h4>'+sortedOriginsArray[0].address+'</h4><h4><strong style="font-size:30px;">'+sortedOriginsArray[0].duration+' </strong><p style="font-size:18px;">minutes per year in transit</p></h4><hr>';
-			aptListings.appendChild(nu);
-			aptListings.firstChild.id = 'active-bldg-selection';
-
-			activeBldg = document.getElementById('active-bldg-selection');
-
-			activeBldg.innerHTML = '<div id="active-selection" class="well"><h3><strong id="bldg-title">'+blackDoveTitle+'</strong></h3><h5 id="bldg-address">'+blackDoveAddress+'</h5><hr><img src="{{ asset("/images/bldg-thumb.jpg") }}" width="75%"/><h4><hr><strong id="bldg-duration" style="font-size:30px;color:tomato;">'+blackDoveDuration+' </strong><p style="font-size:18px;display:inline;">minutes per year in transit</p></h4><hr><div id="bldg-listings"><h4><strong style="font-size:24px;color:tomato;">3</strong> available units</h4><h4><strong style="font-size:24px;color:tomato;">$1500 - $3250</strong> per month</h4><i id="expand-bldg-listings" class="fa fa-caret-down" style="font-size:36px;"></i><i id="collapse-bldg-listings" class="fa fa-caret-up" style="font-size:36px;color:tomato;display:none;"></i></div><div id="listing-details"></div></div><hr>';
-
-    		for (var i = 1; i < sortedOriginsArray.length; i++) {
+    		for (var i = 0; i < sortedOriginsArray.length; i++) {
 
 	    			nu = document.createElement('div');
-					var att = document.createAttribute("data-id");       // Create a "class" attribute
+					var att = document.createAttribute("data-id");       
 	    			nu.className = 'bldg-id-'+sortedOriginsArray[i].id+'';
-					att.value = ''+sortedOriginsArray[i].id+''; // Set the value of the class attribute
+					att.value = ''+sortedOriginsArray[i].id+''; 
 					nu.setAttributeNode(att);    
-					nu.innerHTML = '<h2>'+sortedOriginsArray[i].title+'</h2><h4>'+sortedOriginsArray[i].address+'</h4><h4><strong style="font-size:30px;">'+sortedOriginsArray[i].duration+' </strong><p style="font-size:18px;">minutes per year in transit</p></h4><hr>';
+					nu.innerHTML = '<h2>'+sortedOriginsArray[i].title+'</h2><h4>'+sortedOriginsArray[i].address+'</h4><h4><strong style="font-size:30px;">'+sortedOriginsArray[i].duration+' </strong></h4><p style="font-size:18px;">minutes per year in transit</p></h4><hr>';
 					nu.addEventListener('click', function () {
 						activeBldg = document.getElementById('active-bldg-selection');
-						activeBldg.innerHTML = '<h2>'+document.getElementById('bldg-title').innerHTML+'</h2><h4>'+document.getElementById('bldg-address').innerHTML+'</h4><h4><strong style="font-size:30px;">'+document.getElementById('bldg-duration').innerHTML+' </strong></h4><hr>';
+						activeBldg.innerHTML = '<h2>'+document.getElementById('bldg-title').innerHTML+'</h2><h4>'+document.getElementById('bldg-address').innerHTML+'</h4><h4><strong style="font-size:30px;">'+document.getElementById('bldg-duration').innerHTML+' </strong></h4><p style="font-size:18px;">minutes per year in transit</p></h4><hr>';
 						var aptListingsChildren = aptListings.childNodes;
 						for (var ii = 0; ii < aptListingsChildren.length; ii++) {
 							aptListingsChildren[ii].removeAttribute('id');
@@ -560,7 +553,7 @@ if ($(window).width() > 600 ) {
 						}
 						this.id = 'active-bldg-selection';
 						activeBldg = document.getElementById('active-bldg-selection');
-						activeBldg.innerHTML = '<div id="active-selection" class="well"><h3><strong id="bldg-title">'+activeBldg.childNodes[0].innerHTML+'</strong></h3><h5 id="bldg-address">'+activeBldg.childNodes[1].innerHTML+'</h5><hr><img src="{{ asset("/images/bldg-thumb.jpg") }}" width="75%"/><h4><hr><strong id="bldg-duration" style="font-size:30px;color:tomato;">'+activeBldg.childNodes[2].innerHTML+' </strong></h4><hr><div id="bldg-listings"><h4><strong style="font-size:24px;color:tomato;">3</strong> available units</h4><h4><strong style="font-size:24px;color:tomato;">$1500 - $3250</strong> per month</h4><i id="expand-bldg-listings" class="fa fa-caret-down" style="font-size:36px;"></i><i id="collapse-bldg-listings" class="fa fa-caret-up" style="font-size:36px;color:tomato;display:none;"></i></div><div id="listing-details"></div></div><hr>';
+						activeBldg.innerHTML = '<div id="active-selection" class="well"><h3><strong id="bldg-title">'+activeBldg.childNodes[0].innerHTML+'</strong></h3><h5 id="bldg-address">'+activeBldg.childNodes[1].innerHTML+'</h5><hr><img src="{{ asset("/images/bldg-thumb.jpg") }}" width="75%"/><h4><hr><strong id="bldg-duration" style="font-size:30px;color:tomato;">'+activeBldg.childNodes[2].innerHTML+' </strong></h4><p style="font-size:18px;">minutes per year in transit</p></h4><hr><div id="bldg-listings"><h4><strong style="font-size:24px;color:tomato;">3</strong> available units</h4><h4><strong style="font-size:24px;color:tomato;">$1500 - $3250</strong> per month</h4><i id="expand-bldg-listings" class="fa fa-caret-down" style="font-size:36px;"></i><i id="collapse-bldg-listings" class="fa fa-caret-up" style="font-size:36px;color:tomato;display:none;"></i></div><div id="listing-details"></div></div><hr>';
 
 						pigeons();
 
@@ -570,7 +563,11 @@ if ($(window).width() > 600 ) {
 
 	    	}
 			
-			aptListings.firstChild.id = 'active-bldg-selection';			
+			aptListings.firstChild.id = 'active-bldg-selection';
+
+			activeBldg = document.getElementById('active-bldg-selection');
+
+			activeBldg.innerHTML = '<div id="active-selection" class="well"><h3><strong id="bldg-title">'+blackDoveTitle+'</strong></h3><h5 id="bldg-address">'+blackDoveAddress+'</h5><hr><img src="{{ asset("/images/bldg-thumb.jpg") }}" width="75%"/><h4><hr><strong id="bldg-duration" style="font-size:30px;color:tomato;">'+blackDoveDuration+' </strong><p style="font-size:18px;display:inline;">minutes per year in transit</p></h4><hr><div id="bldg-listings"><h4><strong style="font-size:24px;color:tomato;">3</strong> available units</h4><h4><strong style="font-size:24px;color:tomato;">$1500 - $3250</strong> per month</h4><i id="expand-bldg-listings" class="fa fa-caret-down" style="font-size:36px;"></i><i id="collapse-bldg-listings" class="fa fa-caret-up" style="font-size:36px;color:tomato;display:none;"></i></div><div id="listing-details"></div></div><hr>';			
 
 			var listingDetails = document.getElementById('listing-details');
 	    	var expandBldgListings = document.getElementById('expand-bldg-listings');
@@ -663,16 +660,16 @@ if ($(window).width() > 600 ) {
 
 				setTimeout(function () {
 					calcRouteOne();
-				},1000);
+				},500);
 				setTimeout(function () {
 					calcRouteTwo();
-				},2000);
+				},1000);
 				setTimeout(function () {
 					calcRouteThree();
-				},3000);
+				},1500);
 				setTimeout(function () {
 					calcRouteWork();
-				},4000);
+				},2000);
 				
 				
 				
@@ -718,10 +715,10 @@ if ($(window).width() > 600 ) {
 							pathCoords.push(routeLatLng);
 							pathWork = new google.maps.Polyline({
 								path: pathCoords,
-								geodesic: true,
-								strokeColor: '#E64A45',
+								strokeColor: '#763A7A',
 								strokeOpacity: 1,
-								strokeWeight: 6
+							    map: map
+
 							});
 							passage.push(pathWork);
 							pathWork.setMap(map);
@@ -779,10 +776,10 @@ if ($(window).width() > 600 ) {
 							pathCoords.push(routeLatLng);
 							pathOne = new google.maps.Polyline({
 								path: pathCoords,
-								geodesic: true,
-								strokeColor: '#003399',
-								strokeOpacity: 0.5,
-								strokeWeight: 5
+								strokeColor: '#FE6F69',
+								strokeOpacity: 1,
+								map: map
+
 							});
 							passage.push(pathOne);
 							pathOne.setMap(map);
@@ -836,10 +833,9 @@ if ($(window).width() > 600 ) {
 							pathCoords.push(routeLatLng);
 							pathTwo = new google.maps.Polyline({
 								path: pathCoords,
-								geodesic: true,
-								strokeColor: '#009933',
-								strokeOpacity: 0.5,
-								strokeWeight: 5
+								strokeColor: '#00b300',
+								strokeOpacity: 1,
+								map: map
 							});
 						  	passage.push(pathTwo);
 						  	pathTwo.setMap(map);
@@ -894,10 +890,9 @@ if ($(window).width() > 600 ) {
 						pathCoords.push(routeLatLng);
 						pathThree = new google.maps.Polyline({
 							path: pathCoords,
-							geodesic: true,
-							strokeColor: '#4DB3B3',
-							strokeOpacity: 0.5,
-							strokeWeight: 5
+							strokeColor: '#247BA0',
+							strokeOpacity: 1,
+							map: map
 						});
 						passage.push(pathThree);
 						pathThree.setMap(map);
