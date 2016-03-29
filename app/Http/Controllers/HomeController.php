@@ -75,6 +75,10 @@ class HomeController extends Controller {
 		$freqLoc4_coordinates = Input::get('freq_loc_coords_4');
 		$freqLoc5_coordinates = Input::get('freq_loc_coords_5');
 
+		$f1_weight = Input::get('flw1');
+		$f2_weight = Input::get('flw2');
+		$f3_weight = Input::get('flw3');
+
 		$workplaceArray = explode(', ', $workplace);
 		$freqLoc1Array = explode(', ', $freqLoc1);
 		$freqLoc2Array = explode(', ', $freqLoc2);
@@ -153,6 +157,7 @@ class HomeController extends Controller {
 			$freqLoc1['country'] = $freqLoc1Array[2];
 			$freqLoc1['lat'] = $freqLoc1Array[3][0];
 			$freqLoc1['lng'] = $freqLoc1Array[3][1];
+			$freqLoc1['weight'] = $f1_weight;
 	        $freqLoc1->save();
 		} elseif (sizeof($freqLoc1Array) === 5) {
 			$freqLoc1 = new FrequentedLocation;
@@ -164,6 +169,7 @@ class HomeController extends Controller {
 			$freqLoc1['country'] = $freqLoc1Array[3];
 			$freqLoc1['lat'] = $freqLoc1Array[4][0];
 			$freqLoc1['lng'] = $freqLoc1Array[4][1];
+			$freqLoc1['weight'] = $f1_weight;
 	        $freqLoc1->save();
 		} elseif (sizeof($freqLoc1Array) === 6) {
 			$freqLoc1 = new FrequentedLocation;
@@ -175,6 +181,7 @@ class HomeController extends Controller {
 			$freqLoc1['country'] = $freqLoc1Array[4];
 			$freqLoc1['lat'] = $freqLoc1Array[5][0];
 			$freqLoc1['lng'] = $freqLoc1Array[5][1];
+			$freqLoc1['weight'] = $f1_weight;
 	        $freqLoc1->save();
 		}
 
@@ -188,6 +195,7 @@ class HomeController extends Controller {
 			$freqLoc2['country'] = $freqLoc2Array[2];
 			$freqLoc2['lat'] = $freqLoc2Array[3][0];
 			$freqLoc2['lng'] = $freqLoc2Array[3][1];
+			$freqLoc2['weight'] = $f2_weight;
 	        $freqLoc2->save();
 		} elseif (sizeof($freqLoc2Array) === 5) {
 			$freqLoc2 = new FrequentedLocation;
@@ -199,6 +207,7 @@ class HomeController extends Controller {
 			$freqLoc2['country'] = $freqLoc2Array[3];
 			$freqLoc2['lat'] = $freqLoc2Array[4][0];
 			$freqLoc2['lng'] = $freqLoc2Array[4][1];
+			$freqLoc2['weight'] = $f2_weight;
 	        $freqLoc2->save();
 		} elseif (sizeof($freqLoc2Array) === 6) {
 			$freqLoc2 = new FrequentedLocation;
@@ -210,6 +219,7 @@ class HomeController extends Controller {
 			$freqLoc2['country'] = $freqLoc2Array[4];
 			$freqLoc2['lat'] = $freqLoc2Array[5][0];
 			$freqLoc2['lng'] = $freqLoc2Array[5][1];
+			$freqLoc2['weight'] = $f2_weight;
 	        $freqLoc2->save();
 		}
 		
@@ -223,6 +233,7 @@ class HomeController extends Controller {
 			$freqLoc3['country'] = $freqLoc3Array[2];
 			$freqLoc3['lat'] = $freqLoc3Array[3][0];
 			$freqLoc3['lng'] = $freqLoc3Array[3][1];
+			$freqLoc3['weight'] = $f3_weight;
 	        $freqLoc3->save();
 		} elseif (sizeof($freqLoc3Array) === 5) {
 			$freqLoc3 = new FrequentedLocation;
@@ -234,6 +245,7 @@ class HomeController extends Controller {
 			$freqLoc3['country'] = $freqLoc3Array[3];
 			$freqLoc3['lat'] = $freqLoc3Array[4][0];
 			$freqLoc3['lng'] = $freqLoc3Array[4][1];
+			$freqLoc3['weight'] = $f3_weight;
 	        $freqLoc3->save();
 		} elseif (sizeof($freqLoc3Array) === 6) {
 			$freqLoc3 = new FrequentedLocation;
@@ -245,6 +257,7 @@ class HomeController extends Controller {
 			$freqLoc3['country'] = $freqLoc3Array[4];
 			$freqLoc3['lat'] = $freqLoc3Array[5][0];
 			$freqLoc3['lng'] = $freqLoc3Array[5][1];
+			$freqLoc3['weight'] = $f3_weight;
 	        $freqLoc3->save();
 		}		
 

@@ -40,31 +40,63 @@
     		<div id="freq-loc-input-wrapper">
 				<div class="row">
 		    		<div class="col-xs-12">
-		    			<div id="input-group-1" class="input-group" style="display:none;">
-		    				<input id="freq-loc-input-1" class="form-control" placeholder="Enter Frequented Location Address" name="freq_loc_address_1">
-		    				<input type="hidden" id="freq-loc-coords-input-1" name="freq_loc_coords_1">
-		    				<span class="input-group-addon" onclick="$(this).parent().hide();"><i class="fa fa-minus"></i></span>
-		    			</div>
-		    			<div id="input-group-2" class="input-group" style="display:none;">
-		    				<input id="freq-loc-input-2" class="form-control" placeholder="Enter Frequented Location Address" name="freq_loc_address_2">
-		    				<input type="hidden" id="freq-loc-coords-input-2" name="freq_loc_coords_2">
-		    				<span class="input-group-addon" onclick="$(this).parent().hide();"><i class="fa fa-minus"></i></span>
-		    			</div>
-		    			<div id="input-group-3" class="input-group" style="display:none;">
-		    				<input id="freq-loc-input-3" class="form-control" placeholder="Enter Frequented Location Address" name="freq_loc_address_3">
-		    				<input type="hidden" id="freq-loc-coords-input-3" name="freq_loc_coords_3">
-		    				<span class="input-group-addon" onclick="$(this).parent().hide();"><i class="fa fa-minus"></i></span>
-		    			</div>
-		    			<!-- <div id="input-group-4" class="input-group" style="display:none;">
-		    				<input id="freq-loc-input-4" class="form-control" placeholder="Enter Frequented Location Address" name="freq_loc_address_4">
-		    				<input type="hidden" id="freq-loc-coords-input-4" name="freq_loc_coords_4">
-		    				<span class="input-group-addon" onclick="$(this).parent().hide();"><i class="fa fa-minus"></i></span>
-		    			</div>
-		    			<div id="input-group-5" class="input-group" style="display:none;">
-		    				<input id="freq-loc-input-5" class="form-control" placeholder="Enter Frequented Location Address" name="freq_loc_address_5">
-		    				<input type="hidden" id="freq-loc-coords-input-5" name="freq_loc_coords_5">
-		    				<span class="input-group-addon" onclick="$(this).parent().hide();"><i class="fa fa-minus"></i></span>
-		    			</div> -->
+		    			<!-- <div class="" style="display: flex;"> -->
+
+			    			<div id="input-group-1" class="input-group" style="display:none;">
+
+			    				<input id="freq-loc-input-1" class="form-control" placeholder="Enter Frequented Location Address" name="freq_loc_address_1">
+			    				<input type="hidden" id="freq-loc-coords-input-1" name="freq_loc_coords_1">
+		    					<select name="flw1" id="freqLocWeight-1" class="form-control">
+								  <option value="7">Everyday</option>
+								  <option value="5">5 days a week</option>
+								  <option value="3">3 days a week</option>
+								  <option value="1">Weekly</option>
+								  <option value=".5">Bi-weekly</option>
+								  <option value=".25">Monthly</option>
+								</select>
+			    				<span class="input-group-addon" style="width: none;" onclick="$(this).parent().hide();"><i class="fa fa-minus"></i></span>
+
+		    				</div>
+
+			    			<div id="input-group-2" class="input-group" style="display:none;">
+			    				<input id="freq-loc-input-2" class="form-control" placeholder="Enter Frequented Location Address" name="freq_loc_address_2">
+			    				<input type="hidden" id="freq-loc-coords-input-2" name="freq_loc_coords_2">
+			    				<select name="flw2" id="freqLocWeight-2" class="form-control">
+								  <option value="7">Everyday</option>
+								  <option value="5">5 days a week</option>
+								  <option value="3">3 days a week</option>
+								  <option value="1">Weekly</option>
+								  <option value=".5">Bi-weekly</option>
+								  <option value=".25">Monthly</option>
+								</select>
+			    				<span class="input-group-addon" onclick="$(this).parent().hide();"><i class="fa fa-minus"></i></span>
+			    			</div>
+
+			    			<div id="input-group-3" class="input-group" style="display:none;">
+			    				<input id="freq-loc-input-3" class="form-control" placeholder="Enter Frequented Location Address" name="freq_loc_address_3">
+			    				<input type="hidden" id="freq-loc-coords-input-3" name="freq_loc_coords_3">
+			    				<select name="flw3" id="freqLocWeight-3" class="form-control">
+								  <option value="7">Everyday</option>
+								  <option value="5">5 days a week</option>
+								  <option value="3">3 days a week</option>
+								  <option value="1">Weekly</option>
+								  <option value=".5">Bi-weekly</option>
+								  <option value=".25">Monthly</option>
+								</select>
+			    				<span class="input-group-addon" onclick="$(this).parent().hide();"><i class="fa fa-minus"></i></span>
+			    			</div>
+
+			    			<!-- <div id="input-group-4" class="input-group" style="display:none;">
+			    				<input id="freq-loc-input-4" class="form-control" placeholder="Enter Frequented Location Address" name="freq_loc_address_4">
+			    				<input type="hidden" id="freq-loc-coords-input-4" name="freq_loc_coords_4">
+			    				<span class="input-group-addon" onclick="$(this).parent().hide();"><i class="fa fa-minus"></i></span>
+			    			</div>
+			    			<div id="input-group-5" class="input-group" style="display:none;">
+			    				<input id="freq-loc-input-5" class="form-control" placeholder="Enter Frequented Location Address" name="freq_loc_address_5">
+			    				<input type="hidden" id="freq-loc-coords-input-5" name="freq_loc_coords_5">
+			    				<span class="input-group-addon" onclick="$(this).parent().hide();"><i class="fa fa-minus"></i></span>
+			    			</div> -->
+		    			<!-- </div> -->
 					</div>
 				</div>
   			</div>

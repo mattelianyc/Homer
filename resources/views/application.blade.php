@@ -254,7 +254,7 @@ if ($(window).width() > 600 ) {
 
 		frequentedLocations = [
 		    @foreach ($frequented_locations as $fl)
-		        [ {{ $fl->lat }}, {{ $fl->lng }}, "{{ $fl->title }}", "{{ $fl->address }}", "{{ $fl->city }}", "{{ $fl->state }}" ], 
+		        [ {{ $fl->lat }}, {{ $fl->lng }}, "{{ $fl->title }}", "{{ $fl->address }}", "{{ $fl->city }}", "{{ $fl->state }}", "{{ $fl->weight }}" ], 
 		    @endforeach
 	    ];
 
@@ -292,6 +292,7 @@ if ($(window).width() > 600 ) {
 	    }
 
 	    var freqLocArray = [];
+	    var freqLocWeights = [];
 	    var freqLoc;
 
 	    for (i = 0; i < frequentedLocations.length; i++) {
@@ -299,6 +300,7 @@ if ($(window).width() > 600 ) {
 	    	freqLoc = new google.maps.LatLng(frequentedLocations[i][0], frequentedLocations[i][1]);
 
 	        freqLocArray.push(freqLoc);
+	        freqLocWeights.push(frequentedLocations[i][6]);
 
 	        marker = new google.maps.Marker({
 	            position: freqLoc,
@@ -315,6 +317,8 @@ if ($(window).width() > 600 ) {
 	        // infowindow.open(map, marker);
 
 	    }
+
+	    console.log(freqLocWeights);
 
 	    var callbackResponse = [];
 		var tripDuration = [];
@@ -400,6 +404,8 @@ if ($(window).width() > 600 ) {
 
 		}
 
+
+
 		function calculateTotalDurationFromOrigins() {
 			
 			var counter = 0;
@@ -418,15 +424,15 @@ if ($(window).width() > 600 ) {
 
 					} else if(v == 1){
 
-						intermediateDurationsArray.push(((k.duration.value * 1 * 52)/60));
+						intermediateDurationsArray.push(((k.duration.value * freqLocWeights[0] * 52)/60));
 
 					} else if(v == 2){
 
-						intermediateDurationsArray.push(((k.duration.value * 1 * 52)/60));
+						intermediateDurationsArray.push(((k.duration.value * freqLocWeights[1] * 52)/60));
 
 					} else if(v == 3){
 						
-						intermediateDurationsArray.push(((k.duration.value * 1 * 52)/60));
+						intermediateDurationsArray.push(((k.duration.value * freqLocWeights[2] * 52)/60));
 
 						for (var y = 0; y < intermediateDurationsArray.length; y++) {
 							totalDuration += (intermediateDurationsArray[y]);
