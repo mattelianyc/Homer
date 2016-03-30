@@ -36,7 +36,7 @@
 	        <span class="icon-bar"></span>
 	        <span class="icon-bar"></span> 
 	      </button>
-	      <a class="navbar-brand" href="/home">
+	      <a class="navbar-brand" href="{{  action('HomeController@logout') }}">
 	      	<img id="homer-logo" class="img-responsive" src="{{ asset('/images/cardinal-icon.png') }}">
 	      	<h1>Homer</h1>
 	      </a>
@@ -115,8 +115,6 @@
 
 	var workplaceMarker;
 	var workplaceMarkerMobile;
-
-	var originMarkersArray = [];
 
 	var markersArray = [];
 	var markersArrayMobile = [];
@@ -650,7 +648,6 @@ if ($(window).width() > 600 ) {
 				for (var i = 0; i < markersArray.length; i++) {
 					bounds.extend(markersArray[i].getPosition());
 				}
-				// bounds.extend(originMarkersArray[0].getPosition());
 
 				map.fitBounds(bounds);
 				map.panBy(222, 0);
@@ -715,7 +712,6 @@ if ($(window).width() > 600 ) {
 
 							workplaceMarker.addListener('click', function() {
 
-								
 								workplaceMarker.setVisible(false);
 								markersArray[1].setVisible(true);
 								markersArray[2].setVisible(true);

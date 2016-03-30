@@ -48,7 +48,7 @@ class HomeController extends Controller {
 		$workplaces = Workplace::all();
 		$frequented_locations = FrequentedLocation::all();
 
-		$session = Session::all();
+		$session = Session::get('_token');
 
 		return view('home')->with(compact('workplaces', 'frequented_locations', 'session'));
 
