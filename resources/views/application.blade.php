@@ -394,8 +394,6 @@ if ($(window).width() > 600 ) {
 
 		}
 
-
-
 		function calculateTotalDurationFromOrigins() {
 			
 			var counter = 0;
@@ -480,7 +478,6 @@ if ($(window).width() > 600 ) {
 
 		}
 
-
 		var dovetailor = function dovetailor () {
 
 	        originMarker = new google.maps.Marker({
@@ -511,6 +508,20 @@ if ($(window).width() > 600 ) {
 				calcRouteOne();
 				calcRouteTwo();
 				calcRouteThree();
+
+				iwHello = new google.maps.InfoWindow();
+			  	iwHello.setContent('<div><p>Hi, my name is Homer. Click me for more info</p></div>');
+			    iwHello.open(map, originMarker);
+			    setTimeout(function() {
+			    	iwHello.close(map, originMarker);
+				    google.maps.event.addListener(originMarker, 'click', function () {
+
+					  	infowindow = new google.maps.InfoWindow();
+					    infowindow.setContent('<div><p>I\'m a fucking owl.  I\'m currently perched atop of <strong><i>the</i></strong> building with available apartment(s) which <strong>reduces your time in transit the most</strong>.  Not what you\'re looking for? I\'ve sorted all available listings on the market according to your travels.  I\'m a badass owl.</p></div>');
+					    infowindow.open(map, originMarker);
+
+				    });
+			    }, 3000);
 
 	    	});
 
@@ -652,8 +663,6 @@ if ($(window).width() > 600 ) {
 	    	});
 		}
 			
-
-
 		function calcRouteWork() {
 				var start = theBlackDove;
 				var end = workplace;
@@ -702,7 +711,6 @@ if ($(window).width() > 600 ) {
 
 						} else {
 
-							pathWork.setMap(map);
 							window.clearInterval(animateLineDraw);
 
 							workplaceMarker.addListener('click', function() {
@@ -720,16 +728,12 @@ if ($(window).width() > 600 ) {
 
 								directionsDisplay.setDirections(result);
 
-							});
-							
-						}
+							});				
+						}		
 
-							
-				},21);
-
-			}
-		});
-
+					},4);
+				}
+			});
 		}
 
 		function calcRouteOne() {
@@ -777,7 +781,6 @@ if ($(window).width() > 600 ) {
 
 						} else {
 
-							pathOne.setMap(map);
 							window.clearInterval(animateLineDraw);
 
 							markersArray[1].addListener('click', function() {
@@ -797,11 +800,10 @@ if ($(window).width() > 600 ) {
 							});
 						}
 
-		   		 },21);
-
-			};
-		});
-	};
+					},4);
+				};
+			});
+		};
 
 		function calcRouteTwo() {
 				var start = theBlackDove;
@@ -844,7 +846,6 @@ if ($(window).width() > 600 ) {
 
 						} else {
 
-						  	pathTwo.setMap(map);
 						  	window.clearInterval(animateLineDraw);
 							 
 							markersArray[2].addListener('click', function() {
@@ -866,7 +867,7 @@ if ($(window).width() > 600 ) {
 						}
  
 
-					},21);
+					},4);
 
 				};
 			});
@@ -913,7 +914,6 @@ if ($(window).width() > 600 ) {
 
 						} else {
 
-							pathThree.setMap(map);
 							window.clearInterval(animateLineDraw);
 
 							markersArray[3].addListener('click', function() {
@@ -936,33 +936,12 @@ if ($(window).width() > 600 ) {
 
 						}
 
-					},21);
-
-						  	
-						  	// iwHello = new google.maps.InfoWindow();
-						  	// iwHello.setContent('<div><p>Hi, my name is Homer. Click me for more info</p></div>');
-						   //  iwHello.open(map, originMarker);
-						   //  setTimeout(function() {
-						   //  	iwHello.close(map, originMarker);
-							  //   google.maps.event.addListener(originMarker, 'click', function () {
-
-								 //  	infowindow = new google.maps.InfoWindow();
-								 //    infowindow.setContent('<div><p>I\'m a fucking owl.  I\'m currently perched atop of <strong><i>the</i></strong> building with available apartment(s) which <strong>reduces your time in transit the most</strong>.  Not what you\'re looking for? I\'ve sorted all available listings on the market according to your travels.  I\'m a badass owl.</p></div>');
-								 //    infowindow.open(map, originMarker);
-
-							  //   });
-						   //  }, 3000);
-
-							};
-						
-
-
-
-				});
+					},4);
+				};
+			});
 		}
-
 	@endif
-}
+	}
 // $(document).on('load', function (initialize) {
 // 		initialize;
 // });
