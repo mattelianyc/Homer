@@ -31,11 +31,11 @@
 	<nav id="navbar" class="navbar">
 	  <div class="container-fluid">
 	    <div class="navbar-header">
-	      <!-- <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+	      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
 	        <span class="icon-bar"></span>
 	        <span class="icon-bar"></span>
 	        <span class="icon-bar"></span> 
-	      </button> -->
+	      </button>
 	      <a class="navbar-brand" href="/home">
 	      	<img id="homer-logo" class="img-responsive" src="{{ asset('/images/cardinal-icon.png') }}">
 	      	<h1>Homer</h1>
@@ -75,8 +75,6 @@
 	var greyDoves;
 	var pigeons;
 
-	var passage = [];
-
 	var blackDoveAddress;
 	var blackDoveTitle;
 
@@ -109,8 +107,6 @@
 
 	// initialize GMAP function
 
-	var panorama;
-
 	var map;
 	var mapMobile;
 
@@ -120,7 +116,8 @@
 	var workplaceMarker;
 	var workplaceMarkerMobile;
 
-	var markersArray = [];
+	var originMarkersArray = [];
+
 	var markersArray = [];
 	var markersArrayMobile = [];
 
@@ -133,6 +130,9 @@
 	var frequentedLocations;
 	var apartmentBuildings;
 
+	var passage = [];
+	
+	// SVG PATH PROPERTIES
 	// var lineSymbol = {
 	//     path: 'M 0,-1 0,1',
 	//     strokeOpacity: 1,
@@ -206,7 +206,6 @@ if ($(window).width() > 600 ) {
 			var workplaceCoordinates = autocompleteWorkplace.getPlace();
 			var wpLat = workplaceCoordinates.geometry.location.lat();
 			var wpLng = workplaceCoordinates.geometry.location.lng();
-			
 			workplaceCoordsInput.value = wpLat+', '+wpLng;
 			// console.log(workplaceCoordsInput.value);
 
@@ -216,7 +215,6 @@ if ($(window).width() > 600 ) {
 			var freqLoc1Coordinates = autocompleteFreqLoc1.getPlace();
 			var freqLoc1Lat = freqLoc1Coordinates.geometry.location.lat();
 			var freqLoc1Lng = freqLoc1Coordinates.geometry.location.lng();
-			
 			freqLocCoordsInput1.value = freqLoc1Lat+', '+freqLoc1Lng;
 			// console.log(freqLocCoordsInput1.value);
 
@@ -226,7 +224,6 @@ if ($(window).width() > 600 ) {
 			var freqLoc2Coordinates = autocompleteFreqLoc2.getPlace();
 			var freqLoc2Lat = freqLoc2Coordinates.geometry.location.lat();
 			var freqLoc2Lng = freqLoc2Coordinates.geometry.location.lng();
-			
 			freqLocCoordsInput2.value = freqLoc2Lat+', '+freqLoc2Lng;
 			// console.log(freqLocCoordsInput2.value);
 		});
@@ -235,14 +232,12 @@ if ($(window).width() > 600 ) {
 			var freqLoc3Coordinates = autocompleteFreqLoc3.getPlace();
 			var freqLoc3Lat = freqLoc3Coordinates.geometry.location.lat();
 			var freqLoc3Lng = freqLoc3Coordinates.geometry.location.lng();
-			
 			freqLocCoordsInput3.value = freqLoc3Lat+', '+freqLoc3Lng;
 			// console.log(freqLocCoordsInput3.value);
 
 		});
 
-
-	@if(Route::currentRouteName() == 'dovetail')
+@if(Route::currentRouteName() == 'dovetail')
 
 		// PULL WORKPLACES / FREQUENTED LOCATIONS / APARTMENT BUILDINGS FROM DB
 
@@ -264,7 +259,6 @@ if ($(window).width() > 600 ) {
 		    @endforeach
 	    ];
 
-
 		var service = new google.maps.DistanceMatrixService();
 
 		var workplaceMarker = new google.maps.MarkerImage("http://walkersstuff.com/wp-content/uploads/2015/06/stepThree.png", null, null, null, new google.maps.Size(30,40));
@@ -285,15 +279,15 @@ if ($(window).width() > 600 ) {
 
 	        markersArray.push(workplaceMarker);
 		
-			  // infowindow = new google.maps.InfoWindow();
-			  // infowindow.setContent('<div>'+workplaces[i][2]+'<br>'+workplaces[i][3]+', '+workplaces[i][4]+', '+workplaces[i][5]+'</div>');
-			  // infowindow.open(map, marker);
+		  // infowindow = new google.maps.InfoWindow();
+		  // infowindow.setContent('<div>'+workplaces[i][2]+'<br>'+workplaces[i][3]+', '+workplaces[i][4]+', '+workplaces[i][5]+'</div>');
+		  // infowindow.open(map, marker);
 
 	    }
 
+	    var freqLoc;
 	    var freqLocArray = [];
 	    var freqLocWeights = [];
-	    var freqLoc;
 
 	    for (i = 0; i < frequentedLocations.length; i++) {
 
@@ -309,9 +303,7 @@ if ($(window).width() > 600 ) {
 	            zIndex: 100
 	        }); 
 
-
 	        markersArray.push(marker);
-
 
 			// infowindow = new google.maps.InfoWindow();
 	  		// infowindow.setContent('<div>'+frequentedLocations[i][2]+'<br>'+frequentedLocations[i][3]+', '+frequentedLocations[i][4]+', '+frequentedLocations[i][5]+'</div>');
@@ -319,7 +311,6 @@ if ($(window).width() > 600 ) {
 
 	    }
         
-	    var callbackResponse = [];
 		var tripDuration = [];
 
 	    var pathWork;
@@ -419,19 +410,19 @@ if ($(window).width() > 600 ) {
 					
 					if(v == 0){
 
-						intermediateDurationsArray.push((((k.duration.value * 5 * 52)/60)/60));
+						intermediateDurationsArray.push(((((k.duration.value * 5 * 52)/60)/60)*2));
 
 					} else if(v == 1){
 
-						intermediateDurationsArray.push((((k.duration.value * freqLocWeights[0] * 52)/60)/60));
+						intermediateDurationsArray.push(((((k.duration.value * freqLocWeights[0] * 52)/60)/60)*2));
 
 					} else if(v == 2){
 
-						intermediateDurationsArray.push((((k.duration.value * freqLocWeights[1] * 52)/60)/60));
+						intermediateDurationsArray.push(((((k.duration.value * freqLocWeights[1] * 52)/60)/60)*2));
 
 					} else if(v == 3){
 						
-						intermediateDurationsArray.push((((k.duration.value * freqLocWeights[2] * 52)/60)/60));
+						intermediateDurationsArray.push(((((k.duration.value * freqLocWeights[2] * 52)/60)/60)*2));
 
 						for (var y = 0; y < intermediateDurationsArray.length; y++) {
 							totalDuration += (intermediateDurationsArray[y]);
@@ -485,12 +476,12 @@ if ($(window).width() > 600 ) {
 			blackDoveTitle = sortedOriginsArray[0].title;
 			blackDoveDuration = sortedOriginsArray[0].duration;
 			
-			dovetail();
+			dovetailor();
 
 		}
 
 
-		var dovetail = function dovetailor () {
+		var dovetailor = function dovetailor () {
 
 	        originMarker = new google.maps.Marker({
 	            position: theBlackDove,
@@ -521,7 +512,6 @@ if ($(window).width() > 600 ) {
 				calcRouteTwo();
 				calcRouteThree();
 
-
 	    	});
 
 	        var mapCSS = document.getElementById('map').style;
@@ -551,23 +541,49 @@ if ($(window).width() > 600 ) {
 						var aptListingsChildren = aptListings.childNodes;
 						for (var ii = 0; ii < aptListingsChildren.length; ii++) {
 							aptListingsChildren[ii].removeAttribute('id');
-							var dataId = this.getAttribute('data-id');
-							theBlackDove = {lat: sortedOriginsArray[ii].lat, lng: sortedOriginsArray[ii].lng}; 
-							blackDoveAddress = sortedOriginsArray[ii].address;
-							blackDoveTitle = sortedOriginsArray[ii].title;
 						}
 						this.id = 'active-bldg-selection';
 						activeBldg = document.getElementById('active-bldg-selection');
 						activeBldg.innerHTML = '<div id="active-selection" class="well"><h3><strong id="bldg-title">'+activeBldg.childNodes[0].innerHTML+'</strong></h3><h5 id="bldg-address">'+activeBldg.childNodes[1].innerHTML+'</h5><hr><img src="{{ asset("/images/bldg-thumb.jpg") }}" width="75%"/><h4><hr><strong id="bldg-duration" style="font-size:30px;color:tomato;">'+activeBldg.childNodes[2].innerHTML+' </strong></h4><p style="font-size:18px;">hours per year in transit</p></h4><hr><div id="bldg-listings"><h4><strong style="font-size:24px;color:tomato;">3</strong> available units</h4><h4><strong style="font-size:24px;color:tomato;">$1500 - $3250</strong> per month</h4><i id="expand-bldg-listings" class="fa fa-caret-down show-apt-listings" style="font-size:36px;"></i><i id="collapse-bldg-listings" class="fa fa-caret-up" style="font-size:36px;color:tomato;display:none;"></i></div><div id="listing-details"></div></div><hr>';
 
-						pigeons();
+						// pigeons();
 
 					});
 					aptListings.appendChild(nu);
 
-
 	    	}
-			
+
+	    	var dataId;
+			var aptListingsChildren = aptListings.childNodes;
+
+			for (var i = 0; i < aptListingsChildren.length; i++) {
+
+				aptListingsChildren[i].addEventListener('click', function () {
+
+			        pigeons();
+
+					dataId = this.getAttribute('data-id');
+					// console.log(dataId);
+					// console.log(sortedOriginsArray[dataId]);
+
+					theBlackDove = {lat: sortedOriginsArray[dataId].lat, lng: sortedOriginsArray[dataId].lng}; 
+					blackDoveAddress = sortedOriginsArray[dataId].address;
+					blackDoveTitle = sortedOriginsArray[dataId].title;
+
+			        originMarker = new google.maps.Marker({
+			            position: theBlackDove,
+			            map: map,
+			            flat: false,
+			            icon: mascot
+			        });				
+
+			        originMarker.setVisible(true);
+			        markersArray.push(originMarker);
+
+
+				});
+			}
+
 			aptListings.firstChild.id = 'active-bldg-selection';
 
 			activeBldg = document.getElementById('active-bldg-selection');
@@ -581,17 +597,15 @@ if ($(window).width() > 600 ) {
 	    	var showAptListings = document.getElementsByClassName('show-apt-listings');
 
 
-				expandBldgListings.addEventListener('click', function() {
+			expandBldgListings.addEventListener('click', function() {
 
-					this.style.display = 'none';
-					collapseBldgListings.style.display = 'block';
+				this.style.display = 'none';
+				collapseBldgListings.style.display = 'block';
 
-					listingDetails.innerHTML = "<hr><h4>Studio</h4><h4><strong>$1500</strong></h4><br><div class='row'><div class='col-xs-6'><ul><li>Furnished</li><li>Newly-Renovated</li></ul></div><div class='col-xs-6'><img class='img-responsive' src='{{ asset('/images/studio-thumb.jpg') }}'></div></div><hr><h4>One Bedroom</h4><h4><strong>$2000</strong></h4><br><div class='row'><div class='col-xs-6'><ul><li>In-Unit Laundry</li><li>Dogs OK</li></ul></div><div class='col-xs-6'><img class='img-responsive' src='{{ asset('/images/1br-thumb.jpg') }}'></div></div><hr><h4>Two Bedroom</h4><h4><strong>$3250</strong></h4><br><div class='row'><div class='col-xs-6'><ul><li>Balcony</li><li>Dishwasher</li><li>360&deg; Views</li></ul></div><div class='col-xs-6'><img class='img-responsive' src='{{ asset('/images/2br-thumb.jpg') }}'></div></div>";
-					listingDetails.style.display = 'block';
-					listingDetails.style.height = '100%';
-				});
-
-
+				listingDetails.innerHTML = "<hr><h4>Studio</h4><h4><strong>$1500</strong></h4><br><div class='row'><div class='col-xs-6'><ul><li>Furnished</li><li>Newly-Renovated</li></ul></div><div class='col-xs-6'><img class='img-responsive' src='{{ asset('/images/studio-thumb.jpg') }}'></div></div><hr><h4>One Bedroom</h4><h4><strong>$2000</strong></h4><br><div class='row'><div class='col-xs-6'><ul><li>In-Unit Laundry</li><li>Dogs OK</li></ul></div><div class='col-xs-6'><img class='img-responsive' src='{{ asset('/images/1br-thumb.jpg') }}'></div></div><hr><h4>Two Bedroom</h4><h4><strong>$3250</strong></h4><br><div class='row'><div class='col-xs-6'><ul><li>Balcony</li><li>Dishwasher</li><li>360&deg; Views</li></ul></div><div class='col-xs-6'><img class='img-responsive' src='{{ asset('/images/2br-thumb.jpg') }}'></div></div>";
+				listingDetails.style.display = 'block';
+				listingDetails.style.height = '100%';
+			});
 
 			collapseBldgListings.addEventListener('click', function() {
 				this.style.display = 'none';
@@ -609,46 +623,9 @@ if ($(window).width() > 600 ) {
 
 			for (var i = 0; i < markersArray.length; i++) {
 				if (markersArray[i].icon.url == "/images/cardinal-icon.png") {
-					markersArray[i].setVisible(false);
+					markersArray[i].setMap(null);
 				}
 			}
-
-			// directionsDisplay.setMap(null);
-
-
-			var dataId;
-			var aptListingsChildren = aptListings.childNodes;
-			for (var i = 0; i < aptListingsChildren.length; i++) {
-
-				aptListingsChildren[i].addEventListener('click', function () {
-
-
-					dataId = this.getAttribute('data-id');
-
-					console.log(dataId);
-
-					console.log(sortedOriginsArray[dataId]);
-
-					theBlackDove = {lat: sortedOriginsArray[dataId].lat, lng: sortedOriginsArray[dataId].lng}; 
-					blackDoveAddress = sortedOriginsArray[dataId].address;
-					blackDoveTitle = sortedOriginsArray[dataId].title;
-
-
-			        originMarker = new google.maps.Marker({
-			            position: theBlackDove,
-			            map: map,
-			            flat: false,
-			            icon: mascot
-			        });				
-
-			        // originMarker.setMap(map);
-			        originMarker.setVisible(true);
-			        markersArray.push(originMarker);
-
-				});
-			}
-
-
 
 			var service = new google.maps.DistanceMatrixService();
 			
@@ -658,30 +635,19 @@ if ($(window).width() > 600 ) {
 	    		travelMode: google.maps.TravelMode.TRANSIT,
 	    	}, function (result, status) {
 
-		        
-		        	var bounds = new google.maps.LatLngBounds();
+	        	var bounds = new google.maps.LatLngBounds();
+				for (var i = 0; i < markersArray.length; i++) {
+					bounds.extend(markersArray[i].getPosition());
+				}
+				// bounds.extend(originMarkersArray[0].getPosition());
 
-					for (var i = 0; i < markersArray.length; i++) {
-						bounds.extend(markersArray[i].getPosition());
-					}
+				map.fitBounds(bounds);
+				map.panBy(222, 0);
 
-					map.fitBounds(bounds);
-
-					map.panBy(222, 0);
-
-
-					calcRouteWork();	
-
-					setTimeout(function () {
-						calcRouteOne();
-					},2000);
-					setTimeout(function () {
-						calcRouteTwo();	
-					},4000);
-					setTimeout(function () {
-						calcRouteThree();	
-					},6000);
-
+				calcRouteWork();	
+				calcRouteOne();
+				calcRouteTwo();	
+				calcRouteThree();	
 				
 	    	});
 		}
@@ -1169,7 +1135,6 @@ if ($(window).width() < 600 ) {
 	  //       // infowindow.open(map, marker);
 	    }
 
-	    var callbackResponse = [];
 		var tripDuration = [];
 
 	    var pathWork;
