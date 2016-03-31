@@ -11,7 +11,7 @@ use Input;
 use App\Workplace as Workplace;
 use App\FrequentedLocation as FrequentedLocation;
 use App\TempUser as TempUser;
-use App\ApartmentBuilding as AptBldg;
+use App\Building as Building;
 
 class HomeController extends Controller {
 
@@ -343,9 +343,9 @@ class HomeController extends Controller {
 
 		$workplace = Workplace::where('temp_user_id','=',$id)->get();
 		$frequented_locations = FrequentedLocation::where('temp_user_id','=',$id)->get();
-		$apt_bldgs = AptBldg::all();
+		$buildings = Building::all();
 
-		return view('dovetails')->with(compact('workplace', 'frequented_locations', 'apt_bldgs'));
+		return view('dovetails')->with(compact('workplace', 'frequented_locations', 'buildings'));
 	}
 
 	public function logout()

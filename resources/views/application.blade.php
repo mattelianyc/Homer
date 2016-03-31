@@ -253,8 +253,8 @@ if ($(window).width() > 600 ) {
 	    ];
 
 		apartmentBuildings = [
-		    @foreach ($apt_bldgs as $ab)
-		        [ {{ $ab->lat }}, {{ $ab->lng }}, "{{ $ab->title }}", "{{ $ab->address }}", "{{ $ab->city }}", "{{ $ab->state }}", "{{ $ab->zip }}", "{{ $ab->country }}" ], 
+		    @foreach ($buildings as $b)
+		        [ {{ $b->lat }}, {{ $b->lng }}, "{{ $b->title }}", "{{ $b->address }}", "{{ $b->city }}", "{{ $b->state }}", "{{ $b->zip }}", "{{ $b->country }}" ], 
 		    @endforeach
 	    ];
 
@@ -926,8 +926,6 @@ if ($(window).width() > 600 ) {
 
 							window.clearInterval(animateLineDraw);
 
-							aptListings.className = '';
-
 							markersArray[3].addListener('click', function() {
 								
 
@@ -1083,8 +1081,8 @@ if ($(window).width() < 600 ) {
 	    ];
 
 		apartmentBuildings = [
-		    @foreach ($apt_bldgs as $ab)
-		        [ {{ $ab->lat }}, {{ $ab->lng }}, "{{ $ab->title }}", "{{ $ab->address }}", "{{ $ab->city }}", "{{ $ab->state }}", "{{ $ab->zip }}", "{{ $ab->country }}" ], 
+		    @foreach ($buildings as $b)
+		        [ {{ $b->lat }}, {{ $b->lng }}, "{{ $b->title }}", "{{ $b->address }}", "{{ $b->city }}", "{{ $b->state }}", "{{ $b->zip }}", "{{ $b->country }}" ], 
 		    @endforeach
 	    ];
 
