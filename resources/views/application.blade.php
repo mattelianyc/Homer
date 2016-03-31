@@ -129,6 +129,7 @@
 	var apartmentBuildings;
 
 	var passage = [];
+	var aptListings;
 	
 	// SVG PATH PROPERTIES
 	// var lineSymbol = {
@@ -534,7 +535,7 @@ if ($(window).width() > 600 ) {
     		navbar.width = '27%';
     		sidebar.display = 'block';
 
-			var aptListings = document.getElementById('aptListings');			
+			aptListings = document.getElementById('aptListings');			
 
     		for (var i = 0; i < sortedOriginsArray.length; i++) {
 
@@ -587,8 +588,7 @@ if ($(window).width() > 600 ) {
 			        });				
 
 			        originMarker.setVisible(true);
-			        markersArray.push(originMarker);
-
+			        markersArray.push(originMarker); 
 
 				});
 			}
@@ -652,12 +652,26 @@ if ($(window).width() > 600 ) {
 				map.fitBounds(bounds);
 				map.panBy(222, 0);
 
-				calcRouteWork();	
-				calcRouteOne();
-				calcRouteTwo();	
-				calcRouteThree();	
+				setTimeout(function() {
+
+					setTimeout(function() {
+						calcRouteWork();	
+					}, 400);
+					setTimeout(function() {
+						calcRouteOne();
+					}, 750);
+					setTimeout(function() {
+						calcRouteTwo();	
+					}, 900);
+					setTimeout(function() {
+						calcRouteThree();	
+					}, 1000);
+
+				}, 200);
 				
 	    	});
+
+
 		}
 			
 		function calcRouteWork() {
@@ -727,7 +741,7 @@ if ($(window).width() > 600 ) {
 							});				
 						}		
 
-					},4);
+					},1);
 				}
 			});
 		}
@@ -796,7 +810,7 @@ if ($(window).width() > 600 ) {
 							});
 						}
 
-					},4);
+					},1);
 				};
 			});
 		};
@@ -863,7 +877,7 @@ if ($(window).width() > 600 ) {
 						}
  
 
-					},4);
+					},1);
 
 				};
 			});
@@ -912,6 +926,8 @@ if ($(window).width() > 600 ) {
 
 							window.clearInterval(animateLineDraw);
 
+							aptListings.className = '';
+
 							markersArray[3].addListener('click', function() {
 								
 
@@ -929,19 +945,30 @@ if ($(window).width() > 600 ) {
 								
 								directionsDisplay.setDirections(result);
 							});
-
 						}
 
-					},4);
+					},1);
 				};
 			});
 		}
+
 	@endif
 	}
 // $(document).on('load', function (initialize) {
 // 		initialize;
 // });
 }
+
+
+
+
+
+
+// MOBILE
+
+
+
+
 if ($(window).width() < 600 ) {
 
  var init = function minitialize() {
