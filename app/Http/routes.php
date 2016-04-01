@@ -15,7 +15,7 @@ Route::get('home', 'HomeController@index');
 Route::get('/', 'HomeController@logout');
 Route::post('home', 'HomeController@workplace');
 
-Route::get('home/{id}/dovetails',['as' => 'dovetail', 'uses' => 'HomeController@dovetail']);
+Route::get('home/{id}/dovetail',['as' => 'dovetail', 'uses' => 'HomeController@dovetail']);
 
 
 Route::controllers([

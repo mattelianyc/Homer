@@ -345,7 +345,7 @@ class HomeController extends Controller {
 		$frequented_locations = FrequentedLocation::where('temp_user_id','=',$id)->get();
 		$buildings = Building::all();
 
-		return view('dovetails')->with(compact('workplace', 'frequented_locations', 'buildings'));
+		return view('dovetail')->with(compact('workplace', 'frequented_locations', 'buildings'));
 	}
 
 	public function logout()
