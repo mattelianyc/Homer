@@ -127,6 +127,7 @@
 	var workplaces;
 	var frequentedLocations;
 	var buildings;
+	var apartments;
 
 	var passage = [];
 	var apartmentListings;
@@ -255,6 +256,12 @@ if ($(window).width() > 600 ) {
 		buildings = [
 		    @foreach ($buildings as $b)
 		        [ {{ $b->lat }}, {{ $b->lng }}, "{{ $b->title }}", "{{ $b->address }}", "{{ $b->city }}", "{{ $b->state }}", "{{ $b->zip }}", "{{ $b->country }}", "{{ $b->id }}" ], 
+		    @endforeach
+	    ];
+
+		apartments = [
+		    @foreach ($apartments as $a)
+		        [ "{{ $a->id }}", "{{ $a->building_id }}", "{{ $a->unit }}", "{{ $a->price }}", "{{ $a->bed }}", "{{ $a->bath }}", "{{ $a->sqft }}" ], 
 		    @endforeach
 	    ];
 
@@ -566,12 +573,36 @@ if ($(window).width() > 600 ) {
 							apartmentListingsChildren[ii].removeAttribute('id');
 						}
 						this.id = 'active-bldg-selection';
+						var aptCount;
 						activeBldgSelection = document.getElementById('active-bldg-selection');
-						activeBldgSelection.innerHTML = '<div id="active-selection" class="well"><h3><strong id="bldg-title">'+activeBldgSelection.childNodes[0].innerHTML+'</strong></h3><h5 id="bldg-address">'+activeBldgSelection.childNodes[1].innerHTML+'</h5><hr><img src="{{ asset("/images/bldg-thumb.jpg") }}" width="75%"/><h4><hr><strong id="bldg-duration" style="font-size:30px;color:tomato;">'+activeBldgSelection.childNodes[2].innerHTML+' </strong></h4><p style="font-size:18px;">hours per year in transit</p></h4><hr><div id="bldg-listings"><h4><strong style="font-size:24px;color:tomato;">3</strong> available units</h4><h4><strong style="font-size:24px;color:tomato;">$1500 - $3250</strong> per month</h4><i id="expand-apt-listings" class="fa fa-caret-up" style="font-size:36px;color:tomato;display:none;"></i><i id="collapse-apt-listings" class="fa fa-caret-down" style="font-size:36px;color:green;"></i></div><span id="listing-details"></span></div><hr>';
+						for (var i = 0; i < apartments.length; i++) {
+							if(activeBldgSelection.getAttribute('building-id') == apartments[i][1]) {
+								aptCount = apartments[i][1].length - 1;
+							}
+						}
+						if(aptCount == undefined){
+							aptCount = 0;
+						}
+						activeBldgSelection.innerHTML = '<div id="active-selection" class="well"><h3><strong id="bldg-title">'+activeBldgSelection.childNodes[0].innerHTML+'</strong></h3><h5 id="bldg-address">'+activeBldgSelection.childNodes[1].innerHTML+'</h5><hr><img src="{{ asset("/images/bldg-thumb.jpg") }}" width="75%"/><h4><hr><strong id="bldg-duration" style="font-size:30px;color:tomato;">'+activeBldgSelection.childNodes[2].innerHTML+' </strong></h4><p style="font-size:18px;">hours per year in transit</p></h4><hr><div id="bldg-listings"><h4><strong style="font-size:24px;color:tomato;">'+aptCount+'</strong> available unit(s)</h4><h4><strong style="font-size:24px;color:tomato;">$1500 - $3250</strong> per month</h4><i id="expand-apt-listings" class="fa fa-caret-up" style="font-size:36px;color:tomato;display:none;"></i><i id="collapse-apt-listings" class="fa fa-caret-down" style="font-size:36px;color:green;"></i></div><span id="listing-details"></span></div><hr>';
 
 					    listingDetails = document.getElementById('listing-details');
-						listingDetails.innerHTML = "<hr><h4>Studio</h4><h4><strong>$1500</strong></h4><br><div class='row'><div class='col-xs-6'><ul><li>Furnished</li><li>Newly-Renovated</li></ul></div><div class='col-xs-6'><img class='img-responsive' src='{{ asset('/images/studio-thumb.jpg') }}'></div></div><hr><h4>One Bedroom</h4><h4><strong>$2000</strong></h4><br><div class='row'><div class='col-xs-6'><ul><li>In-Unit Laundry</li><li>Dogs OK</li></ul></div><div class='col-xs-6'><img class='img-responsive' src='{{ asset('/images/1br-thumb.jpg') }}'></div></div><hr><h4>Two Bedroom</h4><h4><strong>$3250</strong></h4><br><div class='row'><div class='col-xs-6'><ul><li>Balcony</li><li>Dishwasher</li><li>360&deg; Views</li></ul></div><div class='col-xs-6'><img class='img-responsive' src='{{ asset('/images/2br-thumb.jpg') }}'></div></div>";
-			
+							
+						for (var i = 0; i < apartments.length; i++) {
+							if(activeBldgSelection.getAttribute('building-id') == apartments[i][1]) {
+								listingDetails.innerHTML = "<hr><h4>"+apartments[i][4]+" bed / "+apartments[i][5]+" bath</h4><h4><strong>$"+apartments[i][3]+"</strong></h4><br><div class='row'><div class='col-xs-6'><ul><li>Unit "+apartments[i][2]+"</li><li>"+apartments[i][6]+" sq/ft</li></ul></div><div class='col-xs-6'><img class='img-responsive' src='{{ asset('/images/studio-thumb.jpg') }}'></div></div>";
+							}
+							
+						}
+
+						listingDetails.style.display = 'none';
+
+						this.addEventListener("click", function () {
+							if(listingDetails.style.display == 'none'){
+								listingDetails.style.display = 'block';
+							}else{
+								listingDetails.style.display = 'none';
+							};
+						});
 
 					});
 					apartmentListings.appendChild(nu);
@@ -593,14 +624,8 @@ if ($(window).width() > 600 ) {
 
 					apartmentListingsChildren[i].addEventListener('click', function () {
 
-						listingDetails.style.display = 'none';
-						this.addEventListener("click", function () {
-							if(listingDetails.style.display == 'none'){
-								listingDetails.style.display = 'block';
-							}else{
-								listingDetails.style.display = 'none';
-							};
-						});
+
+						
 
 						pigeons();
 

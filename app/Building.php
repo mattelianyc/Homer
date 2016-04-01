@@ -6,4 +6,8 @@ class Building extends Model {
 
 	protected $table = 'buildings';
 
+	// public function apartments()
+	// {
+ //        return $this->hasMany('Apartment');
+	// }
 }

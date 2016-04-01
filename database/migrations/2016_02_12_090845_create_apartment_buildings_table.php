@@ -12,7 +12,7 @@ class CreateApartmentBuildingsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('apartment_buildings', function(Blueprint $table)
+		Schema::create('buildings', function(Blueprint $table)
 		{
 			$table->increments('id');
 			$table->string('title');

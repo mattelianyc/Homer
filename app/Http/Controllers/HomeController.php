@@ -12,6 +12,7 @@ use App\Workplace as Workplace;
 use App\FrequentedLocation as FrequentedLocation;
 use App\TempUser as TempUser;
 use App\Building as Building;
+use App\Apartment as Apartment;
 
 class HomeController extends Controller {
 
@@ -344,8 +345,9 @@ class HomeController extends Controller {
 		$workplace = Workplace::where('temp_user_id','=',$id)->get();
 		$frequented_locations = FrequentedLocation::where('temp_user_id','=',$id)->get();
 		$buildings = Building::all();
+		$apartments = Apartment::all();
 
-		return view('dovetail')->with(compact('workplace', 'frequented_locations', 'buildings'));
+		return view('dovetail')->with(compact('workplace', 'frequented_locations', 'buildings', 'apartments'));
 	}
 
 	public function logout()

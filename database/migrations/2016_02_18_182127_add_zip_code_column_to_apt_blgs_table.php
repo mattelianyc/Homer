@@ -12,7 +12,7 @@ class AddZipCodeColumnToAptBlgsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::table('apartment_buildings', function(Blueprint $table) {
+		Schema::table('buildings', function(Blueprint $table) {
 			$table->string('zip');
 		});
 	}
