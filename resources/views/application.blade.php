@@ -261,7 +261,7 @@ if ($(window).width() > 600 ) {
 
 		apartments = [
 		    @foreach ($apartments as $a)
-		        [ "{{ $a->id }}", "{{ $a->building_id }}", "{{ $a->unit }}", "{{ $a->price }}", "{{ $a->bed }}", "{{ $a->bath }}", "{{ $a->sqft }}" ], 
+		        {id: "{{ $a->id }}", building_id: "{{ $a->building_id }}", unit: "{{ $a->unit }}", price: "{{ $a->price }}", bed: "{{ $a->bed }}", bath: "{{ $a->bath }}", sqft: "{{ $a->sqft }}"}, 
 		    @endforeach
 	    ];
 
@@ -348,6 +348,12 @@ if ($(window).width() > 600 ) {
 	    var originArray = [];
 
 	    var activeBldgSelection;
+	    var activeBldgDetails;
+
+	    var aptCount;
+		var aptPriceRangeMax;
+		var aptPriceRangeMin;
+		var aptPriceRange;
 
 
 	    freq_loc_1 = new google.maps.LatLng(freqLocArray[0].lat(), freqLocArray[0].lng());
@@ -527,7 +533,7 @@ if ($(window).width() > 600 ) {
 				    google.maps.event.addListener(originMarker, 'click', function () {
 
 					  	infowindow = new google.maps.InfoWindow();
-					    infowindow.setContent('<div><p>I\'m a fucking owl.  I\'m currently perched atop of <strong><i>the</i></strong> building with available apartment(s) which <strong>reduces your time in transit the most</strong>.  Not what you\'re looking for? I\'ve sorted all available listings on the market according to your travels.  I\'m a badass owl.</p></div>');
+					    infowindow.setContent('<div><p>I\'m an owl.  I\'m currently perched atop of <strong><i>the</i></strong> building with available apartment(s) which <strong>reduces your time in transit the most</strong>.  Not what you\'re looking for? I\'ve sorted all available listings on the market according to your travels.</p></div>');
 					    infowindow.open(map, originMarker);
 
 				    });
@@ -572,24 +578,80 @@ if ($(window).width() > 600 ) {
 						for (var ii = 0; ii < apartmentListingsChildren.length; ii++) {
 							apartmentListingsChildren[ii].removeAttribute('id');
 						}
+
+					});
+					apartmentListings.appendChild(nu);
+					
+					
+	    	}
+
+	  //   	var index = 0;
+			// apartmentListings.firstChild.id = 'active-bldg-selection';
+			// activeBldgSelection = document.getElementById('active-bldg-selection');
+			// for (var i = 0; i < apartments.length; i++) {
+			// 	if(activeBldgSelection.getAttribute('building-id') == apartments[i].building_id) {
+			// 		aptCount = apartments[i].building_id.length;
+			// 		if (index < aptCount) {
+			// 		aptPriceRangeMin = Math.min.apply(Math,[apartments[index].price, apartments[index++].price ]);
+			// 		aptPriceRangeMax = Math.max.apply(Math,[apartments[index].price, apartments[index++].price ]);
+			// 		index++;	
+			// 		}
+			// 	}
+			// }
+			// if(aptCount == undefined){
+			// 	aptCount = 0;
+			// }
+
+			// activeBldgSelection = document.getElementById('active-bldg-selection');
+			// activeBldgSelection.innerHTML = '<div id="active-selection" class="well"><h3><strong id="bldg-title">'+blackDoveId+sortedOriginsArray[0].title+'</strong></h3><h5 id="bldg-address">'+sortedOriginsArray[0].address+'</h5><hr><img src="{{ asset("/images/bldg-thumb.jpg") }}" width="75%"/><h4><hr><strong id="bldg-duration" style="font-size:30px;color:tomato;">'+sortedOriginsArray[0].duration+' </strong></h4><p style="font-size:18px;">hours per year in transit</p></h4><hr><div id="bldg-listings"></div>;'
+
+			// activeBldgDetails = document.getElementById('bldg-listings');
+			// activeBldgDetails.innerHTML = '<h4><strong style="font-size:24px;color:tomato;">'+aptCount+'</strong> available unit(s)</h4><h4><strong style="font-size:24px;color:tomato;">$'+aptPriceRangeMax+' - $'+aptPriceRangeMin+'</strong> per month</h4><i id="expand-apt-listings" class="fa fa-caret-up" style="font-size:36px;color:tomato;display:none;"></i><i id="collapse-apt-listings" class="fa fa-caret-down" style="font-size:36px;color:green;"></i></div><span id="listing-details"></span>';
+
+					
+			
+
+			var apartmentListingsChildren = apartmentListings.childNodes;
+
+			for (var i = 0; i < apartmentListingsChildren.length; i++) {
+
+					apartmentListingsChildren[i].addEventListener('click', function () {
+
+
 						this.id = 'active-bldg-selection';
-						var aptCount;
+						// var index = 0;
 						activeBldgSelection = document.getElementById('active-bldg-selection');
-						for (var i = 0; i < apartments.length; i++) {
-							if(activeBldgSelection.getAttribute('building-id') == apartments[i][1]) {
-								aptCount = apartments[i][1].length - 1;
+						for (var x = 0; x < apartments.length; x++) {
+							if(this.getAttribute('building-id') == apartments[x].building_id) {
+								console.log(apartments[x].building_id);
+								aptCount = apartments[x].building_id.length;
+								if (aptCount>=2) {
+								aptPriceRangeMin = Math.min(apartments[x].price);
+								aptPriceRangeMax = Math.max(apartments[x].price);
+								aptPriceRange = ''+aptPriceRangeMax+' - $'+aptPriceRangeMin+'';
+								// index++;	
+								} else {
+								aptPriceRange = ''+apartments[x].price+'';
+								var aptCount = 1;
+								}
 							}
 						}
 						if(aptCount == undefined){
 							aptCount = 0;
 						}
-						activeBldgSelection.innerHTML = '<div id="active-selection" class="well"><h3><strong id="bldg-title">'+activeBldgSelection.childNodes[0].innerHTML+'</strong></h3><h5 id="bldg-address">'+activeBldgSelection.childNodes[1].innerHTML+'</h5><hr><img src="{{ asset("/images/bldg-thumb.jpg") }}" width="75%"/><h4><hr><strong id="bldg-duration" style="font-size:30px;color:tomato;">'+activeBldgSelection.childNodes[2].innerHTML+' </strong></h4><p style="font-size:18px;">hours per year in transit</p></h4><hr><div id="bldg-listings"><h4><strong style="font-size:24px;color:tomato;">'+aptCount+'</strong> available unit(s)</h4><h4><strong style="font-size:24px;color:tomato;">$1500 - $3250</strong> per month</h4><i id="expand-apt-listings" class="fa fa-caret-up" style="font-size:36px;color:tomato;display:none;"></i><i id="collapse-apt-listings" class="fa fa-caret-down" style="font-size:36px;color:green;"></i></div><span id="listing-details"></span></div><hr>';
+
+						activeBldgSelection.innerHTML = '<div id="active-selection" class="well"><h3><strong id="bldg-title">'+activeBldgSelection.childNodes[0].innerHTML+'</strong></h3><h5 id="bldg-address">'+activeBldgSelection.childNodes[1].innerHTML+'</h5><hr><img src="{{ asset("/images/bldg-thumb.jpg") }}" width="75%"/><h4><hr><strong id="bldg-duration" style="font-size:30px;color:tomato;">'+activeBldgSelection.childNodes[2].innerHTML+' </strong></h4><p style="font-size:18px;">hours per year in transit</p></h4><hr><div id="bldg-listings"></div></div>';
+
+						activeBldgDetails = document.getElementById('bldg-listings');
+						activeBldgDetails.innerHTML = '<h4><strong style="font-size:24px;color:tomato;">'+aptCount+'</strong> available unit(s)</h4><h4><strong style="font-size:24px;color:tomato;">$'+aptPriceRange+'</strong> per month</h4><i id="expand-apt-listings" class="fa fa-caret-up" style="font-size:36px;color:tomato;display:none;"></i><i id="collapse-apt-listings" class="fa fa-caret-down" style="font-size:36px;color:green;"></i></div><span id="listing-details"></span>';
 
 					    listingDetails = document.getElementById('listing-details');
 							
-						for (var i = 0; i < apartments.length; i++) {
-							if(activeBldgSelection.getAttribute('building-id') == apartments[i][1]) {
-								listingDetails.innerHTML = "<hr><h4>"+apartments[i][4]+" bed / "+apartments[i][5]+" bath</h4><h4><strong>$"+apartments[i][3]+"</strong></h4><br><div class='row'><div class='col-xs-6'><ul><li>Unit "+apartments[i][2]+"</li><li>"+apartments[i][6]+" sq/ft</li></ul></div><div class='col-xs-6'><img class='img-responsive' src='{{ asset('/images/studio-thumb.jpg') }}'></div></div>";
+						for (var iii = 0; iii < apartments.length; iii++) {
+							if(activeBldgSelection.getAttribute('building-id') == apartments[iii].building_id) {
+								var apt = document.createElement('div');
+								apt.innerHTML = "<hr><h4>"+apartments[iii].bed+" bed / "+apartments[iii].bath+" bath</h4><h4><strong>$"+apartments[iii].price+"</strong></h4><br><div class='row'><div class='col-xs-6'><ul><li>Unit "+apartments[iii].unit+"</li><li>"+apartments[iii].sqft+" sq/ft</li></ul></div><div class='col-xs-6'><img class='img-responsive' src='{{ asset('/images/studio-thumb.jpg') }}'></div></div>";
+								listingDetails.appendChild(apt);
 							}
 							
 						}
@@ -603,29 +665,6 @@ if ($(window).width() > 600 ) {
 								listingDetails.style.display = 'none';
 							};
 						});
-
-					});
-					apartmentListings.appendChild(nu);
-					
-					
-	    	}
-
-
-			apartmentListings.firstChild.id = 'active-bldg-selection';
-			activeBldgSelection = document.getElementById('active-bldg-selection');
-			activeBldgSelection.innerHTML = '<div id="active-selection" class="well"><h3><strong id="bldg-title">'+blackDoveId+sortedOriginsArray[0].title+'</strong></h3><h5 id="bldg-address">'+sortedOriginsArray[0].address+'</h5><hr><img src="{{ asset("/images/bldg-thumb.jpg") }}" width="75%"/><h4><hr><strong id="bldg-duration" style="font-size:30px;color:tomato;">'+sortedOriginsArray[0].duration+' </strong></h4><p style="font-size:18px;">hours per year in transit</p></h4><hr><div id="bldg-listings"><h4><strong style="font-size:24px;color:tomato;">3</strong> available units</h4><h4><strong style="font-size:24px;color:tomato;">$1500 - $3250</strong> per month</h4><i id="collapse-bldg-listings" class="fa fa-caret-up" style="font-size:36px;color:tomato;display:none;"></i><i id="expand-bldg-listings" class="fa fa-caret-down" style="font-size:36px;color:green;"></i></div><div id="listing-details"></div></div><hr>';
-
-					
-			
-
-			var apartmentListingsChildren = apartmentListings.childNodes;
-
-			for (var i = 0; i < apartmentListingsChildren.length; i++) {
-
-					apartmentListingsChildren[i].addEventListener('click', function () {
-
-
-						
 
 						pigeons();
 
@@ -717,7 +756,8 @@ if ($(window).width() > 600 ) {
 				destination:end,
 				travelMode: google.maps.TravelMode.TRANSIT,
 				transitOptions: {
-						// departureTime: new Date(1467777755501)
+						// departureTime: new Date(1459857600),
+						 // modes: [google.maps.TransitMode.RAIL]
 					}
 				};
 				directionsService.route(request, function(result, status) {
@@ -789,7 +829,8 @@ if ($(window).width() > 600 ) {
 				destination:end,
 				travelMode: google.maps.TravelMode.TRANSIT,
 				transitOptions: {
-						// departureTime: new Date(1467777755501)
+						// departureTime: new Date(1459857600),
+						 // modes: [google.maps.TransitMode.RAIL]
 					}
 				};
 				directionsService.route(request, function(result, status) {
@@ -858,7 +899,8 @@ if ($(window).width() > 600 ) {
 				destination:end,
 				travelMode: google.maps.TravelMode.TRANSIT,
 				transitOptions: {
-						// departureTime: new Date(1467777755501)
+						// departureTime: new Date(1459857600),
+						 // modes: [google.maps.TransitMode.RAIL]
 					}
 				};
 				directionsService.route(request, function(result, status) {
@@ -926,7 +968,8 @@ if ($(window).width() > 600 ) {
 				destination:end,
 				travelMode: google.maps.TravelMode.TRANSIT,
 				transitOptions: {
-						// departureTime: new Date(1467777755501)
+						// departureTime: new Date(1459857600),
+						 // modes: [google.maps.TransitMode.RAIL]
 					}
 				};
 				directionsService.route(request, function(result, status) {
