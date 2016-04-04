@@ -585,28 +585,28 @@ if ($(window).width() > 600 ) {
 					
 	    	}
 
-	  //   	var index = 0;
-			// apartmentListings.firstChild.id = 'active-bldg-selection';
-			// activeBldgSelection = document.getElementById('active-bldg-selection');
-			// for (var i = 0; i < apartments.length; i++) {
-			// 	if(activeBldgSelection.getAttribute('building-id') == apartments[i].building_id) {
-			// 		aptCount = apartments[i].building_id.length;
-			// 		if (index < aptCount) {
-			// 		aptPriceRangeMin = Math.min.apply(Math,[apartments[index].price, apartments[index++].price ]);
-			// 		aptPriceRangeMax = Math.max.apply(Math,[apartments[index].price, apartments[index++].price ]);
-			// 		index++;	
-			// 		}
-			// 	}
-			// }
-			// if(aptCount == undefined){
-			// 	aptCount = 0;
-			// }
+	    	var index = 0;
+			apartmentListings.firstChild.id = 'active-bldg-selection';
+			activeBldgSelection = document.getElementById('active-bldg-selection');
+			for (var i = 0; i < apartments.length; i++) {
+				if(activeBldgSelection.getAttribute('building-id') == apartments[i].building_id) {
+					aptCount = apartments[i].building_id.length;
+					if (index < aptCount) {
+					aptPriceRangeMin = Math.min.apply(Math,[apartments[index].price, apartments[index++].price ]);
+					aptPriceRangeMax = Math.max.apply(Math,[apartments[index].price, apartments[index++].price ]);
+					index++;	
+					}
+				}
+			}
+			if(aptCount == undefined){
+				aptCount = 0;
+			}
 
-			// activeBldgSelection = document.getElementById('active-bldg-selection');
-			// activeBldgSelection.innerHTML = '<div id="active-selection" class="well"><h3><strong id="bldg-title">'+blackDoveId+sortedOriginsArray[0].title+'</strong></h3><h5 id="bldg-address">'+sortedOriginsArray[0].address+'</h5><hr><img src="{{ asset("/images/bldg-thumb.jpg") }}" width="75%"/><h4><hr><strong id="bldg-duration" style="font-size:30px;color:tomato;">'+sortedOriginsArray[0].duration+' </strong></h4><p style="font-size:18px;">hours per year in transit</p></h4><hr><div id="bldg-listings"></div>;'
+			activeBldgSelection = document.getElementById('active-bldg-selection');
+			activeBldgSelection.innerHTML = '<div id="active-selection" class="well"><h3><strong id="bldg-title">'+blackDoveId+sortedOriginsArray[0].title+'</strong></h3><h5 id="bldg-address">'+sortedOriginsArray[0].address+'</h5><hr><img src="{{ asset("/images/bldg-thumb.jpg") }}" width="75%"/><h4><hr><strong id="bldg-duration" style="font-size:30px;color:tomato;">'+sortedOriginsArray[0].duration+' </strong></h4><p style="font-size:18px;">hours per year in transit</p></h4><hr><div id="bldg-listings"></div>;'
 
-			// activeBldgDetails = document.getElementById('bldg-listings');
-			// activeBldgDetails.innerHTML = '<h4><strong style="font-size:24px;color:tomato;">'+aptCount+'</strong> available unit(s)</h4><h4><strong style="font-size:24px;color:tomato;">$'+aptPriceRangeMax+' - $'+aptPriceRangeMin+'</strong> per month</h4><i id="expand-apt-listings" class="fa fa-caret-up" style="font-size:36px;color:tomato;display:none;"></i><i id="collapse-apt-listings" class="fa fa-caret-down" style="font-size:36px;color:green;"></i></div><span id="listing-details"></span>';
+			activeBldgDetails = document.getElementById('bldg-listings');
+			activeBldgDetails.innerHTML = '<h4><strong style="font-size:24px;color:tomato;">'+aptCount+'</strong> available unit(s)</h4><h4><strong style="font-size:24px;color:tomato;">$'+aptPriceRangeMax+' - $'+aptPriceRangeMin+'</strong> per month</h4><i id="expand-apt-listings" class="fa fa-caret-up" style="font-size:36px;color:tomato;display:none;"></i><i id="collapse-apt-listings" class="fa fa-caret-down" style="font-size:36px;color:green;"></i></div><span id="listing-details"></span>';
 
 					
 			
