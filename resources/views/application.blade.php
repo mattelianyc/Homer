@@ -591,15 +591,15 @@ if ($(window).width() > 600 ) {
 			for (var i = 0; i < apartments.length; i++) {
 				if(activeBldgSelection.getAttribute('building-id') == apartments[i].building_id) {
 					aptCount = apartments[i].building_id.length;
-					if (index < aptCount) {
-					aptPriceRangeMin = Math.min.apply(Math,[apartments[index].price, apartments[index++].price ]);
-					aptPriceRangeMax = Math.max.apply(Math,[apartments[index].price, apartments[index++].price ]);
-					index++;	
+					if (aptCount>=2) {
+						aptPriceRangeMin = Math.min(apartments[i].price);
+						aptPriceRangeMax = Math.max(apartments[i].price);
+						aptPriceRange = ''+aptPriceRangeMax+' - $'+aptPriceRangeMin+'';
+					} else {
+						aptPriceRange = ''+apartments[x].price+'';
+						var aptCount = 1;
 					}
 				}
-			}
-			if(aptCount == undefined){
-				aptCount = 0;
 			}
 
 			activeBldgSelection = document.getElementById('active-bldg-selection');
