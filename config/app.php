@@ -140,13 +140,13 @@ return [
 		/*
 		 * Application Service Providers...
 		 */
-		'App\Providers\AppServiceProvider',
-    'App\Providers\AuthServiceProvider',
-		'App\Providers\BusServiceProvider',
-		'App\Providers\ConfigServiceProvider',
-		'App\Providers\EventServiceProvider',
-		'App\Providers\RouteServiceProvider',
-		'Weidner\Goutte\GoutteServiceProvider',
+		 App\Providers\AppServiceProvider::class,
+     App\Providers\AuthServiceProvider::class,
+		 App\Providers\BusServiceProvider::class,
+		 App\Providers\ConfigServiceProvider::class,
+		 App\Providers\EventServiceProvider::class,
+		 App\Providers\RouteServiceProvider::class,
+		 Weidner\Goutte\GoutteServiceProvider::class,
 
 	],
 
@@ -195,9 +195,9 @@ return [
 		'URL'       => 'Illuminate\Support\Facades\URL',
 		'Validator' => 'Illuminate\Support\Facades\Validator',
 		'View'      => 'Illuminate\Support\Facades\View',
-		'Goutte' => 'Weidner\Goutte\GoutteFacade',
-		'HTML'		=> 'Illuminate\Html\HtmlFacade',
-		'Form'		=> 'Illuminate\Html\FormFacade',
+		'HTML'		  => 'Illuminate\Html\HtmlFacade',
+		'Form'		  => 'Illuminate\Html\FormFacade',
+		'Goutte'    =>  Weidner\Goutte\GoutteFacade::class,
 
 	],
 

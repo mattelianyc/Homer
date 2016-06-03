@@ -17,6 +17,8 @@ Route::post('home', 'HomeController@workplace');
 
 Route::get('home/{id}/dovetail',['as' => 'dovetail', 'uses' => 'HomeController@dovetail']);
 
+Route::get('scrape', 'ScrapeController@get_scrape_data');
+
 
 Route::controllers([
 	'auth' => 'Auth\AuthController',
