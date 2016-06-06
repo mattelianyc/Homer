@@ -4,21 +4,22 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
-use Goutte;
+use Goutte\Client;
 
 class ScrapeController extends Controller {
 
 	public function get_scrape_data () {
-
+		$client = new Client();
 		$priceArray = [];
-		// for ($i=1; $i < 25; $i++) { 
-			$crawler = Goutte::request('GET', 'http://nymag.streeteasy.com/nyc/building/100');
-			$url = $crawler->filter('.MostViewedItemText-price')->first();
+	 	for ($i=1000; $i < 1080; $i++) { 
+			$crawler = $client->request('GET', 'http://nymag.streeteasy.com/nyc/building/'+$i+'');
+			$url = $crawler->filter('tbody > tr > td')->eq($i)->first();
 			array_push($priceArray, $url);
-		// }
-		
+		}
 		
 		dump($priceArray);	
+		
+		
 	}
 
 }
