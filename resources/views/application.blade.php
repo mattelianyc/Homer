@@ -374,10 +374,7 @@ if ($(window).width() > 600 ) {
 				destinationsArray.push(freq_loc_1);
 				destinationsArray.push(freq_loc_2);
 				destinationsArray.push(freq_loc_3);
-			} else {
-				alert('fuckmyface');
 			}
-	    
 
 	    for (var i = 0; i < buildings.length; i++) {
 
