@@ -345,16 +345,18 @@ if ($(window).width() > 600 ) {
 		var blackDoveId;
 
 		var minimumTripDuration;
-	    var originArray = [];
+    var originArray = [];
 
-	    var activeBldgSelection;
-	    var activeBldgDetails;
+    var activeBldgSelection;
+    var activeBldgDetails;
 
-	    var aptCount;
+    var aptCount;
 		var aptPriceRangeMax;
 		var aptPriceRangeMin;
 		var aptPriceRange;
 
+
+		console.log(frequentedLocations);
 
 	    freq_loc_1 = new google.maps.LatLng(freqLocArray[0].lat(), freqLocArray[0].lng());
 	    freq_loc_2 = new google.maps.LatLng(freqLocArray[1].lat(), freqLocArray[1].lng());
