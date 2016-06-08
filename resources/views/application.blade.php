@@ -355,12 +355,28 @@ if ($(window).width() > 600 ) {
 		var aptPriceRangeMin;
 		var aptPriceRange;
 
+		var destinationsArray = [];
 
-		console.log(frequentedLocations);
+			destinationsArray.push(workplace);
 
-	    freq_loc_1 = new google.maps.LatLng(freqLocArray[0].lat(), freqLocArray[0].lng());
-	    freq_loc_2 = new google.maps.LatLng(freqLocArray[1].lat(), freqLocArray[1].lng());
-	    freq_loc_3 = new google.maps.LatLng(freqLocArray[2].lat(), freqLocArray[2].lng());
+			if (frequentedLocations.length === 1) {
+	    	freq_loc_1 = new google.maps.LatLng(freqLocArray[0].lat(), freqLocArray[0].lng());
+				destinationsArray.push(freq_loc_1);
+			} else if (frequentedLocations.length === 2) {
+	    	freq_loc_1 = new google.maps.LatLng(freqLocArray[0].lat(), freqLocArray[0].lng());
+	    	freq_loc_2 = new google.maps.LatLng(freqLocArray[1].lat(), freqLocArray[1].lng());
+				destinationsArray.push(freq_loc_1);
+				destinationsArray.push(freq_loc_2);
+			} else if (frequentedLocations.length === 3) {
+	    	freq_loc_1 = new google.maps.LatLng(freqLocArray[0].lat(), freqLocArray[0].lng());
+	    	freq_loc_2 = new google.maps.LatLng(freqLocArray[1].lat(), freqLocArray[1].lng());
+	    	freq_loc_3 = new google.maps.LatLng(freqLocArray[2].lat(), freqLocArray[2].lng());
+				destinationsArray.push(freq_loc_1);
+				destinationsArray.push(freq_loc_2);
+				destinationsArray.push(freq_loc_3);
+			} else {
+				alert('fuckmyface');
+			}
 	    
 
 	    for (var i = 0; i < buildings.length; i++) {
@@ -389,7 +405,7 @@ if ($(window).width() > 600 ) {
 	    	service.getDistanceMatrix(
 	    	{
 	    		origins: whiteDoves,
-	    		destinations: [workplace, freq_loc_1, freq_loc_2, freq_loc_3],
+	    		destinations: destinationsArray,
 	    		travelMode: google.maps.TravelMode.TRANSIT,
 	    	}, callback); 
 	    
@@ -424,23 +440,27 @@ if ($(window).width() > 600 ) {
 
 				whiteDoveOrigins[idx].elements.forEach(function(k,v){
 					
+					console.log(destinationsArray.length);
+
 					if(v == 0){
 
 						intermediateDurationsArray.push(((((k.duration.value * 5 * 52)/60)/60)*2));
 
+							if((destinationsArray.length-1) === v ){
+								for (var y = 0; y < intermediateDurationsArray.length; y++) {
+								totalDuration += (intermediateDurationsArray[y]);
+								}	
+
+								sumOfDurationFromOrigins.push({originId: whiteDoveOrigins[counter].id, origin: whiteDoveOrigins[counter].address, originTitle: whiteDoveOrigins[counter].title, duration: parseInt(totalDuration), lat: whiteDoveOrigins[counter].lat, lng: whiteDoveOrigins[counter].lng});
+								totalDuration=0;
+								intermediateDurationsArray = [];
+								counter++;
+							}
 					} else if(v == 1){
 
 						intermediateDurationsArray.push(((((k.duration.value * freqLocWeights[0] * 52)/60)/60)*2));
-
-					} else if(v == 2){
-
-						intermediateDurationsArray.push(((((k.duration.value * freqLocWeights[1] * 52)/60)/60)*2));
-
-					} else if(v == 3){
-						
-						intermediateDurationsArray.push(((((k.duration.value * freqLocWeights[2] * 52)/60)/60)*2));
-
-						for (var y = 0; y < intermediateDurationsArray.length; y++) {
+							if((destinationsArray.length-1) === v ){
+								for (var y = 0; y < intermediateDurationsArray.length; y++) {
 							totalDuration += (intermediateDurationsArray[y]);
 						}	
 
@@ -448,6 +468,34 @@ if ($(window).width() > 600 ) {
 						totalDuration=0;
 						intermediateDurationsArray = [];
 						counter++;
+							}
+					} else if(v == 2){
+
+						intermediateDurationsArray.push(((((k.duration.value * freqLocWeights[1] * 52)/60)/60)*2));
+							if((destinationsArray.length-1) === v ){
+								for (var y = 0; y < intermediateDurationsArray.length; y++) {
+									totalDuration += (intermediateDurationsArray[y]);
+								}	
+
+								sumOfDurationFromOrigins.push({originId: whiteDoveOrigins[counter].id, origin: whiteDoveOrigins[counter].address, originTitle: whiteDoveOrigins[counter].title, duration: parseInt(totalDuration), lat: whiteDoveOrigins[counter].lat, lng: whiteDoveOrigins[counter].lng});
+								totalDuration=0;
+								intermediateDurationsArray = [];
+								counter++;
+							}
+					} else if(v == 3){
+						
+						intermediateDurationsArray.push(((((k.duration.value * freqLocWeights[2] * 52)/60)/60)*2));
+
+						if((destinationsArray.length-1) === v ){
+							for (var y = 0; y < intermediateDurationsArray.length; y++) {
+									totalDuration += (intermediateDurationsArray[y]);
+								}	
+
+								sumOfDurationFromOrigins.push({originId: whiteDoveOrigins[counter].id, origin: whiteDoveOrigins[counter].address, originTitle: whiteDoveOrigins[counter].title, duration: parseInt(totalDuration), lat: whiteDoveOrigins[counter].lat, lng: whiteDoveOrigins[counter].lng});
+								totalDuration=0;
+								intermediateDurationsArray = [];
+								counter++;
+							}
 
 					}
 
@@ -511,7 +559,7 @@ if ($(window).width() > 600 ) {
 			
 			service.getDistanceMatrix({
 	    		origins: [theBlackDove],
-	    		destinations: [workplace, freq_loc_1, freq_loc_2, freq_loc_3],
+	    		destinations: destinationsArray,
 	    		travelMode: google.maps.TravelMode.TRANSIT,
 	    	}, function (result, status) {
 
@@ -716,7 +764,7 @@ if ($(window).width() > 600 ) {
 			
 			service.getDistanceMatrix({
 	    		origins: [theBlackDove],
-	    		destinations: [workplace, freq_loc_1, freq_loc_2, freq_loc_3],
+	    		destinations: destinationsArray,
 	    		travelMode: google.maps.TravelMode.TRANSIT,
 	    	}, function (result, status) {
 
