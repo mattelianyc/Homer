@@ -33,9 +33,15 @@ class ScrapeController extends Controller {
 
 		$crawler = $client->request('GET', 'http://nymag.streeteasy.com/nyc/building/'+$i+'');
 		
+			// building address
+
+			$bldg_address = $crawler->filter('.main-info > .subtitle')->text();
+			dump($bldg_address);
+			
 			// building coordinates
-			$bldg_coordinates = $crawler->filter('meta[name="geo.position"]')->attr('content');
-			dump($bldg_coordinates);
+		
+			// $bldg_coordinates = $crawler->filter('meta[name="geo.position"]')->attr('content');
+			// dump($bldg_coordinates);
 
 			// $nodeValues = $crawler->filter('.building-pages > tbody > tr')->each(function ($node, $i) {
 			// 	$listing_id[$i] = $node->attr("id");
