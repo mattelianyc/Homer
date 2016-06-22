@@ -29,10 +29,7 @@ class ScrapeController extends Controller {
 	$nodeValues = [];
 	$bldgNodeValues = [];
 
-	
-
-	
-	for ($i=50; $i < 500; $i++) { 
+	for ($i=100; $i < 150; $i++) { 
 
 		$crawler = $client->request('GET', 'http://nymag.streeteasy.com/nyc/building/'+$i+'');
 		
