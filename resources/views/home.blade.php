@@ -14,11 +14,11 @@
 	    	<div class="container-fluid">
 	    		<div class="modal-content">
 			    	
-			    	<div class="modal-header text-center">
+			    	<div class="modal-header text-center" style="margin-bottom:15px;">
 				    	<div class="row">
 			      		<div class="col-xs-12">
 			    				<a href="{{  action('HomeController@logout') }}"><img id="homer-logo" class="" src="{{ asset('/images/homer_logo.png') }}"></a>
-			    				<hr style="margin-bottom:0;">
+			    				<!-- <hr style="margin-bottom:20px;color:#2C3E50;"> -->
 			    			</div>
 			    		</div>
 			    	</div>
@@ -105,8 +105,7 @@
 	      <div class="modal-footer">
 	      	<div class="row">
 	      		<div class="col-xs-12">
-		    			<hr>
-	        		<button id="submit-user-info-btn" type="submit" class="btn btn-success btn-block">Find your ideal apartment</button>
+	        		<button id="submit-user-info-btn" type="submit" class="btn btn-success btn-block" style="margin-top:20px !important">Find your ideal apartment</button>
 	      		</div>
 	      	</div>
 	      </div>

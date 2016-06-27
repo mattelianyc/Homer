@@ -448,7 +448,7 @@ if ($(window).width() > 600 ) {
 
 					if(v == 0){
 
-						intermediateDurationsArray.push((((k.duration.value * 5 * 52)/60)*2));
+						intermediateDurationsArray.push(((((k.duration.value * 5 * 52)/60)/60)*2));
 
 							if((destinationsArray.length-1) === v ){
 								for (var y = 0; y < intermediateDurationsArray.length; y++) {
@@ -462,7 +462,7 @@ if ($(window).width() > 600 ) {
 							}
 					} else if(v == 1){
 
-						intermediateDurationsArray.push((((k.duration.value * freqLocWeights[0] * 52)/60)*2));
+						intermediateDurationsArray.push(((((k.duration.value * freqLocWeights[0] * 52)/60)/60)*2));
 							if((destinationsArray.length-1) === v ){
 								for (var y = 0; y < intermediateDurationsArray.length; y++) {
 							totalDuration += (intermediateDurationsArray[y]);
@@ -475,7 +475,7 @@ if ($(window).width() > 600 ) {
 							}
 					} else if(v == 2){
 
-						intermediateDurationsArray.push((((k.duration.value * freqLocWeights[1] * 52)/60)*2));
+						intermediateDurationsArray.push(((((k.duration.value * freqLocWeights[1] * 52)/60)/60)*2));
 							if((destinationsArray.length-1) === v ){
 								for (var y = 0; y < intermediateDurationsArray.length; y++) {
 									totalDuration += (intermediateDurationsArray[y]);
@@ -488,7 +488,7 @@ if ($(window).width() > 600 ) {
 							}
 					} else if(v == 3){
 						
-						intermediateDurationsArray.push((((k.duration.value * freqLocWeights[2] * 52)/60)*2));
+						intermediateDurationsArray.push(((((k.duration.value * freqLocWeights[2] * 52)/60)/60)*2));
 
 						if((destinationsArray.length-1) === v ){
 							for (var y = 0; y < intermediateDurationsArray.length; y++) {
@@ -638,11 +638,11 @@ if ($(window).width() > 600 ) {
 												else {console.log(suffix);}
 					}
 
-					nu.innerHTML = '<h2>'+'<span class="pull-right" style="font-size:36px;color:#2C3E50;position:relative;bottom:5px;text-shadow:white 2px 2px;">'+commuteRank+'<sup>'+suffix(commuteRank)+'</sup></span>'+sortedOriginsArray[i].title+'</h2><h4>'+sortedOriginsArray[i].address+'</h4><h4 style="pull-left"><strong style="font-size:30px;">'+sortedOriginsArray[i].duration+' </strong></h4><p style="font-size:18px;">minutes per year in transit</p></h4>';
+					nu.innerHTML = '<h2>'+'<span class="pull-right" style="font-size:36px;color:#2C3E50;position:relative;bottom:5px;text-shadow:white 2px 2px;">'+commuteRank+'<sup>'+suffix(commuteRank)+'</sup></span>'+sortedOriginsArray[i].title+'</h2><h4>'+sortedOriginsArray[i].address+'</h4><h4 style="pull-left"><strong style="font-size:30px;">'+sortedOriginsArray[i].duration+' </strong></h4><p style="font-size:18px;">hours per year in transit</p></h4>';
 
 					nu.addEventListener('click', function () {
 						activeBldgSelection = document.getElementById('active-bldg-selection');
-						activeBldgSelection.innerHTML = '<h2>'+document.getElementById('bldg-title').innerHTML+'</h2><h4>'+document.getElementById('bldg-address').innerHTML+'</h4><h4><strong style="font-size:30px;">'+document.getElementById('bldg-duration').innerHTML+' </strong></h4><p style="font-size:18px;">minutes per year in transit</p></h4><hr>';
+						activeBldgSelection.innerHTML = '<h2>'+document.getElementById('bldg-title').innerHTML+'</h2><h4>'+document.getElementById('bldg-address').innerHTML+'</h4><h4><strong style="font-size:30px;">'+document.getElementById('bldg-duration').innerHTML+' </strong></h4><p style="font-size:18px;">hours per year in transit</p></h4><hr>';
 						var apartmentListingsChildren = apartmentListings.childNodes;
 						for (var ii = 0; ii < apartmentListingsChildren.length; ii++) {
 							apartmentListingsChildren[ii].removeAttribute('id');
@@ -672,7 +672,7 @@ if ($(window).width() > 600 ) {
 			}
 
 			activeBldgSelection = document.getElementById('active-bldg-selection');
-			activeBldgSelection.innerHTML = '<div id="active-selection" class="well" style=""><h3><strong id="bldg-title">'+'<span class="pull-right" style="font-size:42px;color:#2C3E50;position:relative;bottom:5px;text-shadow:white 2px 2px;">'+blackDoveId+'<sup>st</sup></span><br>'+sortedOriginsArray[0].title+'</strong></h3><h5 id="bldg-address">'+sortedOriginsArray[0].address+'</h5><img src="{{ asset("/images/bldg-thumb.jpg") }}" width="75%"/><h4><strong id="bldg-duration" style="font-size:30px;color:white;">'+sortedOriginsArray[0].duration+' </strong></h4><p style="font-size:18px;">minutes per year in transit</p></h4><hr><div id="bldg-listings"></div>;'
+			activeBldgSelection.innerHTML = '<div id="active-selection" class="well" style=""><h3><strong id="bldg-title">'+'<span class="pull-right" style="font-size:42px;color:#2C3E50;position:relative;bottom:5px;text-shadow:white 2px 2px;">'+blackDoveId+'<sup>st</sup></span><br>'+sortedOriginsArray[0].title+'</strong></h3><h5 id="bldg-address">'+sortedOriginsArray[0].address+'</h5><img src="{{ asset("/images/bldg-thumb.jpg") }}" width="75%"/><h4><strong id="bldg-duration" style="font-size:30px;color:white;">'+sortedOriginsArray[0].duration+' </strong></h4><p style="font-size:18px;">hours per year in transit</p></h4><hr><div id="bldg-listings"></div>;'
 
 			activeBldgDetails = document.getElementById('bldg-listings');
 			activeBldgDetails.innerHTML = '<h4><strong style="font-size:24px;color:white;">'+aptCount+'</strong> available unit(s)</h4><h4><strong style="font-size:24px;color:white;">$'+aptPriceRangeMax+' - $'+aptPriceRangeMin+'</strong> per month</h4><i id="expand-apt-listings" class="fa fa-caret-up" style="font-size:36px;color:white;display:none;"></i><i id="collapse-apt-listings" class="fa fa-caret-down" style="font-size:36px;color:green;"></i></div><span id="listing-details"></span>';
@@ -709,7 +709,7 @@ if ($(window).width() > 600 ) {
 							aptCount = 0;
 						}
 
-						activeBldgSelection.innerHTML = '<div id="active-selection" class="well"><h4 style="pull-left"><strong id="bldg-title">'+activeBldgSelection.childNodes[0].innerHTML+'</strong></h4><h5 id="bldg-address">'+activeBldgSelection.childNodes[1].innerHTML+'</h5><img src="{{ asset("/images/bldg-thumb.jpg") }}" width="75%"/><h4><strong id="bldg-duration" style="font-size:30px;color:white;">'+activeBldgSelection.childNodes[2].innerHTML+' </strong></h4><p style="font-size:18px;">minutes per year in transit</p></h4><hr><div id="bldg-listings"></div></div>';
+						activeBldgSelection.innerHTML = '<div id="active-selection" class="well"><h4 style="pull-left"><strong id="bldg-title">'+activeBldgSelection.childNodes[0].innerHTML+'</strong></h4><h5 id="bldg-address">'+activeBldgSelection.childNodes[1].innerHTML+'</h5><img src="{{ asset("/images/bldg-thumb.jpg") }}" width="75%"/><h4><strong id="bldg-duration" style="font-size:30px;color:white;">'+activeBldgSelection.childNodes[2].innerHTML+' </strong></h4><p style="font-size:18px;">hours per year in transit</p></h4><hr><div id="bldg-listings"></div></div>';
 
 						activeBldgDetails = document.getElementById('bldg-listings');
 						activeBldgDetails.innerHTML = '<h4><strong style="font-size:24px;color:white;">'+aptCount+'</strong> available unit(s)</h4><h4><strong style="font-size:24px;color:white;">$'+aptPriceRange+'</strong> per month</h4><i id="expand-apt-listings" class="fa fa-caret-up" style="font-size:36px;color:white;display:none;"></i><i id="collapse-apt-listings" class="fa fa-caret-down" style="font-size:36px;color:green;"></i></div><span id="listing-details"></span>';
@@ -1542,7 +1542,7 @@ if ($(window).width() > 600 ) {
 //     		var primeLocationMobile = document.getElementById('primeLocationMobile');
 // 			var apartmentListingsMobile = document.getElementById('apartmentListingsMobile');
 
-//     		primeLocationMobile.innerHTML = '<div id="active-bldg-selection-mobile" class="well"><h3><strong>'+blackDoveTitle+'</strong></h3><h5>'+blackDoveAddress+'</h5><hr><img src="{{ asset("/images/bldg-thumb.jpg") }}" width="75%"/><h4><hr><strong style="font-size:30px;color:white;">'+blackDoveDuration+' </strong><p style="font-size:18px;display:inline;">minutes per year in transit</p></h4><hr><div id="bldg-listings-mobile"><h4><strong style="font-size:24px;color:white;">3</strong> available units</h4><h4><strong style="font-size:24px;color:white;">$1500 - $3250</strong> per month</h4><i id="expand-bldg-listings-mobile" class="fa fa-caret-down" style="font-size:36px;"></i><i id="collapse-bldg-listings-mobile" class="fa fa-caret-up" style="font-size:36px;color:white;display:none;"></i></div><div id="listing-details-mobile"></div></div><hr>';
+//     		primeLocationMobile.innerHTML = '<div id="active-bldg-selection-mobile" class="well"><h3><strong>'+blackDoveTitle+'</strong></h3><h5>'+blackDoveAddress+'</h5><hr><img src="{{ asset("/images/bldg-thumb.jpg") }}" width="75%"/><h4><hr><strong style="font-size:30px;color:white;">'+blackDoveDuration+' </strong><p style="font-size:18px;display:inline;">hours per year in transit</p></h4><hr><div id="bldg-listings-mobile"><h4><strong style="font-size:24px;color:white;">3</strong> available units</h4><h4><strong style="font-size:24px;color:white;">$1500 - $3250</strong> per month</h4><i id="expand-bldg-listings-mobile" class="fa fa-caret-down" style="font-size:36px;"></i><i id="collapse-bldg-listings-mobile" class="fa fa-caret-up" style="font-size:36px;color:white;display:none;"></i></div><div id="listing-details-mobile"></div></div><hr>';
 
 // 	    	primeLocationMobile.style.color = 'white';
 
@@ -1570,7 +1570,7 @@ if ($(window).width() > 600 ) {
 
 //     		for (var idx = 1; idx < sortedOriginsArray.length; idx++) {
 //     			var nutwo = document.createElement('div');
-// 				nutwo.innerHTML = '<h2>'+sortedOriginsArray[idx].title+'</h2><h4>'+sortedOriginsArray[idx].address+'</h4><h4><strong style="font-size:30px;">'+sortedOriginsArray[idx].duration+' </strong><p style="font-size:18px;">minutes per year in transit</p></h4><hr>';
+// 				nutwo.innerHTML = '<h2>'+sortedOriginsArray[idx].title+'</h2><h4>'+sortedOriginsArray[idx].address+'</h4><h4><strong style="font-size:30px;">'+sortedOriginsArray[idx].duration+' </strong><p style="font-size:18px;">hours per year in transit</p></h4><hr>';
 // 				apartmentListingsMobile.appendChild(nutwo);
 // 	    	}
 
