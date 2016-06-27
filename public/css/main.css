@@ -17,21 +17,21 @@ html {
 }
 
 .navbar {
-	margin:0 !important;
-	height: 80px !important;
-	border: 1px solid #3498DB !important;
-	background-color: #3498DB !important;
+	min-height: 80px !important;
+	border: none;
+	background-color: transparent;
 	border-radius: 0 !important;
+	z-index: 100;
 }
 
 #homer-logo{
 	height: 70px;
 }
 
-.navbar-brand {
+/*.navbar-brand {
 	display: inline-flex;
 	padding: 5px 0px 5px 0px;
-}
+}*/
 
 .navbar-brand > h1 {
 	color: white;
@@ -52,12 +52,25 @@ html {
 #user-info-modal {
 	position:absolute;
 	z-index: 11;
-	top:10%;
-	left:10%;
-	right:10%;
-	width:80%;
+	top:2%;
+	width:100%;
 }
-	.modal-body > .page-header {
+
+
+.modal-dialog {
+	width: 80%;
+	margin-left: 10%;
+	margin-right: 10%;
+}
+
+	.modal-header,.modal-body,.modal-footer {
+		border:none;
+	}
+
+.modal-body {
+	padding: 0px 15px 0px 15px;
+}
+	.modal-body > .col-sm-6 > .page-header {
 		margin:10px 0px 10px 0px;
 	}
 	
@@ -76,11 +89,11 @@ html {
 		cursor: pointer;
 	}
 
-#map { height: 100%; width: 100%; position: absolute; z-index: 10;}
+#map { height: 100%; width: 100%; position: absolute; z-index: 10; top: 0;}
 #map-mobile { position: inherit !important; height: 600px;width: 100% !important;}
 
 .well {
-	background-color: white;
+	background-color:white;
 	margin-top: 15px;
 	text-align: center;
 }
@@ -89,26 +102,51 @@ html {
 	cursor: pointer;
 }
 
-#active-selection, #active-bldg-selection-mobile {
-	color:black;
+#apartmentListings > div {
+  padding: 5px 12px 5px 12px;
 }
+
+hr {
+	border-top: 1px solid #2C3E50;
+}
+
+.active-rank {
+	font-size: 36px;
+	color: white;
+	position: relative;
+	bottom: 39px;
+	left: 19px;
+	background: black;
+	padding: 5px;
+}
+
+.commute-score {
+	font-size:32px;
+}
+#active-selection, #active-bldg-selection-mobile {
+	background-color:#E69923 !important;color:#2C3E50 !important;
+}
+	#bldg-title {
+		font-size: 36px;
+	}
+
 #bldg-listings, #bldg-listings-mobile {
-	color:black;
+	color:white;
 }
 #listing-details, #listing-details-mobile {
 	text-align: left;
-	color: black;
+	color: white;
 }
 	#listing-details > h4,
 	#listing-details-mobile > h4 {
 		text-align: center;
-		color: black;
+		color: white;
 		font-weight: bold;
 	}
 	#listing-details > h4 > strong,
 	#listing-details-mobile > h4 > strong {
 		text-align: center;
-		color: tomato;
+		color: white;
 	}
 
 .gm-style-iw {
@@ -131,7 +169,7 @@ html {
 	}
 
     #user-info-modal {
-    	top: inherit;
+    	top: 0;
     	left: 0;
     	right: 0;
     	width: 100%;
