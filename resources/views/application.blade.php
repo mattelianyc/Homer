@@ -129,6 +129,9 @@
 
 	var workplaces;
 	var frequentedLocations;
+
+	var frequentedLocationsMarkerArray = [];
+
 	var buildings;
 	var apartments;
 
@@ -270,11 +273,16 @@ if ($(window).width() > 600 ) {
 
 		var service = new google.maps.DistanceMatrixService();
 
-		var workplaceMarker = new google.maps.MarkerImage("http://walkersstuff.com/wp-content/uploads/2015/06/stepThree.png", null, null, null, new google.maps.Size(30,40));
+		// var workplaceMarker = new google.maps.MarkerImage("http://walkersstuff.com/wp-content/uploads/2015/06/stepThree.png", null, null, null, new google.maps.Size(30,40));
 
-		var destinationMarker = new google.maps.MarkerImage("http://www.envirovent.com/img/location-trade.png", null, null, null, new google.maps.Size(30,40));
+		var destinationMarker = new google.maps.MarkerImage("/images/JOBworkplace.png", null, null, null, new google.maps.Size(40,40));
+		var FQ1_destinationMarker = new google.maps.MarkerImage("/images/FQone.png", null, null, null, new google.maps.Size(40,40));
+		var FQ2_destinationMarker = new google.maps.MarkerImage("/images/FQtwo.png", null, null, null, new google.maps.Size(40,40));
+		var FQ3_destinationMarker = new google.maps.MarkerImage("/images/FQthree.png", null, null, null, new google.maps.Size(40,40));
 
-		var mascot = new google.maps.MarkerImage("/images/cardinal-icon.png", null, null, null, new google.maps.Size(75,75));
+		frequentedLocationsMarkerArray.push(FQ1_destinationMarker, FQ2_destinationMarker, FQ3_destinationMarker);
+
+		var mascot = new google.maps.MarkerImage("/images/homer_standalone.png", null, null, null, new google.maps.Size(36,36));
 
 	    for (i = 0; i < workplaces.length; i++) {
 
@@ -283,6 +291,7 @@ if ($(window).width() > 600 ) {
 	        workplaceMarker = new google.maps.Marker({
 	            position: workplace,
 	            map: map,
+	            animation: google.maps.Animation.DROP,
 	            icon: destinationMarker
 	        });
 
@@ -298,28 +307,32 @@ if ($(window).width() > 600 ) {
 	    var freqLocArray = [];
 	    var freqLocWeights = [];
 
-	    for (i = 0; i < frequentedLocations.length; i++) {
 
-	    	freqLoc = new google.maps.LatLng(frequentedLocations[i][0], frequentedLocations[i][1]);
 
-	        freqLocArray.push(freqLoc);
-	        freqLocWeights.push(frequentedLocations[i][6]);
+		    for (i = 0; i < frequentedLocations.length; i++) {
 
-	        marker = new google.maps.Marker({
-	            position: freqLoc,
-	            map: map,
-	            icon: destinationMarker,
-	            zIndex: 100
-	        }); 
+		    	freqLoc = new google.maps.LatLng(frequentedLocations[i][0], frequentedLocations[i][1]);
 
-	        markersArray.push(marker);
+		        freqLocArray.push(freqLoc);
+		        freqLocWeights.push(frequentedLocations[i][6]);
 
-			// infowindow = new google.maps.InfoWindow();
-	  		// infowindow.setContent('<div>'+frequentedLocations[i][2]+'<br>'+frequentedLocations[i][3]+', '+frequentedLocations[i][4]+', '+frequentedLocations[i][5]+'</div>');
-	        // infowindow.open(map, marker);
+		        marker = new google.maps.Marker({
+		            position: freqLoc,
+		            map: map,
+		            animation: google.maps.Animation.DROP,
+		            icon: frequentedLocationsMarkerArray[i],
+		            zIndex: 100
+		        }); 
 
-	    }
-        
+		        markersArray.push(marker);
+
+				// infowindow = new google.maps.InfoWindow();
+		  		// infowindow.setContent('<div>'+frequentedLocations[i][2]+'<br>'+frequentedLocations[i][3]+', '+frequentedLocations[i][4]+', '+frequentedLocations[i][5]+'</div>');
+		        // infowindow.open(map, marker);
+
+		    }
+		    
+  
 
 		var tripDuration = [];
 
@@ -554,6 +567,7 @@ if ($(window).width() > 600 ) {
 	            position: theBlackDove,
 	            map: map,
 	            flat: false,
+	            animation: google.maps.Animation.DROP,
 	            icon: mascot
 	        });				
 
@@ -749,6 +763,7 @@ if ($(window).width() > 600 ) {
 				            position: theBlackDove,
 				            map: map,
 				            flat: false,
+				            animation: google.maps.Animation.DROP,
 				            icon: mascot
 				        });				
 
@@ -774,7 +789,7 @@ if ($(window).width() > 600 ) {
 			}			
 
 			for (var i = 0; i < markersArray.length; i++) {
-				if (markersArray[i].icon.url == "/images/cardinal-icon.png") {
+				if (markersArray[i].icon.url == "/images/homer_standalone.png") {
 					markersArray[i].setMap(null);
 				}
 			}
