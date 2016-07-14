@@ -37,8 +37,11 @@
 	        <span class="icon-bar"></span> 
 	      </button>
 	      <a class="navbar-brand" href="{{  action('HomeController@logout') }}">
-	      	<img id="homer-logo" class="img-responsive" src="{{ asset('/images/cardinal-icon.png') }}">
-	      	<h1>Homer</h1>
+	      	@if(Route::currentRouteName() == 'dovetail')
+	      	<img id="homer-logo" class="img-responsive" src="{{ asset('/images/homer_logo.png') }}">
+	      	@elseif(Route::currentRouteName() == 'home')
+	      	<img id="homer-logo" class="img-responsive" src="{{ asset('/images/homer_logo_stacked.png') }}">
+	      	@endif
 	      </a>
 	    </div>
 	    <div class="collapse navbar-collapse" id="myNavbar">
@@ -126,6 +129,9 @@
 
 	var workplaces;
 	var frequentedLocations;
+
+	var frequentedLocationsMarkerArray = [];
+
 	var buildings;
 	var apartments;
 
@@ -267,11 +273,16 @@ if ($(window).width() > 600 ) {
 
 		var service = new google.maps.DistanceMatrixService();
 
-		var workplaceMarker = new google.maps.MarkerImage("http://walkersstuff.com/wp-content/uploads/2015/06/stepThree.png", null, null, null, new google.maps.Size(30,40));
+		// var workplaceMarker = new google.maps.MarkerImage("http://walkersstuff.com/wp-content/uploads/2015/06/stepThree.png", null, null, null, new google.maps.Size(30,40));
 
-		var destinationMarker = new google.maps.MarkerImage("http://www.envirovent.com/img/location-trade.png", null, null, null, new google.maps.Size(30,40));
+		var destinationMarker = new google.maps.MarkerImage("/images/JOBworkplace.png", null, null, null, new google.maps.Size(40,40));
+		var FQ1_destinationMarker = new google.maps.MarkerImage("/images/FQone.png", null, null, null, new google.maps.Size(40,40));
+		var FQ2_destinationMarker = new google.maps.MarkerImage("/images/FQtwo.png", null, null, null, new google.maps.Size(40,40));
+		var FQ3_destinationMarker = new google.maps.MarkerImage("/images/FQthree.png", null, null, null, new google.maps.Size(40,40));
 
-		var mascot = new google.maps.MarkerImage("/images/cardinal-icon.png", null, null, null, new google.maps.Size(75,75));
+		frequentedLocationsMarkerArray.push(FQ1_destinationMarker, FQ2_destinationMarker, FQ3_destinationMarker);
+
+		var mascot = new google.maps.MarkerImage("/images/homer_standalone.png", null, null, null, new google.maps.Size(36,36));
 
 	    for (i = 0; i < workplaces.length; i++) {
 
@@ -280,6 +291,7 @@ if ($(window).width() > 600 ) {
 	        workplaceMarker = new google.maps.Marker({
 	            position: workplace,
 	            map: map,
+	            animation: google.maps.Animation.DROP,
 	            icon: destinationMarker
 	        });
 
@@ -295,47 +307,51 @@ if ($(window).width() > 600 ) {
 	    var freqLocArray = [];
 	    var freqLocWeights = [];
 
-	    for (i = 0; i < frequentedLocations.length; i++) {
 
-	    	freqLoc = new google.maps.LatLng(frequentedLocations[i][0], frequentedLocations[i][1]);
 
-	        freqLocArray.push(freqLoc);
-	        freqLocWeights.push(frequentedLocations[i][6]);
+		    for (i = 0; i < frequentedLocations.length; i++) {
 
-	        marker = new google.maps.Marker({
-	            position: freqLoc,
-	            map: map,
-	            icon: destinationMarker,
-	            zIndex: 100
-	        }); 
+		    	freqLoc = new google.maps.LatLng(frequentedLocations[i][0], frequentedLocations[i][1]);
 
-	        markersArray.push(marker);
+		        freqLocArray.push(freqLoc);
+		        freqLocWeights.push(frequentedLocations[i][6]);
 
-			// infowindow = new google.maps.InfoWindow();
-	  		// infowindow.setContent('<div>'+frequentedLocations[i][2]+'<br>'+frequentedLocations[i][3]+', '+frequentedLocations[i][4]+', '+frequentedLocations[i][5]+'</div>');
-	        // infowindow.open(map, marker);
+		        marker = new google.maps.Marker({
+		            position: freqLoc,
+		            map: map,
+		            animation: google.maps.Animation.DROP,
+		            icon: frequentedLocationsMarkerArray[i],
+		            zIndex: 100
+		        }); 
 
-	    }
-        
+		        markersArray.push(marker);
+
+				// infowindow = new google.maps.InfoWindow();
+		  		// infowindow.setContent('<div>'+frequentedLocations[i][2]+'<br>'+frequentedLocations[i][3]+', '+frequentedLocations[i][4]+', '+frequentedLocations[i][5]+'</div>');
+		        // infowindow.open(map, marker);
+
+		    }
+		    
+  
 
 		var tripDuration = [];
 
-	    var pathWork;
-	    var pathOne;
-	    var pathTwo;
-	    var pathThree;
+    var pathWork;
+    var pathOne;
+    var pathTwo;
+    var pathThree;
 
-	    var pathWorkMobile;
-	    var pathOneMobile;
-	    var pathTwoMobile;
-	    var pathThreeMobile;
+    var pathWorkMobile;
+    var pathOneMobile;
+    var pathTwoMobile;
+    var pathThreeMobile;
 
-	    var workRouteDuration;
-	    var routeOneDuration;
-	    var routeTwoDuration;
-	    var routeThreeDuration;
+    var workRouteDuration;
+    var routeOneDuration;
+    var routeTwoDuration;
+    var routeThreeDuration;
 
-	    var callbackResponseArray = [];
+    var callbackResponseArray = [];
 
 		var sumOfDurationFromOrigins = [];
 		var aggregateDurationArray = [];
@@ -414,13 +430,17 @@ if ($(window).width() > 600 ) {
 
 		function callback(response, status) {
 
-			callbackResponseArray.push(response);
-			console.log(callbackResponseArray);
-
-			for (var w = 0; w < callbackResponseArray[0].originAddresses.length; w++) {
-				whiteDoveOrigins.push({id: originArray[w].id, title: originArray[w].title, address: originArray[w].address, lat: originArray[w].lat, lng: originArray[w].lng, elements: callbackResponseArray[0].rows[w].elements});
-			}
-
+			// console.log(callbackResponseArray[0] !== null);
+			console.log(response != null);
+			// if(response != null) {
+				callbackResponseArray.push(response);
+				// if(callbackResponseArray.originAddresses != null && typeof(callbackResponseArray.originAddresses) != undefined){
+					for (var w = 0; w < callbackResponseArray[0].originAddresses.length; w++) {
+						whiteDoveOrigins.push({id: originArray[w].id, title: originArray[w].title, address: originArray[w].address, lat: originArray[w].lat, lng: originArray[w].lng, elements: callbackResponseArray[0].rows[w].elements});
+					}
+				// }
+			// }
+			
 			calculateTotalDurationFromOrigins();
 
 		}
@@ -530,7 +550,7 @@ if ($(window).width() > 600 ) {
 			
 			console.log(sortedOriginsArray[0]);
 
-			blackDoveId = '1. ';
+			blackDoveId = '1';
 			theBlackDove = {lat: sortedOriginsArray[0].lat, lng: sortedOriginsArray[0].lng}; 
 			blackDoveAddress = sortedOriginsArray[0].address;
 			blackDoveTitle = sortedOriginsArray[0].title;
@@ -547,6 +567,7 @@ if ($(window).width() > 600 ) {
 	            position: theBlackDove,
 	            map: map,
 	            flat: false,
+	            animation: google.maps.Animation.DROP,
 	            icon: mascot
 	        });				
 
@@ -616,7 +637,22 @@ if ($(window).width() > 600 ) {
 					var commuteRank = nu.getAttribute('commute-rank');
 					commuteRank++;
 
-					nu.innerHTML = '<h2>'+commuteRank+'. '+sortedOriginsArray[i].title+'</h2><h4>'+sortedOriginsArray[i].address+'</h4><h4 style="pull-left"><strong style="font-size:30px;">'+sortedOriginsArray[i].duration+' </strong></h4><p style="font-size:18px;">hours per year in transit</p></h4><hr>';
+					Number.prototype.between = function (min, max) {
+					    return this > min && this < max;
+					};
+
+					var suffix = function (commuteRank) {
+						var lastDigit = commuteRank % 10;
+						if(lastDigit===0){suffix='th';return suffix;}
+							else if(lastDigit===1 && commuteRank != 11){suffix='st';return suffix;} 
+								else if (lastDigit===2 && commuteRank != 12) {suffix='nd'; return suffix;}
+									else if (lastDigit===3 && commuteRank != 13) {suffix='rd'; return suffix;}
+										else if (3 < lastDigit < 10) {suffix='th'; return suffix;}
+											else if (commuteRank.between(3,21)) {suffix='th'; return suffix;}
+												else {console.log(suffix);}
+					}
+
+					nu.innerHTML = '<h2>'+'<span class="pull-right" style="font-size:36px;color:#2C3E50;position:relative;bottom:5px;text-shadow:white 2px 2px;">'+commuteRank+'<sup>'+suffix(commuteRank)+'</sup></span>'+sortedOriginsArray[i].title+'</h2><h4>'+sortedOriginsArray[i].address+'</h4><h4 style="pull-left"><strong style="font-size:30px;">'+sortedOriginsArray[i].duration+' </strong></h4><p style="font-size:18px;">hours per year in transit</p></h4>';
 
 					nu.addEventListener('click', function () {
 						activeBldgSelection = document.getElementById('active-bldg-selection');
@@ -650,10 +686,10 @@ if ($(window).width() > 600 ) {
 			}
 
 			activeBldgSelection = document.getElementById('active-bldg-selection');
-			activeBldgSelection.innerHTML = '<div id="active-selection" class="well"><h3><strong id="bldg-title">'+blackDoveId+sortedOriginsArray[0].title+'</strong></h3><h5 id="bldg-address">'+sortedOriginsArray[0].address+'</h5><hr><img src="{{ asset("/images/bldg-thumb.jpg") }}" width="75%"/><h4><hr><strong id="bldg-duration" style="font-size:30px;color:tomato;">'+sortedOriginsArray[0].duration+' </strong></h4><p style="font-size:18px;">hours per year in transit</p></h4><hr><div id="bldg-listings"></div>;'
+			activeBldgSelection.innerHTML = '<div id="active-selection" class="well" style=""><h3><strong id="bldg-title">'+'<span class="pull-right" style="font-size:42px;color:#2C3E50;position:relative;bottom:5px;text-shadow:white 2px 2px;">'+blackDoveId+'<sup>st</sup></span><br>'+sortedOriginsArray[0].title+'</strong></h3><h5 id="bldg-address">'+sortedOriginsArray[0].address+'</h5><img src="{{ asset("/images/bldg-thumb.jpg") }}" width="75%"/><h4><strong id="bldg-duration" style="font-size:30px;color:white;">'+sortedOriginsArray[0].duration+' </strong></h4><p style="font-size:18px;">hours per year in transit</p></h4><hr><div id="bldg-listings"></div>;'
 
 			activeBldgDetails = document.getElementById('bldg-listings');
-			activeBldgDetails.innerHTML = '<h4><strong style="font-size:24px;color:tomato;">'+aptCount+'</strong> available unit(s)</h4><h4><strong style="font-size:24px;color:tomato;">$'+aptPriceRangeMax+' - $'+aptPriceRangeMin+'</strong> per month</h4><i id="expand-apt-listings" class="fa fa-caret-up" style="font-size:36px;color:tomato;display:none;"></i><i id="collapse-apt-listings" class="fa fa-caret-down" style="font-size:36px;color:green;"></i></div><span id="listing-details"></span>';
+			activeBldgDetails.innerHTML = '<h4><strong style="font-size:24px;color:white;">'+aptCount+'</strong> available unit(s)</h4><h4><strong style="font-size:24px;color:white;">$'+aptPriceRangeMax+' - $'+aptPriceRangeMin+'</strong> per month</h4><i id="expand-apt-listings" class="fa fa-caret-up" style="font-size:36px;color:white;display:none;"></i><i id="collapse-apt-listings" class="fa fa-caret-down" style="font-size:36px;color:green;"></i></div><span id="listing-details"></span>';
 
 					
 			
@@ -687,10 +723,10 @@ if ($(window).width() > 600 ) {
 							aptCount = 0;
 						}
 
-						activeBldgSelection.innerHTML = '<div id="active-selection" class="well"><h3><strong id="bldg-title">'+activeBldgSelection.childNodes[0].innerHTML+'</strong></h3><h5 id="bldg-address">'+activeBldgSelection.childNodes[1].innerHTML+'</h5><hr><img src="{{ asset("/images/bldg-thumb.jpg") }}" width="75%"/><h4><hr><strong id="bldg-duration" style="font-size:30px;color:tomato;">'+activeBldgSelection.childNodes[2].innerHTML+' </strong></h4><p style="font-size:18px;">hours per year in transit</p></h4><hr><div id="bldg-listings"></div></div>';
+						activeBldgSelection.innerHTML = '<div id="active-selection" class="well"><h4 style="pull-left"><strong id="bldg-title">'+activeBldgSelection.childNodes[0].innerHTML+'</strong></h4><h5 id="bldg-address">'+activeBldgSelection.childNodes[1].innerHTML+'</h5><img src="{{ asset("/images/bldg-thumb.jpg") }}" width="75%"/><h4><strong id="bldg-duration" style="font-size:30px;color:white;">'+activeBldgSelection.childNodes[2].innerHTML+' </strong></h4><p style="font-size:18px;">hours per year in transit</p></h4><hr><div id="bldg-listings"></div></div>';
 
 						activeBldgDetails = document.getElementById('bldg-listings');
-						activeBldgDetails.innerHTML = '<h4><strong style="font-size:24px;color:tomato;">'+aptCount+'</strong> available unit(s)</h4><h4><strong style="font-size:24px;color:tomato;">$'+aptPriceRange+'</strong> per month</h4><i id="expand-apt-listings" class="fa fa-caret-up" style="font-size:36px;color:tomato;display:none;"></i><i id="collapse-apt-listings" class="fa fa-caret-down" style="font-size:36px;color:green;"></i></div><span id="listing-details"></span>';
+						activeBldgDetails.innerHTML = '<h4><strong style="font-size:24px;color:white;">'+aptCount+'</strong> available unit(s)</h4><h4><strong style="font-size:24px;color:white;">$'+aptPriceRange+'</strong> per month</h4><i id="expand-apt-listings" class="fa fa-caret-up" style="font-size:36px;color:white;display:none;"></i><i id="collapse-apt-listings" class="fa fa-caret-down" style="font-size:36px;color:green;"></i></div><span id="listing-details"></span>';
 
 					    listingDetails = document.getElementById('listing-details');
 							
@@ -727,6 +763,7 @@ if ($(window).width() > 600 ) {
 				            position: theBlackDove,
 				            map: map,
 				            flat: false,
+				            animation: google.maps.Animation.DROP,
 				            icon: mascot
 				        });				
 
@@ -752,7 +789,7 @@ if ($(window).width() > 600 ) {
 			}			
 
 			for (var i = 0; i < markersArray.length; i++) {
-				if (markersArray[i].icon.url == "/images/cardinal-icon.png") {
+				if (markersArray[i].icon.url == "/images/homer_standalone.png") {
 					markersArray[i].setMap(null);
 				}
 			}
@@ -1520,9 +1557,9 @@ if ($(window).width() > 600 ) {
 //     		var primeLocationMobile = document.getElementById('primeLocationMobile');
 // 			var apartmentListingsMobile = document.getElementById('apartmentListingsMobile');
 
-//     		primeLocationMobile.innerHTML = '<div id="active-bldg-selection-mobile" class="well"><h3><strong>'+blackDoveTitle+'</strong></h3><h5>'+blackDoveAddress+'</h5><hr><img src="{{ asset("/images/bldg-thumb.jpg") }}" width="75%"/><h4><hr><strong style="font-size:30px;color:tomato;">'+blackDoveDuration+' </strong><p style="font-size:18px;display:inline;">hours per year in transit</p></h4><hr><div id="bldg-listings-mobile"><h4><strong style="font-size:24px;color:tomato;">3</strong> available units</h4><h4><strong style="font-size:24px;color:tomato;">$1500 - $3250</strong> per month</h4><i id="expand-bldg-listings-mobile" class="fa fa-caret-down" style="font-size:36px;"></i><i id="collapse-bldg-listings-mobile" class="fa fa-caret-up" style="font-size:36px;color:tomato;display:none;"></i></div><div id="listing-details-mobile"></div></div><hr>';
+//     		primeLocationMobile.innerHTML = '<div id="active-bldg-selection-mobile" class="well"><h3><strong>'+blackDoveTitle+'</strong></h3><h5>'+blackDoveAddress+'</h5><hr><img src="{{ asset("/images/bldg-thumb.jpg") }}" width="75%"/><h4><hr><strong style="font-size:30px;color:white;">'+blackDoveDuration+' </strong><p style="font-size:18px;display:inline;">hours per year in transit</p></h4><hr><div id="bldg-listings-mobile"><h4><strong style="font-size:24px;color:white;">3</strong> available units</h4><h4><strong style="font-size:24px;color:white;">$1500 - $3250</strong> per month</h4><i id="expand-bldg-listings-mobile" class="fa fa-caret-down" style="font-size:36px;"></i><i id="collapse-bldg-listings-mobile" class="fa fa-caret-up" style="font-size:36px;color:white;display:none;"></i></div><div id="listing-details-mobile"></div></div><hr>';
 
-// 	    	primeLocationMobile.style.color = 'tomato';
+// 	    	primeLocationMobile.style.color = 'white';
 
 // 	    	var expandBldgListingsMobile = document.getElementById('expand-bldg-listings-mobile');
 
