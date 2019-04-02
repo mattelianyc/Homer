@@ -30,13 +30,23 @@ class ScrapeController extends Controller {
 	$bldgNodeValues = [];
 
 
-	for ($i=100; $i < 2500; $i++) { 
+	for ($i=1; $i < 1000; $i++) { 
+
 
 		$crawler = $client->request('GET', 'http://nymag.streeteasy.com/nyc/building/'+$i+'');
-		
+		// var_dump($crawler);
 			// building address
 
-			$bldg_address = $crawler->filter('.main-info > .subtitle')->text();
+		// var_dump($crawler);
+			// if($crawler) {
+		
+		    // $company_crawler->filter('a.cp-links-url')->attr('href')
+			if($bldg_address = $crawler->filter('.main-info > .subtitle')->text()->count() > 0) {
+
+		
+		
+		
+			// var_dump($bldg_address);
 			$bldg_address_array = explode(',', $bldg_address);
 			$bldg_address_array[4] = "USA";
 			// building coordinates
@@ -48,8 +58,8 @@ class ScrapeController extends Controller {
 			// dump($bldg_coordinates_array);
 
 			DB::insert('insert into buildings (title,address,city,state,zip,country,lat,lng) values (?,?,?,?,?,?,?,?)',[$bldg_address_array[0], $bldg_address_array[0], $bldg_address_array[1], $bldg_address_array[2], $bldg_address_array[3], $bldg_address_array[4], $bldg_coordinates_array[0], $bldg_coordinates_array[1]]);
-
-
+}
+// }
 			// $nodeValues = $crawler->filter('.building-pages > tbody > tr')->each(function ($node, $i) {
 			// 	$listing_id[$i] = $node->attr("id");
 			// 	$listing_status[$i] = $node->attr("data-gtm-track");
@@ -62,7 +72,7 @@ class ScrapeController extends Controller {
 
 			// });
 
-	  $i = $i + 100;
+	  // $i = $i + 100;
 	  }
 
   }
